@@ -1,399 +1,217 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FutureCare Member Portal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FutureCare Member Dashboard</title>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5faf6;color:#173b2a}
-header{height:65px;background:#07572e;color:white;display:flex;align-items:center;padding:0 20px}
-.logo{font-size:20px;font-weight:bold}
-.container{max-width:1100px;margin:auto;padding:20px}
-.login,.dashboard{max-width:500px;margin:50px auto;background:white;padding:25px;border-radius:15px;box-shadow:0 4px 20px #0001}
-h1,h2{color:#07572e}
-input{width:100%;padding:13px;margin:8px 0;border:1px solid #ccdacf;border-radius:8px}
-button{width:100%;padding:13px;background:#16a34a;color:white;border:0;border-radius:8px;font-weight:bold;margin-top:10px}
-button:hover{background:#07572e}
-.card{background:white;border:1px solid #e1ece4;border-radius:12px;padding:18px;margin:12px 0}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.label{font-size:11px;color:#6b7f74;text-transform:uppercase}
-.value{font-size:19px;font-weight:bold;color:#07572e;margin-top:5px}
-.logout{background:#dc2626}
-.hidden{display:none}
-.message{padding:10px;margin-top:10px;border-radius:8px;background:#fff7d6;color:#6b5b00}
-@media(max-width:600px){.grid{grid-template-columns:1fr}}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#222;
+}
+header{
+  background:#07572e;
+  color:white;
+  padding:18px;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+header h1{margin:0;font-size:22px}
+.container{padding:18px;max-width:1600px;margin:auto}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+  margin-bottom:20px;
+}
+.card{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 2px 8px #0001;
+}
+.card h3{margin:0 0 8px;color:#666;font-size:14px}
+.card strong{font-size:30px;color:#07572e}
+.search{
+  width:100%;
+  padding:14px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
+  margin-bottom:15px;
+}
+.status{
+  background:white;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:15px;
+}
+.table-wrap{
+  background:white;
+  border-radius:12px;
+  overflow:auto;
+  box-shadow:0 2px 8px #0001;
+}
+table{
+  border-collapse:collapse;
+  width:100%;
+  min-width:1000px;
+}
+th,td{
+  border-bottom:1px solid #eee;
+  padding:10px;
+  text-align:left;
+  white-space:nowrap;
+}
+th{
+  background:#07572e;
+  color:white;
+  position:sticky;
+  top:0;
+}
+tr:hover{background:#f5f5f5}
+.error{
+  color:#b00020;
+  background:#ffecec;
+  padding:15px;
+  border-radius:8px;
+}
+.loading{
+  text-align:center;
+  padding:30px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="logo">FutureCare Memorial Plan Service</div>
+  <h1>FutureCare Member Dashboard</h1>
 </header>
 
 <div class="container">
 
-<!-- LOGIN -->
-<div id="loginPage" class="login">
-<h1>FutureCare Portal</h1>
-<p>Member / Agent / Owner Login</p>
+  <div class="cards">
+    <div class="card">
+      <h3>TOTAL MEMBERS</h3>
+      <strong id="totalMembers">0</strong>
+    </div>
 
-<input id="email" type="email" placeholder="Email address">
-<input id="password" type="password" placeholder="Password">
+    <div class="card">
+      <h3>RECORDS LOADED</h3>
+      <strong id="recordsLoaded">0</strong>
+    </div>
+  </div>
 
-<button onclick="login()">LOGIN</button>
+  <input
+    type="text"
+    id="search"
+    class="search"
+    placeholder="Search member, Client ID, agent, package..."
+  >
 
-<div id="loginMessage" class="message hidden"></div>
-</div>
+  <div id="status" class="status">
+    Connecting to Supabase...
+  </div>
 
+  <div id="error"></div>
 
-<!-- DASHBOARD -->
-<div id="dashboardPage" class="dashboard hidden">
+  <div class="table-wrap">
+    <div id="loading" class="loading">
+      Loading FutureCare members...
+    </div>
 
-<h1>Welcome to FutureCare</h1>
-
-<div class="card">
-<div class="label">Account</div>
-<div id="accountName" class="value">Loading...</div>
-</div>
-
-<div class="grid">
-
-<div class="card">
-<div class="label">Client ID</div>
-<div id="clientId" class="value">-</div>
-</div>
-
-<div class="card">
-<div class="label">Plan</div>
-<div id="plan" class="value">-</div>
-</div>
-
-<div class="card">
-<div class="label">Monthly Payment</div>
-<div id="monthly" class="value">-</div>
-</div>
-
-<div class="card">
-<div class="label">Total Paid</div>
-<div id="totalPaid" class="value">₱0.00</div>
-</div>
-
-<div class="card">
-<div class="label">Months Paid</div>
-<div id="monthsPaid" class="value">0</div>
-</div>
-
-<div class="card">
-<div class="label">Policy Status</div>
-<div id="status" class="value">-</div>
-</div>
+    <table id="membersTable" style="display:none">
+      <thead id="tableHead"></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
 
 </div>
-
-<div class="card">
-<h2>Member Information</h2>
-
-<p><b>Name:</b> <span id="name">-</span></p>
-<p><b>Address:</b> <span id="address">-</span></p>
-<p><b>Date Applied:</b> <span id="dateApplied">-</span></p>
-<p><b>Agent:</b> <span id="agent">-</span></p>
-</div>
-
-<div class="card">
-<h2>Payment History</h2>
-<div id="payments">No payment records found.</div>
-</div>
-
-<button class="logout" onclick="logout()">LOGOUT</button>
-
-</div>
-
-</div>
-
 
 <script>
-
 const SUPABASE_URL =
-"https://sdxeiofegiqfldpugdqb.supabase.co";
+  "https://sdxeiofegiqfldpugdqb.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_LFR3IVJkVTicyoEVm1KJwQ_FzogaNP-";
+  "sb_publishable_LFR3IVJkVTicyoEVm1KJwQ_FzogaNP-";
 
-let accessToken = null;
+const TABLE_NAME = "Plan_holders";
 
+let allMembers = [];
+let columns = [];
 
-/* SUPABASE REQUEST */
-async function supabaseRequest(table, query=""){
+/* LOAD ALL MEMBERS */
+async function loadMembers(){
 
-const response = await fetch(
-SUPABASE_URL + "/rest/v1/" + table + query,
-{
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer "+accessToken,
-"Content-Type":"application/json"
-}
-}
-);
+  const status = document.getElementById("status");
+  const loading = document.getElementById("loading");
+  const errorBox = document.getElementById("error");
 
-if(!response.ok){
-throw new Error(await response.text());
-}
+  try {
 
-return await response.json();
-}
+    const response = await fetch(
+      SUPABASE_URL +
+      "/rest/v1/" +
+      TABLE_NAME +
+      "?select=*",
+      {
+        method:"GET",
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":"Bearer " + SUPABASE_KEY,
+          "Content-Type":"application/json"
+        }
+      }
+    );
 
+    if(!response.ok){
+      const errorText = await response.text();
+      throw new Error(
+        "Supabase error " +
+        response.status +
+        ": " +
+        errorText
+      );
+    }
 
-/* LOGIN */
-async function login(){
+    allMembers = await response.json();
 
-const email=document.getElementById("email").value.trim();
-const password=document.getElementById("password").value;
+    document.getElementById("totalMembers").textContent =
+      allMembers.length;
 
-const msg=document.getElementById("loginMessage");
+    document.getElementById("recordsLoaded").textContent =
+      allMembers.length;
 
-if(!email || !password){
-msg.textContent="Please enter your email and password.";
-msg.classList.remove("hidden");
-return;
-}
+    status.innerHTML =
+      "✅ Connected to Supabase — " +
+      allMembers.length +
+      " member records loaded.";
 
-msg.classList.add("hidden");
+    loading.style.display="none";
 
-try{
+    if(allMembers.length === 0){
+      status.innerHTML =
+        "Connected, but no member records were returned.";
+      return;
+    }
 
-const response=await fetch(
-SUPABASE_URL+"/auth/v1/token?grant_type=password",
-{
-method:"POST",
-headers:{
-"apikey":SUPABASE_KEY,
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-email:email,
-password:password
-})
-}
-);
+    columns = Object.keys(allMembers[0]);
 
-const data=await response.json();
+    buildHeader();
+    displayMembers(allMembers);
 
-if(!response.ok){
-throw new Error(data.error_description || data.msg || "Login failed.");
-}
+    document.getElementById("membersTable").style.display="table";
 
-accessToken=data.access_token;
+  } catch(error){
 
-document.getElementById("loginPage").classList.add("hidden");
-document.getElementById("dashboardPage").classList.remove("hidden");
+    loading.style.display="none";
 
-await loadDashboard();
-
-}catch(error){
-
-msg.textContent=error.message;
-msg.classList.remove("hidden");
-
-}
-
-}
-
-
-/* LOAD DASHBOARD */
-async function loadDashboard(){
-
-try{
-
-const user=JSON.parse(atob(accessToken.split(".")[1]));
-
-const userId=user.sub;
-
-
-/* PROFILE */
-let profiles=[];
-
-try{
-profiles=await supabaseRequest(
-"profiles",
-"?select=*&id=eq."+encodeURIComponent(userId)
-);
-}catch(e){}
-
-
-/* PLAN HOLDER */
-let holders=[];
-
-try{
-holders=await supabaseRequest(
-"plan_holders",
-"?select=*"
-);
-}catch(e){}
-
-
-/* FIND MEMBER */
-let holder=null;
-
-if(profiles.length){
-
-const profile=profiles[0];
-
-const possibleId=
-profile.plan_holder_id ||
-profile.planholder_id ||
-profile.member_id;
-
-if(possibleId){
-
-holder=holders.find(x=>
-String(x.id)===String(possibleId)
-);
-
-}
-
-if(!holder){
-
-holder=holders.find(x=>
-String(x.user_id||"")===String(userId)
-);
-
-}
-
-}
-
-
-/* IF PLAN HOLDER HAS USER ID */
-if(!holder){
-
-holder=holders.find(x=>
-String(x.user_id||"")===String(userId)
-);
-
-}
-
-
-/* PROFILE INFORMATION */
-if(profiles.length){
-
-const p=profiles[0];
-
-document.getElementById("accountName").textContent=
-p.full_name ||
-p.name ||
-"FutureCare User";
-
-}
-
-
-/* MEMBER INFORMATION */
-if(holder){
-
-const get=(...names)=>{
-for(const n of names){
-if(holder[n]!==undefined && holder[n]!==null)
-return holder[n];
-}
-return "-";
-};
-
-document.getElementById("name").textContent=
-get("full_name","name","plan_holder_name");
-
-document.getElementById("accountName").textContent=
-get("full_name","name","plan_holder_name");
-
-document.getElementById("clientId").textContent=
-get("client_id","Client_ID");
-
-document.getElementById("plan").textContent=
-get("plan","plan_name","package","package_name");
-
-document.getElementById("monthly").textContent=
-get("monthly_payment","monthly","payment_amount");
-
-document.getElementById("address").textContent=
-get("address","complete_address");
-
-document.getElementById("dateApplied").textContent=
-get("date_applied","application_date","date_registered");
-
-document.getElementById("status").textContent=
-get("status","policy_status") || "Active";
-
-
-/* PAYMENTS */
-try{
-
-const payments=await supabaseRequest(
-"payments",
-"?select=*"
-);
-
-const holderPayments=payments.filter(p=>
-String(p.plan_holder_id||"")===String(holder.id)
-);
-
-let total=0;
-
-holderPayments.forEach(p=>{
-total+=Number(
-p.amount ||
-p.payment_amount ||
-p.paid_amount ||
-0
-);
-});
-
-document.getElementById("totalPaid").textContent=
-"₱"+total.toLocaleString("en-PH",{minimumFractionDigits:2});
-
-document.getElementById("monthsPaid").textContent=
-holderPayments.length;
-
-if(holderPayments.length){
-
-document.getElementById("payments").innerHTML=
-holderPayments.map(p=>`
-<div style="padding:10px;border-bottom:1px solid #e1ece4">
-<b>₱${Number(p.amount||p.payment_amount||p.paid_amount||0).toLocaleString()}</b>
-<br>
-${p.payment_date||p.date||p.created_at||""}
-</div>
-`).join("");
-
-}
-
-}catch(e){}
-
-}
-
-}catch(error){
-
-console.log(error);
-
-}
-
-}
-
-
-/* LOGOUT */
-function logout(){
-
-accessToken=null;
-
-document.getElementById("dashboardPage").classList.add("hidden");
-document.getElementById("loginPage").classList.remove("hidden");
-
-document.getElementById("email").value="";
-document.getElementById("password").value="";
-
-}
-
-</script>
-
-</body>
- </html>
+    errorBox.innerHTML =
+      '<div class="error">' +
+      '<strong>Unable to load members.</strong><br
