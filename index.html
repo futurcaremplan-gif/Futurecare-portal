@@ -1968,7 +1968,12 @@ document.createElement("td");
 
 
 if(records.length){
-
+    amountCell.textContent = formatMoney(amount);
+    amountCell.className = "paid";
+}else{
+    amountCell.textContent = "0";
+    amountCell.className = "unpaid";
+}
 amountCell.textContent =
 formatMoney(amount);
 
