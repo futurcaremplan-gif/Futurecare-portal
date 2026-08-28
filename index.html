@@ -7,833 +7,170 @@
 <title>FutureCare Owner Dashboard</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f7fb;
-  color: #222;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#222;
 }
 
-/* LOGIN */
-#loginPage {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+header{
+  background:#07572e;
+  color:white;
+  padding:18px;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
-.login-box {
-  width: 100%;
-  max-width: 420px;
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+header h1{
+  margin:0;
+  font-size:24px;
 }
 
-.login-box h1 {
-  margin-top: 0;
-  color: #07572e;
-  text-align: center;
+.header-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
 }
 
-.login-box p {
-  text-align: center;
-  color: #666;
+button{
+  border:0;
+  border-radius:8px;
+  padding:12px 18px;
+  font-size:15px;
+  cursor:pointer;
 }
 
-input {
-  width: 100%;
-  padding: 14px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
+.logout{
+  background:white;
+  color:#07572e;
+  font-weight:bold;
 }
 
-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #07572e;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
+.container{
+  padding:18px;
+  max-width:1600px;
+  margin:auto;
 }
 
-button:hover {
-  opacity: 0.9;
+.login-box{
+  max-width:420px;
+  margin:80px auto;
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 2px 12px #0002;
 }
 
-.error {
-  margin-top: 15px;
-  padding: 12px;
-  background: #ffe8e8;
-  color: #b00020;
-  border-radius: 8px;
+.login-box h2{
+  color:#07572e;
 }
 
-.success {
-  margin-top: 15px;
-  padding: 12px;
-  background: #e8f7ed;
-  color: #07572e;
-  border-radius: 8px;
+input{
+  width:100%;
+  padding:14px;
+  margin:8px 0;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
 }
 
-/* DASHBOARD */
-#dashboardPage {
-  display: none;
+.login-btn{
+  width:100%;
+  background:#07572e;
+  color:white;
+  font-weight:bold;
+  margin-top:10px;
 }
 
-header {
-  background: #07572e;
-  color: white;
-  padding: 20px;
+.message{
+  padding:15px;
+  border-radius:8px;
+  margin-bottom:15px;
+  background:white;
 }
 
-.header-content {
-  max-width: 1600px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
+.error{
+  color:#b00020;
+  background:#ffecec;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 24px;
+.success{
+  color:#07572e;
+  background:#eafff1;
 }
 
-.logout-button {
-  width: auto;
-  margin: 0;
-  padding: 10px 18px;
-  background: white;
-  color: #07572e;
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+  margin-bottom:20px;
 }
 
-.container {
-  max-width: 1600px;
-  margin: auto;
-  padding: 20px;
+.card{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 2px 8px #0001;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
-  margin-bottom: 20px;
+.card h3{
+  margin:0 0 8px;
+  color:#666;
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+.card strong{
+  font-size:30px;
+  color:#07572e;
 }
 
-.card h3 {
-  margin: 0 0 10px;
-  color: #666;
-  font-size: 15px;
+.search{
+  width:100%;
+  padding:14px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
+  margin-bottom:15px;
 }
 
-.card strong {
-  font-size: 32px;
-  color: #07572e;
+.table-wrap{
+  background:white;
+  border-radius:12px;
+  overflow:auto;
+  box-shadow:0 2px 8px #0001;
 }
 
-.status {
-  background: white;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+table{
+  border-collapse:collapse;
+  width:100%;
+  min-width:1000px;
 }
 
-.search-box {
-  margin-bottom: 15px;
+th,td{
+  border-bottom:1px solid #eee;
+  padding:10px;
+  text-align:left;
+  white-space:nowrap;
 }
 
-.table-container {
-  background: white;
-  border-radius: 12px;
-  overflow: auto;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+th{
+  background:#07572e;
+  color:white;
+  position:sticky;
+  top:0;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 1000px;
+tr:hover{
+  background:#f5f5f5;
 }
 
-th,
-td {
-  padding: 11px;
-  border-bottom: 1px solid #eee;
-  text-align: left;
-  white-space: nowrap;
-}
-
-th {
-  background: #07572e;
-  color: white;
-  position: sticky;
-  top: 0;
-}
-
-tr:hover {
-  background: #f5f5f5;
-}
-
-.loading {
-  padding: 30px;
-  text-align: center;
-  color: #666;
-}
-
-.hidden {
-  display: none !important;
-}
-</style>
-</head>
-
-<body>
-
-<!-- =========================
-     OWNER LOGIN
-========================= -->
-
-<div id="loginPage">
-
-  <div class="login-box">
-
-    <h1>FutureCare</h1>
-
-    <p>Owner Dashboard</p>
-
-    <input
-      type="email"
-      id="email"
-      placeholder="Owner Email"
-      autocomplete="email"
-    >
-
-    <input
-      type="password"
-      id="password"
-      placeholder="Password"
-      autocomplete="current-password"
-    >
-
-    <button onclick="login()">
-      LOGIN
-    </button>
-
-    <div id="loginMessage"></div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     OWNER DASHBOARD
-========================= -->
-
-<div id="dashboardPage">
-
-  <header>
-
-    <div class="header-content">
-
-      <h1>FutureCare Owner Dashboard</h1>
-
-      <button
-        class="logout-button"
-        onclick="logout()">
-        LOGOUT
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <div class="container">
-
-    <div id="status" class="status">
-      Connecting to Supabase...
-    </div>
-
-
-    <div class="cards">
-
-      <div class="card">
-
-        <h3>TOTAL MEMBERS</h3>
-
-        <strong id="totalMembers">
-          0
-        </strong>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>RECORDS LOADED</h3>
-
-        <strong id="recordsLoaded">
-          0
-        </strong>
-
-      </div>
-
-    </div>
-
-
-    <input
-      type="text"
-      id="search"
-      class="search-box"
-      placeholder="Search members..."
-      oninput="searchMembers()"
-    >
-
-
-    <div id="dashboardMessage"></div>
-
-
-    <div class="table-container">
-
-      <div id="loading" class="loading">
-        Loading FutureCare members...
-      </div>
-
-      <table id="membersTable" class="hidden">
-
-        <thead id="tableHead"></thead>
-
-        <tbody id="tableBody"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<script>
-
-/* =====================================================
-   SUPABASE SETTINGS
-===================================================== */
-
-const SUPABASE_URL =
-"https://sdxeiofegiqfldpugdqb.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_LFR3IVJkVTicyoEVm1KJwQ_FzogaNP-";
-
-const TABLE_NAME =
-"plan_holders";
-
-const OWNER_EMAIL =
-"futurcaremplan@gmail.com";
-
-
-/* =====================================================
-   VARIABLES
-===================================================== */
-
-let accessToken = "";
-
-let allMembers = [];
-
-let columns = [];
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-async function login() {
-
-  const email =
-    document.getElementById("email").value.trim();
-
-  const password =
-    document.getElementById("password").value;
-
-  const message =
-    document.getElementById("loginMessage");
-
-  message.innerHTML = "";
-
-
-  if (!email || !password) {
-
-    message.innerHTML =
-      '<div class="error">Please enter your email and password.</div>';
-
-    return;
-  }
-
-
-  if (
-    email.toLowerCase() !==
-    OWNER_EMAIL.toLowerCase()
-  ) {
-
-    message.innerHTML =
-      '<div class="error">Owner access only.</div>';
-
-    return;
-  }
-
-
-  message.innerHTML =
-    '<div class="success">Signing in...</div>';
-
-
-  try {
-
-    const response = await fetch(
-
-      SUPABASE_URL +
-      "/auth/v1/token?grant_type=password",
-
-      {
-
-        method: "POST",
-
-        headers: {
-
-          "apikey": SUPABASE_KEY,
-
-          "Content-Type":
-            "application/json"
-
-        },
-
-        body: JSON.stringify({
-
-          email: email,
-
-          password: password
-
-        })
-
-      }
-
-    );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-
-        data.error_description ||
-        data.msg ||
-        data.message ||
-        "Login failed."
-
-      );
-
-    }
-
-
-    accessToken =
-      data.access_token;
-
-
-    document
-      .getElementById("loginPage")
-      .style.display = "none";
-
-
-    document
-      .getElementById("dashboardPage")
-      .style.display = "block";
-
-
-    await loadMembers();
-
-
-  } catch (error) {
-
-    message.innerHTML =
-      '<div class="error">' +
-      error.message +
-      '</div>';
-
-  }
-
-}
-
-
-/* =====================================================
-   LOAD MEMBERS
-===================================================== */
-
-async function loadMembers() {
-
-  const status =
-    document.getElementById("status");
-
-  const loading =
-    document.getElementById("loading");
-
-  const message =
-    document.getElementById("dashboardMessage");
-
-
-  status.innerHTML =
-    "Connecting to Supabase...";
-
-  loading.style.display =
-    "block";
-
-  message.innerHTML = "";
-
-
-  try {
-
-    const response = await fetch(
-
-      SUPABASE_URL +
-      "/rest/v1/" +
-      TABLE_NAME +
-      "?select=*",
-
-      {
-
-        method: "GET",
-
-        headers: {
-
-          "apikey": SUPABASE_KEY,
-
-          "Authorization":
-            "Bearer " +
-            accessToken,
-
-          "Content-Type":
-            "application/json"
-
-        }
-
-      }
-
-    );
-
-
-    if (!response.ok) {
-
-      const errorText =
-        await response.text();
-
-      throw new Error(
-
-        "Supabase error " +
-        response.status +
-        ": " +
-        errorText
-
-      );
-
-    }
-
-
-    allMembers =
-      await response.json();
-
-
-    document
-      .getElementById("totalMembers")
-      .textContent =
-      allMembers.length;
-
-
-    document
-      .getElementById("recordsLoaded")
-      .textContent =
-      allMembers.length;
-
-
-    status.innerHTML =
-      "✅ Connected to Supabase. " +
-      allMembers.length +
-      " member records loaded.";
-
-
-    loading.style.display =
-      "none";
-
-
-    if (allMembers.length === 0) {
-
-      message.innerHTML =
-        '<div class="error">' +
-        'Connected to Supabase, but no records were returned.' +
-        '</div>';
-
-      return;
-
-    }
-
-
-    columns =
-      Object.keys(
-        allMembers[0]
-      );
-
-
-    buildTableHeader();
-
-    displayMembers(
-      allMembers
-    );
-
-
-    document
-      .getElementById("membersTable")
-      .classList.remove("hidden");
-
-
-  } catch (error) {
-
-    loading.style.display =
-      "none";
-
-
-    status.innerHTML =
-      "❌ Unable to load members.";
-
-
-    message.innerHTML =
-      '<div class="error">' +
-      '<strong>Error:</strong><br>' +
-      error.message +
-      '</div>';
-
-  }
-
-}
-
-
-/* =====================================================
-   TABLE HEADER
-===================================================== */
-
-function buildTableHeader() {
-
-  const head =
-    document.getElementById("tableHead");
-
-
-  head.innerHTML = "";
-
-
-  const row =
-    document.createElement("tr");
-
-
-  columns.forEach(
-    function(column) {
-
-      const th =
-        document.createElement("th");
-
-
-      th.textContent =
-        column;
-
-
-      row.appendChild(th);
-
-    }
-  );
-
-
-  head.appendChild(row);
-
-}
-
-
-/* =====================================================
-   DISPLAY MEMBERS
-===================================================== */
-
-function displayMembers(
-  members
-) {
-
-  const body =
-    document.getElementById("tableBody");
-
-
-  body.innerHTML = "";
-
-
-  members.forEach(
-    function(member) {
-
-      const row =
-        document.createElement("tr");
-
-
-      columns.forEach(
-        function(column) {
-
-          const cell =
-            document.createElement("td");
-
-
-          const value =
-            member[column];
-
-
-          cell.textContent =
-            value === null ||
-            value === undefined
-              ? ""
-              : value;
-
-
-          row.appendChild(cell);
-
-        }
-      );
-
-
-      body.appendChild(row);
-
-    }
-  );
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-function searchMembers() {
-
-  const search =
-    document
-      .getElementById("search")
-      .value
-      .toLowerCase()
-      .trim();
-
-
-  if (!search) {
-
-    displayMembers(
-      allMembers
-    );
-
-    return;
-
-  }
-
-
-  const filtered =
-    allMembers.filter(
-      function(member) {
-
-        return columns.some(
-          function(column) {
-
-            const value =
-              member[column];
-
-
-            return String(
-              value ?? ""
-            )
-            .toLowerCase()
-            .includes(search);
-
-          }
-        );
-
-      }
-    );
-
-
-  displayMembers(
-    filtered
-  );
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-function logout() {
-
-  accessToken = "";
-
-  allMembers = [];
-
-  columns = [];
-
-
-  document
-    .getElementById("dashboardPage")
-    .style.display = "none";
-
-
-  document
-    .getElementById("loginPage")
-    .style.display = "flex";
-
-
-  document
-    .getElementById("password")
-    .value = "";
-
-
-  document
-    .getElementById("email")
-    .value = "";
-
-
-  document
-    .getElementById("loginMessage")
-    .innerHTML = "";
-
-}
-
-
-/* =====================================================
-   END
-===================================================== */
-
-</script>
-
-</body>
-  </html>
+.view-btn{
+  background:#07572e;
+  color:white;
+  padding:8
