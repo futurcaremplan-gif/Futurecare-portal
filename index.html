@@ -375,7 +375,7 @@ tr:hover{
 }
 
 .payment-table{
-  min-width:700px;
+  min-width:900px;
 }
 
 .payment-table th{
@@ -388,7 +388,38 @@ tr:hover{
 }
 
 .unpaid{
+  color:#b00020;
+  font-weight:bold;
+}
+
+.advance{
+  color:#07572e;
+  font-weight:bold;
+}
+
+.not-started{
   color:#777;
+}
+
+.restart{
+  color:#b00020;
+  font-weight:bold;
+}
+
+.completed{
+  color:#07572e;
+  font-weight:bold;
+}
+
+.summary-box{
+  background:#f2f6f3;
+  border-radius:10px;
+  padding:14px;
+  margin-top:15px;
+}
+
+.summary-box strong{
+  color:var(--green);
 }
 
 .loading{
@@ -397,71 +428,31 @@ tr:hover{
 }
 
 @media(max-width:950px){
-  .cards{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .detail-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .detail-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:repeat(2,1fr)}
 }
 
 @media(max-width:600px){
-  .container{
-    padding:10px;
-  }
-
-  .toolbar{
-    flex-direction:column;
-  }
-
-  .cards{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .detail-grid,
-  .form-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .brand h1{
-    font-size:19px;
-  }
-
-  .header-logo{
-    width:50px;
-    height:50px;
-  }
+  .container{padding:10px}
+  .toolbar{flex-direction:column}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .detail-grid,.form-grid{grid-template-columns:1fr 1fr}
+  .brand h1{font-size:19px}
+  .header-logo{width:50px;height:50px}
 }
 
 @media(orientation:landscape){
-  .cards{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .detail-grid{
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
+  .cards{grid-template-columns:repeat(4,1fr)}
+  .detail-grid{grid-template-columns:repeat(4,1fr)}
+  .form-grid{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
-     OWNER LOGIN
-========================= -->
-
 <div id="loginPage" class="login-page">
-
   <div class="login-box">
 
     <div class="fc-logo">
@@ -469,47 +460,35 @@ tr:hover{
     </div>
 
     <h2>FutureCare Owner</h2>
-
     <p>Owner Dashboard</p>
 
-    <input
-      id="email"
-      type="email"
+    <input id="email" type="email"
       placeholder="Owner email"
-      autocomplete="email"
-    >
+      autocomplete="email">
 
-    <input
-      id="password"
-      type="password"
+    <input id="password" type="password"
       placeholder="Password"
-      autocomplete="current-password"
-    >
+      autocomplete="current-password">
 
-    <button
-      class="login-btn"
-      onclick="login()">
-      LOGIN
-    </button>
+    <button class="login-btn" onclick="login()">LOGIN</button>
 
     <div id="loginError" class="error"></div>
 
   </div>
-
 </div>
 
-
-<!-- =========================
-     DASHBOARD
-========================= -->
 
 <div id="dashboard" class="hidden">
 
 <header>
+  <div class="header-inner">
 
-  <div class="header-logo">
-  <img src="futurecare-logo.jpg.jpg" alt="FutureCare Logo">
-  </div>
+    <div class="brand">
+
+      <div class="header-logo">
+        <img src="futurecare-logo.jpg.jpg"
+             alt="FutureCare Logo">
+      </div>
 
       <div>
         <h1>FutureCare Owner Dashboard</h1>
@@ -518,14 +497,9 @@ tr:hover{
 
     </div>
 
-    <button
-      class="logout"
-      onclick="logout()">
-      LOGOUT
-    </button>
+    <button class="logout" onclick="logout()">LOGOUT</button>
 
   </div>
-
 </header>
 
 
@@ -534,7 +508,6 @@ tr:hover{
   <div id="status" class="status">
     Connecting to Supabase...
   </div>
-
 
   <div class="cards">
 
@@ -568,11 +541,9 @@ tr:hover{
       class="search"
       type="text"
       placeholder="Search member, Client ID, agent, package..."
-      oninput="renderMembers()"
-    >
+      oninput="renderMembers()">
 
-    <button
-      class="add-btn"
+    <button class="add-btn"
       onclick="openAddMember()">
       + ADD NEW MEMBER
     </button>
@@ -582,15 +553,11 @@ tr:hover{
 
   <div class="table-wrap">
 
-    <div
-      id="loading"
-      class="loading">
+    <div id="loading" class="loading">
       Loading FutureCare members...
     </div>
 
-    <table
-      id="membersTable"
-      class="hidden">
+    <table id="membersTable" class="hidden">
 
       <thead id="tableHead"></thead>
 
@@ -601,17 +568,12 @@ tr:hover{
   </div>
 
 </div>
-
 </div>
 
 
-<!-- =========================
-     VIEW MEMBER
-========================= -->
+<!-- VIEW MEMBER -->
 
-<div
-  id="memberModal"
-  class="modal hidden">
+<div id="memberModal" class="modal hidden">
 
   <div class="modal-box">
 
@@ -619,26 +581,24 @@ tr:hover{
 
       <h2>Member Details</h2>
 
-      <button
-        class="close"
+      <button class="close"
         onclick="closeMember()">
         CLOSE
       </button>
 
     </div>
 
-    <div
-      id="memberDetails"
+    <div id="memberDetails"
       class="detail-grid">
     </div>
 
+    <div id="contestabilitySummary"></div>
 
     <h2 class="section-title">
       2025 Monthly Payments
     </h2>
 
     <div id="payments2025"></div>
-
 
     <h2 class="section-title">
       2026 Monthly Payments
@@ -651,13 +611,9 @@ tr:hover{
 </div>
 
 
-<!-- =========================
-     EDIT MEMBER
-========================= -->
+<!-- EDIT MEMBER -->
 
-<div
-  id="editModal"
-  class="modal hidden">
+<div id="editModal" class="modal hidden">
 
   <div class="modal-box">
 
@@ -665,37 +621,32 @@ tr:hover{
 
       <h2>Edit Member</h2>
 
-      <button
-        class="close"
+      <button class="close"
         onclick="closeEdit()">
         CLOSE
       </button>
 
     </div>
 
-    <div
-      id="editForm"
+    <div id="editForm"
       class="form-grid">
     </div>
 
     <div class="form-actions">
 
-      <button
-        class="save-btn"
+      <button class="save-btn"
         onclick="saveMember()">
         SAVE CHANGES
       </button>
 
-      <button
-        class="cancel-btn"
+      <button class="cancel-btn"
         onclick="closeEdit()">
         CANCEL
       </button>
 
     </div>
 
-    <div
-      id="editError"
+    <div id="editError"
       class="error">
     </div>
 
@@ -704,13 +655,9 @@ tr:hover{
 </div>
 
 
-<!-- =========================
-     ADD MEMBER
-========================= -->
+<!-- ADD MEMBER -->
 
-<div
-  id="addModal"
-  class="modal hidden">
+<div id="addModal" class="modal hidden">
 
   <div class="modal-box">
 
@@ -718,37 +665,32 @@ tr:hover{
 
       <h2>Add New Member</h2>
 
-      <button
-        class="close"
+      <button class="close"
         onclick="closeAddMember()">
         CLOSE
       </button>
 
     </div>
 
-    <div
-      id="addForm"
+    <div id="addForm"
       class="form-grid">
     </div>
 
     <div class="form-actions">
 
-      <button
-        class="save-btn"
+      <button class="save-btn"
         onclick="addMember()">
         SAVE NEW MEMBER
       </button>
 
-      <button
-        class="cancel-btn"
+      <button class="cancel-btn"
         onclick="closeAddMember()">
         CANCEL
       </button>
 
     </div>
 
-    <div
-      id="addError"
+    <div id="addError"
       class="error">
     </div>
 
@@ -798,7 +740,7 @@ let editingMember = null;
 
 
 /* =====================================================
-   HIDDEN INTERNAL COLUMNS
+   HIDDEN COLUMNS
 ===================================================== */
 
 const hiddenColumns = [
@@ -841,7 +783,6 @@ function getPaymentDate(payment){
 
 return (
 payment.payment_date ??
-payment.payment_month ??
 payment.paid_date ??
 payment.date_paid ??
 payment.paymentDate ??
@@ -862,8 +803,7 @@ if(!value){
 return null;
 }
 
-const d =
-new Date(value);
+const d = new Date(value);
 
 if(Number.isNaN(d.getTime())){
 return null;
@@ -880,8 +820,7 @@ if(!value){
 return "";
 }
 
-const d =
-new Date(value);
+const d = new Date(value);
 
 if(Number.isNaN(d.getTime())){
 return String(value);
@@ -910,8 +849,7 @@ options={}
 
 const headers = {
 
-"apikey":
-SUPABASE_KEY,
+"apikey":SUPABASE_KEY,
 
 "Authorization":
 "Bearer " +
@@ -939,26 +877,17 @@ await response.text();
 let data = null;
 
 try{
-
-data =
-text ?
-JSON.parse(text) :
-null;
-
+data = text ? JSON.parse(text) : null;
 }catch{
-
 data = text;
-
 }
 
 if(!response.ok){
 
 throw new Error(
 typeof data === "object"
-?
-JSON.stringify(data)
-:
-String(data)
+? JSON.stringify(data)
+: String(data)
 );
 
 }
@@ -975,24 +904,17 @@ return data;
 async function login(){
 
 const email =
-document.getElementById(
-"email"
-).value
-.trim()
-.toLowerCase();
+document.getElementById("email")
+.value.trim().toLowerCase();
 
 const password =
-document.getElementById(
-"password"
-).value;
+document.getElementById("password")
+.value;
 
 const error =
-document.getElementById(
-"loginError"
-);
+document.getElementById("loginError");
 
 error.textContent = "";
-
 
 if(!email || !password){
 
@@ -1003,7 +925,6 @@ return;
 
 }
 
-
 if(email !== OWNER_EMAIL){
 
 error.textContent =
@@ -1013,7 +934,6 @@ return;
 
 }
 
-
 try{
 
 const response =
@@ -1022,15 +942,10 @@ SUPABASE_URL +
 "/auth/v1/token?grant_type=password",
 {
 method:"POST",
-
 headers:{
-"apikey":
-SUPABASE_KEY,
-
-"Content-Type":
-"application/json"
+"apikey":SUPABASE_KEY,
+"Content-Type":"application/json"
 },
-
 body:JSON.stringify({
 email,
 password
@@ -1040,7 +955,6 @@ password
 
 const data =
 await response.json();
-
 
 if(!response.ok){
 
@@ -1052,29 +966,23 @@ data.msg ||
 
 }
 
-
 accessToken =
 data.access_token;
-
 
 localStorage.setItem(
 "futurecare_owner_token",
 accessToken
 );
 
-
 document
 .getElementById("loginPage")
 .classList.add("hidden");
-
 
 document
 .getElementById("dashboard")
 .classList.remove("hidden");
 
-
 await loadDashboard();
-
 
 }catch(e){
 
@@ -1107,7 +1015,6 @@ SUPABASE_URL +
 "/auth/v1/user"
 );
 
-
 if(
 !user ||
 !user.email ||
@@ -1121,19 +1028,15 @@ throw new Error(
 
 }
 
-
 document
 .getElementById("loginPage")
 .classList.add("hidden");
-
 
 document
 .getElementById("dashboard")
 .classList.remove("hidden");
 
-
 await loadDashboard();
-
 
 }catch(e){
 
@@ -1149,7 +1052,7 @@ accessToken = "";
 
 
 /* =====================================================
-   LOAD ALL MEMBERS
+   LOAD MEMBERS
 ===================================================== */
 
 async function loadMembers(){
@@ -1160,12 +1063,10 @@ let result = [];
 
 let start = 0;
 
-
 while(true){
 
 const end =
 start + pageSize - 1;
-
 
 const data =
 await supabaseRequest(
@@ -1187,25 +1088,20 @@ start + "-" + end,
 
 );
 
-
 if(!Array.isArray(data)){
 break;
 }
 
-
 result =
 result.concat(data);
-
 
 if(data.length < pageSize){
 break;
 }
 
-
 start += pageSize;
 
 }
-
 
 return result;
 
@@ -1213,7 +1109,7 @@ return result;
 
 
 /* =====================================================
-   LOAD ALL PAYMENTS
+   LOAD PAYMENTS
 ===================================================== */
 
 async function loadPayments(){
@@ -1224,12 +1120,10 @@ let result = [];
 
 let start = 0;
 
-
 while(true){
 
 const end =
 start + pageSize - 1;
-
 
 const data =
 await supabaseRequest(
@@ -1251,25 +1145,20 @@ start + "-" + end,
 
 );
 
-
 if(!Array.isArray(data)){
 break;
 }
 
-
 result =
 result.concat(data);
-
 
 if(data.length < pageSize){
 break;
 }
 
-
 start += pageSize;
 
 }
-
 
 return result;
 
@@ -1283,72 +1172,50 @@ return result;
 async function loadDashboard(){
 
 const status =
-document.getElementById(
-"status"
-);
+document.getElementById("status");
 
 const loading =
-document.getElementById(
-"loading"
-);
-
+document.getElementById("loading");
 
 try{
 
 status.textContent =
 "Loading members and payments...";
 
-
 allMembers =
 await loadMembers();
-
 
 allPayments =
 await loadPayments();
 
-
 memberColumns =
 allMembers.length
-?
-Object.keys(allMembers[0])
-:
-[];
-
+? Object.keys(allMembers[0])
+: [];
 
 document.getElementById(
 "totalMembers"
 ).textContent =
 allMembers.length;
 
-
 document.getElementById(
 "recordsLoaded"
 ).textContent =
 allMembers.length;
-
 
 document.getElementById(
 "totalPayments"
 ).textContent =
 allPayments.length;
 
-
 let total = 0;
-
 
 for(
 const payment of allPayments
 ){
 
 const amount =
-Number(
-payment.amount ??
-payment.payment_amount ??
-payment.paid_amount ??
-payment.Amount ??
-0
-);
-
+getPaymentAmount(payment);
 
 if(Number.isFinite(amount)){
 total += amount;
@@ -1356,29 +1223,20 @@ total += amount;
 
 }
 
-
 document.getElementById(
 "totalAmount"
 ).textContent =
 formatMoney(total);
 
-
 buildMemberHeader();
 
 renderMembers();
 
-
-loading.classList.add(
-"hidden"
-);
-
+loading.classList.add("hidden");
 
 document
 .getElementById("membersTable")
-.classList.remove(
-"hidden"
-);
-
+.classList.remove("hidden");
 
 status.textContent =
 "✅ Connected. " +
@@ -1386,7 +1244,6 @@ allMembers.length +
 " members and " +
 allPayments.length +
 " payment records loaded.";
-
 
 }catch(e){
 
@@ -1405,16 +1262,14 @@ loading.textContent =
 
 
 /* =====================================================
-   VISIBLE COLUMNS
+   COLUMNS
 ===================================================== */
 
 function visibleMemberColumns(){
 
 return memberColumns.filter(
 column =>
-!hiddenColumns.includes(
-column
-)
+!hiddenColumns.includes(column)
 );
 
 }
@@ -1427,15 +1282,12 @@ column
 function buildMemberHeader(){
 
 const head =
-document.getElementById(
-"tableHead"
-);
+document.getElementById("tableHead");
 
 head.innerHTML = "";
 
 const row =
 document.createElement("tr");
-
 
 for(
 const column of visibleMemberColumns()
@@ -1450,7 +1302,6 @@ column;
 row.appendChild(th);
 
 }
-
 
 const action =
 document.createElement("th");
@@ -1472,29 +1323,20 @@ head.appendChild(row);
 function renderMembers(){
 
 const body =
-document.getElementById(
-"tableBody"
-);
+document.getElementById("tableBody");
 
 body.innerHTML = "";
 
-
 const search =
-document.getElementById(
-"search"
-).value
-.trim()
-.toLowerCase();
-
+document.getElementById("search")
+.value.trim().toLowerCase();
 
 const filtered =
-allMembers.filter(
-member => {
+allMembers.filter(member => {
 
 if(!search){
 return true;
 }
-
 
 return Object.values(member)
 .some(
@@ -1504,9 +1346,7 @@ String(value ?? "")
 .includes(search)
 );
 
-}
-);
-
+});
 
 for(
 const member of filtered
@@ -1514,7 +1354,6 @@ const member of filtered
 
 const row =
 document.createElement("tr");
-
 
 for(
 const column of visibleMemberColumns()
@@ -1526,7 +1365,6 @@ document.createElement("td");
 let value =
 member[column] ?? "";
 
-
 if(
 typeof value === "object" &&
 value !== null
@@ -1537,49 +1375,36 @@ JSON.stringify(value);
 
 }
 
-
-td.textContent =
-value;
+td.textContent = value;
 
 row.appendChild(td);
 
 }
 
-
 const action =
 document.createElement("td");
-
 
 const view =
 document.createElement("button");
 
-view.className =
-"view-btn";
+view.className = "view-btn";
 
-view.textContent =
-"VIEW";
+view.textContent = "VIEW";
 
 view.onclick =
-() =>
-viewMember(member);
-
+() => viewMember(member);
 
 const edit =
 document.createElement("button");
 
-edit.className =
-"edit-btn";
+edit.className = "edit-btn";
 
-edit.textContent =
-"EDIT";
+edit.textContent = "EDIT";
 
 edit.onclick =
-() =>
-openEdit(member);
-
+() => openEdit(member);
 
 action.appendChild(view);
-
 action.appendChild(edit);
 
 row.appendChild(action);
@@ -1587,7 +1412,6 @@ row.appendChild(action);
 body.appendChild(row);
 
 }
-
 
 if(!filtered.length){
 
@@ -1598,8 +1422,7 @@ const td =
 document.createElement("td");
 
 td.colSpan =
-visibleMemberColumns()
-.length + 1;
+visibleMemberColumns().length + 1;
 
 td.textContent =
 "No members found.";
@@ -1614,7 +1437,7 @@ body.appendChild(row);
 
 
 /* =====================================================
-   FIND PAYMENT MEMBER ID
+   PAYMENT MEMBER
 ===================================================== */
 
 function paymentBelongsToMember(
@@ -1623,28 +1446,21 @@ member
 ){
 
 const memberId =
-String(
-member.id ?? ""
-).trim();
-
+String(member.id ?? "").trim();
 
 const possibleIds = [
-
 payment.plan_holder_id,
 payment.planholder_id,
 payment.member_id,
 payment.memberId,
 payment.user_id,
 payment.userId
-
 ];
-
 
 return possibleIds.some(
 value =>
-String(
-value ?? ""
-).trim() === memberId &&
+String(value ?? "").trim()
+=== memberId &&
 memberId !== ""
 );
 
@@ -1670,7 +1486,7 @@ payment.paymentAmount ??
 
 
 /* =====================================================
-   PAYMENT RECEIPT
+   RECEIPT
 ===================================================== */
 
 function getReceipt(payment){
@@ -1688,6 +1504,524 @@ payment.or_no ??
 
 
 /* =====================================================
+   MEMBER START DATE
+===================================================== */
+
+function getMemberStartDate(member){
+
+const value =
+member.date_applied ??
+member.dateApplied ??
+member.application_date ??
+member.registration_date ??
+"";
+
+if(!value){
+return null;
+}
+
+const d = new Date(value);
+
+if(Number.isNaN(d.getTime())){
+return null;
+}
+
+return d;
+
+}
+
+
+/* =====================================================
+   CONTESTABILITY
+===================================================== */
+
+function getContestabilityMonths(member){
+
+const value =
+Number(
+member.contestability_months ??
+member.contestabilityMonths ??
+0
+);
+
+return [3,6,12].includes(value)
+? value
+: 0;
+
+}
+
+
+/* =====================================================
+   FREE PROMO
+===================================================== */
+
+function isFreePromo(member){
+
+const d =
+getMemberStartDate(member);
+
+if(!d){
+return false;
+}
+
+return(
+d >= new Date("2025-02-01T00:00:00") &&
+d <= new Date("2025-06-30T23:59:59")
+);
+
+}
+
+
+/* =====================================================
+   PAYMENT YEAR/MONTH
+===================================================== */
+
+function paymentYear(payment){
+
+const d =
+parsePaymentDate(payment);
+
+if(d){
+return d.getFullYear();
+}
+
+return null;
+
+}
+
+
+function paymentMonth(payment){
+
+const d =
+parsePaymentDate(payment);
+
+if(d){
+return d.getMonth()+1;
+}
+
+const value =
+String(payment.payment_month ?? "")
+.toLowerCase()
+.trim();
+
+const months = {
+january:1,
+february:2,
+march:3,
+april:4,
+may:5,
+june:6,
+july:7,
+august:8,
+september:9,
+october:10,
+november:11,
+december:12
+};
+
+if(months[value]){
+return months[value];
+}
+
+const n = Number(value);
+
+return n >= 1 && n <= 12
+? n
+: null;
+
+}
+
+
+/* =====================================================
+   CALCULATE MONTHS
+===================================================== */
+
+function calculatePaymentRecords(
+payments,
+member,
+year,
+startFebruary
+){
+
+const names = [
+"January",
+"February",
+"March",
+"April",
+"May",
+"June",
+"July",
+"August",
+"September",
+"October",
+"November",
+"December"
+];
+
+const monthly =
+Number(member.monthly_payment) || 0;
+
+const startDate =
+getMemberStartDate(member);
+
+const contestability =
+getContestabilityMonths(member);
+
+const firstMonth =
+startFebruary ? 2 : 1;
+
+let advance = 0;
+
+let consecutive = 0;
+
+let hadUnpaid = false;
+
+const output = [];
+
+for(
+let m=firstMonth;
+m<=12;
+m++
+){
+
+const name =
+names[m-1];
+
+const beforeApplication =
+startDate &&
+(
+year < startDate.getFullYear() ||
+(
+year === startDate.getFullYear() &&
+m < startDate.getMonth()+1
+)
+);
+
+if(beforeApplication){
+
+output.push({
+year,
+month:m,
+name,
+amount:null,
+status:"NOT STARTED",
+remarks:"NOT STARTED",
+date:"",
+receipt:""
+});
+
+continue;
+
+}
+
+
+/* ADVANCE FROM PREVIOUS MONTH */
+
+if(advance > 0){
+
+output.push({
+year,
+month:m,
+name,
+amount:null,
+status:"ADVANCE",
+remarks:"ADVANCE",
+date:"",
+receipt:""
+});
+
+advance--;
+
+continue;
+
+}
+
+
+/* FIND PAYMENT RECORDS */
+
+const records =
+payments.filter(
+payment =>
+paymentYear(payment) === year &&
+paymentMonth(payment) === m
+);
+
+let amount = 0;
+let date = "";
+let receipt = "";
+
+for(
+const payment of records
+){
+
+amount +=
+getPaymentAmount(payment);
+
+if(getPaymentDate(payment)){
+date =
+formatDate(getPaymentDate(payment));
+}
+
+if(getReceipt(payment)){
+receipt =
+getReceipt(payment);
+}
+
+}
+
+
+/* NO PAYMENT */
+
+if(!records.length){
+
+/*
+   FREE FIRST MONTH:
+   only eligible Feb-Jun 2025
+*/
+
+if(
+isFreePromo(member) &&
+year === 2025 &&
+m === startDate.getMonth()+1
+){
+
+consecutive++;
+
+output.push({
+year,
+month:m,
+name,
+amount:0,
+status:"PAID",
+remarks:"FREE 1ST MONTH PROMO",
+date:"",
+receipt:""
+});
+
+continue;
+
+}
+
+
+/* unpaid after application */
+
+hadUnpaid = true;
+consecutive = 0;
+
+output.push({
+year,
+month:m,
+name,
+amount:0,
+status:"UNPAID",
+remarks:"UNPAID",
+date:"",
+receipt:""
+});
+
+continue;
+
+}
+
+
+/* PAYMENT EXISTS */
+
+const coveredMonths =
+monthly > 0
+? Math.floor(amount / monthly)
+: 1;
+
+
+/*
+   If 760 is paid on a 380 plan,
+   current month is paid and next
+   month is ADVANCE.
+*/
+
+if(coveredMonths > 1){
+
+advance =
+coveredMonths - 1;
+
+}
+
+
+/*
+   Missed month followed by payment.
+*/
+
+if(hadUnpaid){
+
+consecutive = 1;
+
+output.push({
+year,
+month:m,
+name,
+amount,
+status:"PAID",
+remarks:"CONTESTABILITY RESTART",
+date,
+receipt:""
+});
+
+hadUnpaid = false;
+
+continue;
+
+}
+
+
+/* NORMAL PAYMENT */
+
+consecutive++;
+
+let remarks = "PAID";
+
+if(
+contestability > 0 &&
+consecutive >= contestability
+){
+
+remarks =
+"CONTESTABILITY COMPLETED — CONTINUE MONTHLY PAYMENTS";
+
+}
+
+output.push({
+year,
+month:m,
+name,
+amount,
+status:"PAID",
+remarks,
+date,
+receipt
+});
+
+}
+
+return {
+records:output,
+consecutive,
+contestability
+};
+
+}
+
+
+/* =====================================================
+   CONTESTABILITY SUMMARY
+===================================================== */
+
+function getContestabilitySummary(
+payments,
+member
+){
+
+const target =
+getContestabilityMonths(member);
+
+if(!target){
+
+return {
+text:"CONTESTABILITY PERIOD NOT SET",
+className:""
+};
+
+}
+
+const start =
+getMemberStartDate(member);
+
+if(!start){
+
+return {
+text:"CONTESTABILITY PERIOD NOT SET",
+className:""
+};
+
+}
+
+const startYear =
+start.getFullYear();
+
+const startMonth =
+start.getMonth()+1;
+
+let consecutive = 0;
+
+let restarted = false;
+
+const ordered =
+payments
+.map(p => ({
+p,
+date:parsePaymentDate(p)
+}))
+.filter(x => x.date)
+.sort(
+(a,b) =>
+a.date - b.date
+);
+
+let expectedYear =
+startYear;
+
+let expectedMonth =
+startMonth;
+
+for(const item of ordered){
+
+const d = item.date;
+
+if(
+d.getFullYear() < startYear
+){
+continue;
+}
+
+const amount =
+getPaymentAmount(item);
+
+if(amount <= 0){
+continue;
+}
+
+
+/*
+   Once a qualifying payment
+   sequence begins, count payments.
+*/
+
+consecutive++;
+
+if(consecutive >= target){
+
+return {
+text:
+"CONTESTABILITY COMPLETED — CONTINUE MONTHLY PAYMENTS",
+className:"completed"
+};
+
+}
+
+}
+
+return {
+text:
+"CONTESTABILITY IN PROGRESS — " +
+Math.min(consecutive,target) +
+"/" +
+target +
+" MONTHS",
+className:""
+};
+
+}
+
+
+/* =====================================================
    VIEW MEMBER
 ===================================================== */
 
@@ -1700,7 +2034,6 @@ document.getElementById(
 
 details.innerHTML = "";
 
-
 for(
 const column of visibleMemberColumns()
 ){
@@ -1708,23 +2041,18 @@ const column of visibleMemberColumns()
 const box =
 document.createElement("div");
 
-box.className =
-"detail";
-
+box.className = "detail";
 
 const label =
 document.createElement("b");
 
-label.textContent =
-column;
-
+label.textContent = column;
 
 const value =
 document.createElement("span");
 
 let data =
 member[column] ?? "";
-
 
 if(
 typeof data === "object" &&
@@ -1736,13 +2064,9 @@ JSON.stringify(data);
 
 }
 
-
-value.textContent =
-data;
-
+value.textContent = data;
 
 box.appendChild(label);
-
 box.appendChild(value);
 
 details.appendChild(box);
@@ -1760,8 +2084,27 @@ member
 );
 
 
+const summary =
+getContestabilitySummary(
+memberPayments,
+member
+);
+
+const summaryBox =
+document.getElementById(
+"contestabilitySummary"
+);
+
+summaryBox.innerHTML =
+'<div class="summary-box">' +
+'<strong>CONTESTABILITY STATUS:</strong> ' +
+escapeHtml(summary.text) +
+'</div>';
+
+
 renderPaymentYear(
 memberPayments,
+member,
 2025,
 document.getElementById(
 "payments2025"
@@ -1772,6 +2115,7 @@ true
 
 renderPaymentYear(
 memberPayments,
+member,
 2026,
 document.getElementById(
 "payments2026"
@@ -1782,19 +2126,18 @@ false
 
 document
 .getElementById("memberModal")
-.classList.remove(
-"hidden"
-);
+.classList.remove("hidden");
 
 }
 
 
 /* =====================================================
-   MONTHLY PAYMENT TABLE
+   RENDER PAYMENT YEAR
 ===================================================== */
 
 function renderPaymentYear(
 payments,
+member,
 year,
 container,
 startFebruary
@@ -1802,24 +2145,16 @@ startFebruary
 
 container.innerHTML = "";
 
+const calculated =
+calculatePaymentRecords(
+payments,
+member,
+year,
+startFebruary
+);
 
-const months = [
-
-"January",
-"February",
-"March",
-"April",
-"May",
-"June",
-"July",
-"August",
-"September",
-"October",
-"November",
-"December"
-
-];
-
+const records =
+calculated.records;
 
 const table =
 document.createElement("table");
@@ -1831,31 +2166,27 @@ table.className =
 const thead =
 document.createElement("thead");
 
-
 const header =
 document.createElement("tr");
 
-
 [
 "MONTH",
-"AMOUNT PAID",
+"AMOUNT",
+"STATUS",
+"REMARKS",
 "PAYMENT DATE",
 "RECEIPT NUMBER"
 ]
-.forEach(
-text => {
+.forEach(text => {
 
 const th =
 document.createElement("th");
 
-th.textContent =
-text;
+th.textContent = text;
 
 header.appendChild(th);
 
-}
-);
-
+});
 
 thead.appendChild(header);
 
@@ -1866,149 +2197,101 @@ const tbody =
 document.createElement("tbody");
 
 
-const firstMonth =
-startFebruary ? 1 : 0;
-
-
 for(
-let month=firstMonth;
-month<12;
-month++
+const record of records
 ){
-
-const monthNumber =
-month + 1;
-
-
-const records =
-payments.filter(
-payment => {
-
-const date =
-parsePaymentDate(
-payment
-);
-
-if(!date){
-return false;
-}
-
-
-return(
-date.getFullYear()
-=== year &&
-date.getMonth()+1
-=== monthNumber
-);
-
-}
-);
-
-
-let amount = 0;
-
-let dateText = "";
-
-let receiptText = "";
-
-
-for(
-const payment of records
-){
-
-const value =
-getPaymentAmount(
-payment
-);
-
-if(Number.isFinite(value)){
-amount += value;
-}
-
-
-const d =
-getPaymentDate(
-payment
-);
-
-if(d){
-dateText =
-formatDate(d);
-}
-
-
-const receipt =
-getReceipt(
-payment
-);
-
-if(receipt){
-receiptText =
-receipt;
-}
-
-}
-
 
 const row =
 document.createElement("tr");
 
 
-const monthCell =
+const month =
 document.createElement("td");
 
-monthCell.textContent =
-months[month] +
+month.textContent =
+record.name +
 " " +
-year;
+record.year;
 
 
-const amountCell =
+const amount =
 document.createElement("td");
 
+amount.textContent =
+record.amount === null
+? "—"
+: formatMoney(record.amount);
 
-if(records.length){
 
-amountCell.textContent =
-formatMoney(amount);
+const status =
+document.createElement("td");
 
-amountCell.className =
-"paid";
+status.textContent =
+record.status;
 
-}else{
+if(record.status === "PAID"){
+status.className = "paid";
+}
 
-amountCell.textContent =
-"—";
+if(record.status === "UNPAID"){
+status.className = "unpaid";
+}
 
-amountCell.className =
-"unpaid";
+if(record.status === "ADVANCE"){
+status.className = "advance";
+}
+
+if(record.status === "NOT STARTED"){
+status.className = "not-started";
+}
+
+
+const remarks =
+document.createElement("td");
+
+remarks.textContent =
+record.remarks;
+
+if(
+record.remarks ===
+"CONTESTABILITY RESTART"
+){
+
+remarks.className = "restart";
+
+}
+
+if(
+record.remarks.includes(
+"CONTESTABILITY COMPLETED"
+)
+){
+
+remarks.className = "completed";
 
 }
 
 
-const dateCell =
+const date =
 document.createElement("td");
 
-dateCell.textContent =
-dateText ||
-"—";
+date.textContent =
+record.date || "—";
 
 
-const receiptCell =
+const receipt =
 document.createElement("td");
 
-receiptCell.textContent =
-receiptText ||
-"—";
+receipt.textContent =
+record.receipt || "—";
 
 
-row.appendChild(monthCell);
-
-row.appendChild(amountCell);
-
-row.appendChild(dateCell);
-
-row.appendChild(receiptCell);
+row.appendChild(month);
+row.appendChild(amount);
+row.appendChild(status);
+row.appendChild(remarks);
+row.appendChild(date);
+row.appendChild(receipt);
 
 tbody.appendChild(row);
 
@@ -2031,14 +2314,12 @@ function openEdit(member){
 editingMember =
 member;
 
-
 const form =
 document.getElementById(
 "editForm"
 );
 
 form.innerHTML = "";
-
 
 for(
 const column of visibleMemberColumns()
@@ -2048,13 +2329,11 @@ if(column === "id"){
 continue;
 }
 
-
 const group =
 document.createElement("div");
 
 group.className =
 "form-group";
-
 
 const label =
 document.createElement("label");
@@ -2062,9 +2341,7 @@ document.createElement("label");
 label.textContent =
 column;
 
-
 let input;
-
 
 if(
 String(column)
@@ -2079,19 +2356,14 @@ String(column)
 ){
 
 input =
-document.createElement(
-"textarea"
-);
+document.createElement("textarea");
 
 }else{
 
 input =
-document.createElement(
-"input"
-);
+document.createElement("input");
 
 }
-
 
 input.id =
 "edit_" + column;
@@ -2099,26 +2371,20 @@ input.id =
 input.value =
 editingMember[column] ?? "";
 
-
 group.appendChild(label);
-
 group.appendChild(input);
 
 form.appendChild(group);
 
 }
 
-
 document.getElementById(
 "editError"
 ).textContent = "";
 
-
-document.getElementById(
-"editModal"
-).classList.remove(
-"hidden"
-);
+document
+.getElementById("editModal")
+.classList.remove("hidden");
 
 }
 
@@ -2133,7 +2399,6 @@ if(!editingMember){
 return;
 }
 
-
 const error =
 document.getElementById(
 "editError"
@@ -2142,9 +2407,7 @@ document.getElementById(
 error.textContent =
 "Saving changes...";
 
-
 const updates = {};
-
 
 for(
 const column of visibleMemberColumns()
@@ -2153,7 +2416,6 @@ const column of visibleMemberColumns()
 if(column === "id"){
 continue;
 }
-
 
 const input =
 document.getElementById(
@@ -2164,16 +2426,12 @@ if(!input){
 continue;
 }
 
-
 updates[column] =
 input.value === ""
-?
-null
-:
-input.value;
+? null
+: input.value;
 
 }
-
 
 try{
 
@@ -2201,19 +2459,16 @@ JSON.stringify(updates)
 
 );
 
-
 Object.assign(
 editingMember,
 updates
 );
-
 
 closeEdit();
 
 buildMemberHeader();
 
 renderMembers();
-
 
 document.getElementById(
 "status"
@@ -2234,7 +2489,7 @@ e.message;
 
 
 /* =====================================================
-   ADD NEW MEMBER
+   ADD MEMBER
 ===================================================== */
 
 function openAddMember(){
@@ -2246,15 +2501,6 @@ document.getElementById(
 
 form.innerHTML = "";
 
-
-/*
- Use the SAME columns that are
- already in plan_holders.
-
- This means we do not guess your
- Excel/database field names.
-*/
-
 for(
 const column of visibleMemberColumns()
 ){
@@ -2263,13 +2509,11 @@ if(column === "id"){
 continue;
 }
 
-
 const group =
 document.createElement("div");
 
 group.className =
 "form-group";
-
 
 const label =
 document.createElement("label");
@@ -2277,9 +2521,7 @@ document.createElement("label");
 label.textContent =
 column;
 
-
 let input;
-
 
 if(
 String(column)
@@ -2294,43 +2536,32 @@ String(column)
 ){
 
 input =
-document.createElement(
-"textarea"
-);
+document.createElement("textarea");
 
 }else{
 
 input =
-document.createElement(
-"input"
-);
+document.createElement("input");
 
 }
-
 
 input.id =
 "add_" + column;
 
-
 group.appendChild(label);
-
 group.appendChild(input);
 
 form.appendChild(group);
 
 }
 
-
 document.getElementById(
 "addError"
 ).textContent = "";
 
-
-document.getElementById(
-"addModal"
-).classList.remove(
-"hidden"
-);
+document
+.getElementById("addModal")
+.classList.remove("hidden");
 
 }
 
@@ -2349,9 +2580,7 @@ document.getElementById(
 error.textContent =
 "Saving new member...";
 
-
 const newMember = {};
-
 
 for(
 const column of visibleMemberColumns()
@@ -2360,7 +2589,6 @@ const column of visibleMemberColumns()
 if(column === "id"){
 continue;
 }
-
 
 const input =
 document.getElementById(
@@ -2371,16 +2599,12 @@ if(!input){
 continue;
 }
 
-
 newMember[column] =
 input.value === ""
-?
-null
-:
-input.value;
+? null
+: input.value;
 
 }
-
 
 try{
 
@@ -2405,21 +2629,15 @@ JSON.stringify(newMember)
 
 );
 
-
 if(Array.isArray(result)){
 
-allMembers.push(
-...result
-);
+allMembers.push(...result);
 
 }else if(result){
 
-allMembers.push(
-result
-);
+allMembers.push(result);
 
 }
-
 
 closeAddMember();
 
@@ -2427,18 +2645,15 @@ buildMemberHeader();
 
 renderMembers();
 
-
 document.getElementById(
 "totalMembers"
 ).textContent =
 allMembers.length;
 
-
 document.getElementById(
 "recordsLoaded"
 ).textContent =
 allMembers.length;
-
 
 document.getElementById(
 "status"
@@ -2459,16 +2674,14 @@ e.message;
 
 
 /* =====================================================
-   CLOSE MODALS
+   CLOSE
 ===================================================== */
 
 function closeMember(){
 
 document
 .getElementById("memberModal")
-.classList.add(
-"hidden"
-);
+.classList.add("hidden");
 
 }
 
@@ -2477,9 +2690,7 @@ function closeEdit(){
 
 document
 .getElementById("editModal")
-.classList.add(
-"hidden"
-);
+.classList.add("hidden");
 
 editingMember = null;
 
@@ -2490,9 +2701,7 @@ function closeAddMember(){
 
 document
 .getElementById("addModal")
-.classList.add(
-"hidden"
-);
+.classList.add("hidden");
 
 }
 
@@ -2512,14 +2721,10 @@ SUPABASE_URL +
 "/auth/v1/logout",
 {
 method:"POST",
-
 headers:{
-"apikey":
-SUPABASE_KEY,
-
+"apikey":SUPABASE_KEY,
 "Authorization":
-"Bearer " +
-accessToken
+"Bearer " + accessToken
 }
 }
 );
@@ -2531,7 +2736,6 @@ accessToken
 console.error(e);
 
 }
-
 
 localStorage.removeItem(
 "futurecare_owner_token"
@@ -2550,10 +2754,7 @@ location.reload();
 
 function escapeHtml(value){
 
-return String(
-value ?? ""
-)
-
+return String(value ?? "")
 .replace(/&/g,"&amp;")
 .replace(/</g,"&lt;")
 .replace(/>/g,"&gt;")
