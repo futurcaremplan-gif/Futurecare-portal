@@ -11,56 +11,82 @@ body{margin:0;font-family:Arial,sans-serif;background:var(--light);color:#222}
 .hidden{display:none!important}
 button{border:0;border-radius:8px;padding:11px 16px;font-weight:bold;cursor:pointer}
 .login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{width:100%;max-width:430px;background:white;padding:30px;border-radius:18px;box-shadow:0 4px 20px #0002}
-.fc-logo{width:90px;height:90px;border-radius:50%;background:white;border:6px solid var(--green);color:var(--green);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:bold;font-size:13px;line-height:1.1;margin:0 auto 15px}
+.login-box{width:100%;max-width:430px;background:#fff;padding:30px;border-radius:18px;box-shadow:0 4px 20px #0002}
+.fc-logo{width:90px;height:90px;border-radius:50%;background:#fff;border:6px solid var(--green);color:var(--green);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:bold;font-size:13px;line-height:1.1;margin:0 auto 15px}
 .login-box h2{text-align:center;color:var(--green);margin:5px 0}
 .login-box p{text-align:center;color:#666}
 .login-box input{width:100%;padding:14px;margin:7px 0;border:1px solid #ccc;border-radius:8px;font-size:16px}
-.login-btn{width:100%;background:var(--green);color:white;margin-top:8px}
+.login-btn{width:100%;background:var(--green);color:#fff;margin-top:8px}
 .error{color:var(--danger);margin-top:10px;white-space:pre-wrap}
-header{background:var(--green);color:white;padding:14px 20px;position:sticky;top:0;z-index:20}
+header{background:var(--green);color:#fff;padding:14px 20px;position:sticky;top:0;z-index:20}
 .header-inner{max-width:1800px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:12px}
-.header-logo{width:60px;height:60px;min-width:60px;border-radius:50%;background:white;overflow:hidden}
+.header-logo{width:60px;height:60px;min-width:60px;border-radius:50%;background:#fff;overflow:hidden}
 .header-logo img{width:100%;height:100%;object-fit:contain}
-.brand h1{margin:0;font-size:25px}.brand small{opacity:.9}
-.logout{background:white;color:var(--green)}
+.brand h1{margin:0;font-size:25px}
+.brand small{opacity:.9}
+.logout{background:#fff;color:var(--green)}
 .container{max-width:1800px;margin:auto;padding:18px}
-.status{background:white;padding:14px;border-radius:10px;margin-bottom:16px;box-shadow:0 2px 7px #0001}
+.status{background:#fff;padding:14px;border-radius:10px;margin-bottom:16px;box-shadow:0 2px 7px #0001}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
-.card{background:white;padding:18px;border-radius:12px;box-shadow:0 2px 7px #0001}
-.card h3{margin:0 0 8px;color:#666;font-size:14px}.card strong{color:var(--green);font-size:30px}
-.toolbar{background:white;padding:14px;border-radius:12px;margin-bottom:16px;display:flex;gap:10px;box-shadow:0 2px 7px #0001}
+.card{background:#fff;padding:18px;border-radius:12px;box-shadow:0 2px 7px #0001}
+.card h3{margin:0 0 8px;color:#666;font-size:14px}
+.card strong{color:var(--green);font-size:30px}
+.toolbar{background:#fff;padding:14px;border-radius:12px;margin-bottom:16px;display:flex;gap:10px;box-shadow:0 2px 7px #0001}
 .search{flex:1;min-width:250px;padding:13px;border:2px solid #ccc;border-radius:8px;font-size:16px}
-.add-btn{background:var(--green);color:white}
-.table-wrap{background:white;border-radius:12px;overflow:auto;box-shadow:0 2px 7px #0001}
+.add-btn{background:var(--green);color:#fff}
+.table-wrap{background:#fff;border-radius:12px;overflow:auto;box-shadow:0 2px 7px #0001}
 table{border-collapse:collapse;width:100%;min-width:1100px}
 th,td{padding:10px;border-bottom:1px solid #eee;text-align:left;white-space:nowrap}
-th{background:var(--green);color:white}
+th{background:var(--green);color:#fff}
 tr:hover{background:#f5faf7}
-.view-btn{background:var(--green);color:white;padding:7px 11px}
-.edit-btn{background:#555;color:white;padding:7px 11px;margin-left:5px}
+.view-btn{background:var(--green);color:#fff;padding:7px 11px}
+.edit-btn{background:#555;color:#fff;padding:7px 11px;margin-left:5px}
 .modal{position:fixed;inset:0;background:#0008;z-index:100;padding:15px;overflow:auto}
-.modal-box{background:white;max-width:1500px;margin:20px auto;padding:22px;border-radius:14px}
-.modal-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.modal-title h2{color:var(--green);margin:0}.close{background:#eee}
+.modal-box{background:#fff;max-width:1550px;margin:20px auto;padding:22px;border-radius:14px}
+.modal-title{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}
+.modal-title h2{color:var(--green);margin:0}
+.close{background:#eee}
 .detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .detail{background:#f2f6f3;padding:12px;border-radius:8px}
-.detail b{display:block;color:#666;font-size:12px;margin-bottom:5px}.detail span{word-break:break-word}
+.detail b{display:block;color:#666;font-size:12px;margin-bottom:5px}
+.detail span{word-break:break-word}
 .section-title{color:var(--green);margin-top:25px}
 .form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-.form-group{display:flex;flex-direction:column}.form-group label{font-weight:bold;color:#555;margin-bottom:5px}
+.form-group{display:flex;flex-direction:column}
+.form-group label{font-weight:bold;color:#555;margin-bottom:5px}
 .form-group input,.form-group textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:7px;font-size:15px}
 .form-group textarea{min-height:80px}
-.form-actions{display:flex;gap:10px;margin-top:20px}.save-btn{background:var(--green);color:white}.cancel-btn{background:#eee}
-.payment-table{min-width:1050px}.payment-edit{width:120px;padding:8px;border:1px solid #bbb;border-radius:6px}
-.month-save{background:var(--green);color:white;padding:7px 10px}.month-clear{background:#eee;padding:7px 10px;margin-left:5px}
-.paid{color:var(--green);font-weight:bold}.unpaid{color:var(--danger);font-weight:bold}
-.advance{color:var(--green);font-weight:bold}.not-started{color:#777}.restart{color:var(--danger);font-weight:bold}.completed{color:var(--green);font-weight:bold}
+.form-actions{display:flex;gap:10px;margin-top:20px}
+.save-btn{background:var(--green);color:#fff}
+.cancel-btn{background:#eee}
+.payment-table{min-width:1250px}
+.payment-input{width:110px;padding:8px;border:1px solid #bbb;border-radius:6px}
+.date-input{width:145px;padding:8px;border:1px solid #bbb;border-radius:6px}
+.receipt-input{width:150px;padding:8px;border:1px solid #bbb;border-radius:6px}
+.month-save{background:var(--green);color:#fff;padding:7px 10px}
+.month-clear{background:#eee;padding:7px 10px;margin-left:5px}
+.paid{color:var(--green);font-weight:bold}
+.unpaid{color:var(--danger);font-weight:bold}
+.covered{color:var(--green);font-weight:bold}
+.advance{color:var(--green);font-weight:bold}
+.restart{color:var(--danger);font-weight:bold}
+.completed{color:var(--green);font-weight:bold}
+.not-started{color:#777}
 .summary-box{background:#f2f6f3;border-radius:10px;padding:14px;margin-top:15px}
-.summary-box strong{color:var(--green)}.loading{padding:30px;text-align:center}
-@media(max-width:950px){.cards{grid-template-columns:repeat(2,1fr)}.detail-grid{grid-template-columns:repeat(2,1fr)}.form-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.container{padding:10px}.toolbar{flex-direction:column}.brand h1{font-size:19px}.detail-grid,.form-grid{grid-template-columns:1fr 1fr}}
+.summary-box strong{color:var(--green)}
+.loading{padding:30px;text-align:center}
+@media(max-width:950px){
+.cards{grid-template-columns:repeat(2,1fr)}
+.detail-grid{grid-template-columns:repeat(2,1fr)}
+.form-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+.container{padding:10px}
+.toolbar{flex-direction:column}
+.brand h1{font-size:19px}
+.detail-grid,.form-grid{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 
@@ -71,8 +97,8 @@ tr:hover{background:#f5faf7}
 <div class="fc-logo">FUTURE<br>CARE</div>
 <h2>FutureCare Owner</h2>
 <p>Owner Dashboard</p>
-<input id="email" type="email" placeholder="Owner email">
-<input id="password" type="password" placeholder="Password">
+<input id="email" type="email" placeholder="Owner email" autocomplete="email">
+<input id="password" type="password" placeholder="Password" autocomplete="current-password">
 <button class="login-btn" onclick="login()">LOGIN</button>
 <div id="loginError" class="error"></div>
 </div>
@@ -82,48 +108,91 @@ tr:hover{background:#f5faf7}
 
 <header>
 <div class="header-inner">
+
 <div class="brand">
 <div class="header-logo">
 <img src="futurecare-logo.jpg.jpg" alt="FutureCare Logo">
 </div>
+
 <div>
 <h1>FutureCare Owner Dashboard</h1>
 <small>Member Management System</small>
 </div>
 </div>
+
 <button class="logout" onclick="logout()">LOGOUT</button>
+
 </div>
 </header>
 
 <div class="container">
 
-<div id="status" class="status">Connecting to Supabase...</div>
+<div id="status" class="status">
+Connecting to Supabase...
+</div>
 
 <div class="cards">
-<div class="card"><h3>TOTAL MEMBERS</h3><strong id="totalMembers">0</strong></div>
-<div class="card"><h3>RECORDS LOADED</h3><strong id="recordsLoaded">0</strong></div>
-<div class="card"><h3>TOTAL PAYMENTS</h3><strong id="totalPayments">0</strong></div>
-<div class="card"><h3>TOTAL PAYMENT AMOUNT</h3><strong id="totalAmount">₱0.00</strong></div>
+
+<div class="card">
+<h3>TOTAL MEMBERS</h3>
+<strong id="totalMembers">0</strong>
+</div>
+
+<div class="card">
+<h3>RECORDS LOADED</h3>
+<strong id="recordsLoaded">0</strong>
+</div>
+
+<div class="card">
+<h3>TOTAL PAYMENTS</h3>
+<strong id="totalPayments">0</strong>
+</div>
+
+<div class="card">
+<h3>TOTAL PAYMENT AMOUNT</h3>
+<strong id="totalAmount">₱0.00</strong>
+</div>
+
 </div>
 
 <div class="toolbar">
-<input id="search" class="search" placeholder="Search member, Client ID, agent, package..." oninput="renderMembers()">
-<button class="add-btn" onclick="openAddMember()">+ ADD NEW MEMBER</button>
+
+<input
+id="search"
+class="search"
+type="text"
+placeholder="Search member, Client ID, agent, package..."
+oninput="renderMembers()">
+
+<button class="add-btn" onclick="openAddMember()">
++ ADD NEW MEMBER
+</button>
+
 </div>
 
 <div class="table-wrap">
-<div id="loading" class="loading">Loading FutureCare members...</div>
+
+<div id="loading" class="loading">
+Loading FutureCare members...
+</div>
+
 <table id="membersTable" class="hidden">
+
 <thead id="tableHead"></thead>
 <tbody id="tableBody"></tbody>
+
 </table>
+
 </div>
 
 </div>
 </div>
 
+
+<!-- VIEW MEMBER -->
 
 <div id="memberModal" class="modal hidden">
+
 <div class="modal-box">
 
 <div class="modal-title">
@@ -132,19 +201,29 @@ tr:hover{background:#f5faf7}
 </div>
 
 <div id="memberDetails" class="detail-grid"></div>
+
 <div id="contestabilitySummary"></div>
 
-<h2 class="section-title">2025 Monthly Payments</h2>
+<h2 class="section-title">
+2025 Monthly Payments
+</h2>
+
 <div id="payments2025"></div>
 
-<h2 class="section-title">2026 Monthly Payments</h2>
+<h2 class="section-title">
+2026 Monthly Payments
+</h2>
+
 <div id="payments2026"></div>
 
 </div>
 </div>
 
 
+<!-- EDIT MEMBER -->
+
 <div id="editModal" class="modal hidden">
+
 <div class="modal-box">
 
 <div class="modal-title">
@@ -155,8 +234,15 @@ tr:hover{background:#f5faf7}
 <div id="editForm" class="form-grid"></div>
 
 <div class="form-actions">
-<button class="save-btn" onclick="saveMember()">SAVE CHANGES</button>
-<button class="cancel-btn" onclick="closeEdit()">CANCEL</button>
+
+<button class="save-btn" onclick="saveMember()">
+SAVE CHANGES
+</button>
+
+<button class="cancel-btn" onclick="closeEdit()">
+CANCEL
+</button>
+
 </div>
 
 <div id="editError" class="error"></div>
@@ -165,7 +251,10 @@ tr:hover{background:#f5faf7}
 </div>
 
 
+<!-- ADD MEMBER -->
+
 <div id="addModal" class="modal hidden">
+
 <div class="modal-box">
 
 <div class="modal-title">
@@ -176,8 +265,15 @@ tr:hover{background:#f5faf7}
 <div id="addForm" class="form-grid"></div>
 
 <div class="form-actions">
-<button class="save-btn" onclick="addMember()">SAVE NEW MEMBER</button>
-<button class="cancel-btn" onclick="closeAddMember()">CANCEL</button>
+
+<button class="save-btn" onclick="addMember()">
+SAVE NEW MEMBER
+</button>
+
+<button class="cancel-btn" onclick="closeAddMember()">
+CANCEL
+</button>
+
 </div>
 
 <div id="addError" class="error"></div>
@@ -188,9 +284,9 @@ tr:hover{background:#f5faf7}
 
 <script>
 
-/* =========================
-   SUPABASE
-========================= */
+/* =====================================================
+SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
 "https://sdxeiofegiqfldpugdqb.supabase.co";
@@ -211,12 +307,14 @@ const MONTHLY_TABLE =
 "monthly_payment_records";
 
 
-/* =========================
-   STATE
-========================= */
+/* =====================================================
+STATE
+===================================================== */
 
 let accessToken =
-localStorage.getItem("futurecare_owner_token") || "";
+localStorage.getItem(
+"futurecare_owner_token"
+) || "";
 
 let allMembers = [];
 let allPayments = [];
@@ -225,15 +323,30 @@ let memberColumns = [];
 let editingMember = null;
 
 
-/* =========================
-   HELPERS
-========================= */
+/* =====================================================
+HELPERS
+===================================================== */
 
 const hiddenColumns = [
 "id",
 "auth_user_id",
 "created_at",
 "user_id"
+];
+
+const monthNames = [
+"January",
+"February",
+"March",
+"April",
+"May",
+"June",
+"July",
+"August",
+"September",
+"October",
+"November",
+"December"
 ];
 
 
@@ -246,10 +359,13 @@ return "₱0.00";
 }
 
 return "₱" +
-n.toLocaleString("en-PH",{
+n.toLocaleString(
+"en-PH",
+{
 minimumFractionDigits:2,
 maximumFractionDigits:2
-});
+}
+);
 
 }
 
@@ -266,7 +382,44 @@ return String(value ?? "")
 }
 
 
-function getPaymentAmount(payment){
+function parseDate(value){
+
+if(!value){
+return null;
+}
+
+const d = new Date(value);
+
+if(Number.isNaN(d.getTime())){
+return null;
+}
+
+return d;
+
+}
+
+
+function formatDate(value){
+
+const d = parseDate(value);
+
+if(!d){
+return "";
+}
+
+return d.toLocaleDateString(
+"en-PH",
+{
+year:"numeric",
+month:"short",
+day:"numeric"
+}
+);
+
+}
+
+
+function getAmount(payment){
 
 return Number(
 payment.amount ??
@@ -274,7 +427,7 @@ payment.Amount ??
 payment.payment_amount ??
 payment.paid_amount ??
 0
-);
+) || 0;
 
 }
 
@@ -306,56 +459,39 @@ payment.or_no ??
 }
 
 
-function parseDate(value){
+/* =====================================================
+REQUEST
+===================================================== */
 
-if(!value){
-return null;
-}
-
-const d = new Date(value);
-
-return Number.isNaN(d.getTime())
-? null
-: d;
-
-}
-
-
-function formatDate(value){
-
-const d = parseDate(value);
-
-if(!d){
-return "";
-}
-
-return d.toLocaleDateString("en-PH",{
-year:"numeric",
-month:"short",
-day:"numeric"
-});
-
-}
-
-
-/* =========================
-   SUPABASE REQUEST
-========================= */
-
-async function supabaseRequest(url,options={}){
+async function supabaseRequest(
+url,
+options={}
+){
 
 const headers = {
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer "+(accessToken || SUPABASE_KEY),
-"Content-Type":"application/json",
+
+"apikey":
+SUPABASE_KEY,
+
+"Authorization":
+"Bearer " +
+(accessToken || SUPABASE_KEY),
+
+"Content-Type":
+"application/json",
+
 ...(options.headers || {})
+
 };
 
 const response =
-await fetch(url,{
+await fetch(
+url,
+{
 ...options,
 headers
-});
+}
+);
 
 const text =
 await response.text();
@@ -363,17 +499,26 @@ await response.text();
 let data = null;
 
 try{
-data = text ? JSON.parse(text) : null;
+
+data =
+text ?
+JSON.parse(text) :
+null;
+
 }catch{
+
 data = text;
+
 }
 
 if(!response.ok){
 
 throw new Error(
 typeof data === "object"
-? JSON.stringify(data)
-: String(data)
+?
+JSON.stringify(data)
+:
+String(data)
 );
 
 }
@@ -383,21 +528,28 @@ return data;
 }
 
 
-/* =========================
-   LOGIN
-========================= */
+/* =====================================================
+LOGIN
+===================================================== */
 
 async function login(){
 
 const email =
-document.getElementById("email")
-.value.trim().toLowerCase();
+document.getElementById(
+"email"
+).value
+.trim()
+.toLowerCase();
 
 const password =
-document.getElementById("password").value;
+document.getElementById(
+"password"
+).value;
 
 const error =
-document.getElementById("loginError");
+document.getElementById(
+"loginError"
+);
 
 error.textContent = "";
 
@@ -428,10 +580,13 @@ SUPABASE_URL +
 {
 method:"POST",
 headers:{
-"apikey":SUPABASE_KEY,
-"Content-Type":"application/json"
+"apikey":
+SUPABASE_KEY,
+"Content-Type":
+"application/json"
 },
-body:JSON.stringify({
+body:
+JSON.stringify({
 email,
 password
 })
@@ -459,13 +614,7 @@ localStorage.setItem(
 accessToken
 );
 
-document
-.getElementById("loginPage")
-.classList.add("hidden");
-
-document
-.getElementById("dashboard")
-.classList.remove("hidden");
+showDashboard();
 
 await loadDashboard();
 
@@ -480,9 +629,9 @@ e.message ||
 }
 
 
-/* =========================
-   CHECK LOGIN
-========================= */
+/* =====================================================
+CHECK LOGIN
+===================================================== */
 
 async function checkLogin(){
 
@@ -501,20 +650,17 @@ SUPABASE_URL +
 if(
 !user ||
 !user.email ||
-user.email.toLowerCase() !== OWNER_EMAIL
+user.email.toLowerCase()
+!== OWNER_EMAIL
 ){
 
-throw new Error("Invalid owner session.");
+throw new Error(
+"Invalid owner session."
+);
 
 }
 
-document
-.getElementById("loginPage")
-.classList.add("hidden");
-
-document
-.getElementById("dashboard")
-.classList.remove("hidden");
+showDashboard();
 
 await loadDashboard();
 
@@ -531,9 +677,22 @@ accessToken = "";
 }
 
 
-/* =========================
-   LOAD TABLE
-========================= */
+function showDashboard(){
+
+document
+.getElementById("loginPage")
+.classList.add("hidden");
+
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+LOAD TABLES
+===================================================== */
 
 async function loadTable(table){
 
@@ -550,16 +709,21 @@ start + pageSize - 1;
 
 const data =
 await supabaseRequest(
+
 SUPABASE_URL +
 "/rest/v1/" +
 table +
 "?select=*",
+
 {
 headers:{
-"Range":start+"-"+end,
-"Prefer":"count=exact"
+"Range":
+start + "-" + end,
+"Prefer":
+"count=exact"
 }
 }
+
 );
 
 if(!Array.isArray(data)){
@@ -582,24 +746,9 @@ return result;
 }
 
 
-async function loadMembers(){
-return loadTable(MEMBERS_TABLE);
-}
-
-
-async function loadPayments(){
-return loadTable(PAYMENTS_TABLE);
-}
-
-
-async function loadMonthly(){
-return loadTable(MONTHLY_TABLE);
-}
-
-
-/* =========================
-   LOAD DASHBOARD
-========================= */
+/* =====================================================
+LOAD DASHBOARD
+===================================================== */
 
 async function loadDashboard(){
 
@@ -615,18 +764,26 @@ status.textContent =
 "Loading members and payments...";
 
 allMembers =
-await loadMembers();
+await loadTable(
+MEMBERS_TABLE
+);
 
 allPayments =
-await loadPayments();
+await loadTable(
+PAYMENTS_TABLE
+);
 
 allMonthly =
-await loadMonthly();
+await loadTable(
+MONTHLY_TABLE
+);
 
 memberColumns =
 allMembers.length
-? Object.keys(allMembers[0])
-: [];
+?
+Object.keys(allMembers[0])
+:
+[];
 
 document.getElementById(
 "totalMembers"
@@ -645,14 +802,11 @@ allPayments.length;
 
 let total = 0;
 
-for(const payment of allPayments){
+for(
+const payment of allPayments
+){
 
-const amount =
-getPaymentAmount(payment);
-
-if(Number.isFinite(amount)){
-total += amount;
-}
+total += getAmount(payment);
 
 }
 
@@ -665,11 +819,15 @@ buildMemberHeader();
 
 renderMembers();
 
-loading.classList.add("hidden");
+loading.classList.add(
+"hidden"
+);
 
 document
 .getElementById("membersTable")
-.classList.remove("hidden");
+.classList.remove(
+"hidden"
+);
 
 status.textContent =
 "✅ Connected. " +
@@ -694,15 +852,17 @@ loading.textContent =
 }
 
 
-/* =========================
-   MEMBERS
-========================= */
+/* =====================================================
+MEMBERS
+===================================================== */
 
 function visibleMemberColumns(){
 
 return memberColumns.filter(
 column =>
-!hiddenColumns.includes(column)
+!hiddenColumns.includes(
+column
+)
 );
 
 }
@@ -711,7 +871,9 @@ column =>
 function buildMemberHeader(){
 
 const head =
-document.getElementById("tableHead");
+document.getElementById(
+"tableHead"
+);
 
 head.innerHTML = "";
 
@@ -725,7 +887,8 @@ const column of visibleMemberColumns()
 const th =
 document.createElement("th");
 
-th.textContent = column;
+th.textContent =
+column;
 
 row.appendChild(th);
 
@@ -734,7 +897,8 @@ row.appendChild(th);
 const action =
 document.createElement("th");
 
-action.textContent = "ACTION";
+action.textContent =
+"ACTION";
 
 row.appendChild(action);
 
@@ -746,16 +910,22 @@ head.appendChild(row);
 function renderMembers(){
 
 const body =
-document.getElementById("tableBody");
+document.getElementById(
+"tableBody"
+);
 
 body.innerHTML = "";
 
 const search =
-document.getElementById("search")
-.value.trim().toLowerCase();
+document.getElementById(
+"search"
+).value
+.trim()
+.toLowerCase();
 
 const filtered =
-allMembers.filter(member => {
+allMembers.filter(
+member => {
 
 if(!search){
 return true;
@@ -769,9 +939,12 @@ String(value ?? "")
 .includes(search)
 );
 
-});
+}
+);
 
-for(const member of filtered){
+for(
+const member of filtered
+){
 
 const row =
 document.createElement("tr");
@@ -796,7 +969,8 @@ JSON.stringify(value);
 
 }
 
-td.textContent = value;
+td.textContent =
+value;
 
 row.appendChild(td);
 
@@ -808,23 +982,34 @@ document.createElement("td");
 const view =
 document.createElement("button");
 
-view.className = "view-btn";
-view.textContent = "VIEW";
+view.className =
+"view-btn";
+
+view.textContent =
+"VIEW";
+
 view.onclick =
-() => viewMember(member);
+() =>
+viewMember(member);
 
 const edit =
 document.createElement("button");
 
-edit.className = "edit-btn";
-edit.textContent = "EDIT";
+edit.className =
+"edit-btn";
+
+edit.textContent =
+"EDIT";
+
 edit.onclick =
-() => openEdit(member);
+() =>
+openEdit(member);
 
 action.appendChild(view);
 action.appendChild(edit);
 
 row.appendChild(action);
+
 body.appendChild(row);
 
 }
@@ -844,6 +1029,7 @@ td.textContent =
 "No members found.";
 
 row.appendChild(td);
+
 body.appendChild(row);
 
 }
@@ -851,70 +1037,56 @@ body.appendChild(row);
 }
 
 
-/* =========================
-   MEMBER DATA
-========================= */
+/* =====================================================
+MONTHLY RECORD
+===================================================== */
 
-function paymentBelongsToMember(payment,member){
-
-return String(
-payment.plan_holder_id ?? ""
-).trim()
-===
-String(member.id ?? "").trim();
-
-}
-
-
-function monthlyBelongsToMember(record,member){
-
-return String(
-record.plan_holder_id ?? ""
-).trim()
-===
-String(member.id ?? "").trim();
-
-}
-
-
-function getMonthlyRecord(member,year,month){
+function getMonthlyRecord(
+member,
+year,
+month
+){
 
 return allMonthly.find(
 record =>
-monthlyBelongsToMember(record,member) &&
-Number(record.payment_year) === year &&
-Number(record.payment_month) === month
-);
+String(
+record.plan_holder_id
+) === String(member.id)
+&&
+Number(record.payment_year)
+=== Number(year)
+&&
+Number(record.payment_month)
+=== Number(month)
+) || null;
 
 }
 
 
+/* =====================================================
+MEMBER SETTINGS
+===================================================== */
+
 function getStartDate(member){
 
-const value =
+return parseDate(
 member.date_applied ??
 member.dateApplied ??
 member.application_date ??
 member.registration_date ??
-"";
-
-return parseDate(value);
+""
+);
 
 }
 
 
 function getMonthlyRate(member){
 
-const value =
-Number(
+return Number(
 member.monthly_payment ??
 member.monthlyPayment ??
 0
-);
-
-return Number.isFinite(value)
-? value
-: 0;
+) || 0;
 
 }
 
@@ -929,137 +1101,252 @@ member.contestabilityMonths ??
 );
 
 return [3,6,12].includes(value)
-? value
-: 0;
+?
+value
+:
+0;
 
 }
 
 
 function isFreePromo(member){
 
-const date =
+const d =
 getStartDate(member);
 
-if(!date){
+if(!d){
 return false;
 }
 
 return(
-date >= new Date("2025-02-01T00:00:00") &&
-date <= new Date("2025-06-30T23:59:59")
+d >= new Date("2025-02-01T00:00:00") &&
+d <= new Date("2025-06-30T23:59:59")
 );
 
 }
 
 
-/* =========================
-   PAYMENT CALCULATION
-========================= */
+/* =====================================================
+ORIGINAL PAYMENT
+===================================================== */
 
-function calculateYear(member,year,startMonth){
+function originalPayments(
+member,
+year,
+month
+){
 
-const names = [
-"January","February","March","April",
-"May","June","July","August",
-"September","October","November","December"
-];
+return allPayments.filter(
+payment => {
+
+if(
+String(
+payment.plan_holder_id ??
+""
+) !==
+String(
+member.id ??
+""
+)
+){
+
+return false;
+
+}
+
+const d =
+parseDate(
+getPaymentDate(payment)
+);
+
+if(!d){
+return false;
+}
+
+return(
+d.getFullYear() === year &&
+d.getMonth()+1 === month
+);
+
+}
+);
+
+}
+
+
+/* =====================================================
+CALCULATE MONTHS
+
+IMPORTANT:
+
+The display always has EXACTLY
+one row for every month.
+
+Advance money is tracked in
+"coveredUnits".
+
+It NEVER creates extra rows.
+===================================================== */
+
+function calculateYear(
+member,
+year,
+firstMonth
+){
 
 const rate =
 getMonthlyRate(member);
 
-const startDate =
-getStartDate(member);
-
-const contestTarget =
+const target =
 getContestabilityMonths(member);
 
-let unpaidMonths = 0;
-let qualifying = 0;
-let restartPending = false;
+let coveredUnits = 0;
 
-const records = [];
+let consecutive = 0;
+
+let unpaidOutstanding = 0;
+
+const rows = [];
 
 for(
-let month=startMonth;
+let month=1;
 month<=12;
 month++
 ){
 
 const name =
-names[month-1];
+monthNames[month-1];
 
-const beforeApplication =
-startDate &&
-(
-year < startDate.getFullYear() ||
-(
-year === startDate.getFullYear() &&
-month < startDate.getMonth()+1
-)
-);
+if(month < firstMonth){
 
-if(beforeApplication){
-
-records.push({
-year,
+rows.push({
 month,
 name,
 amount:null,
 status:"NOT STARTED",
 remarks:"NOT STARTED",
+record:null,
 date:"",
-receipt:"",
-row:null
+receipt:""
 });
 
 continue;
 
 }
 
-
-const row =
+const record =
 getMonthlyRecord(
 member,
 year,
 month
 );
 
-let amount =
-row
-? Number(row.amount) || 0
-: 0;
+const actualAmount =
+record
+?
+Number(record.amount) || 0
+:
+0;
+
+let displayAmount =
+record
+?
+actualAmount
+:
+0;
+
+let status =
+"UNPAID";
+
+let remarks =
+"UNPAID";
+
+let date =
+record?.payment_date || "";
+
+let receipt =
+record?.receipt_number || "";
 
 
 /*
- FREE FIRST MONTH PROMO
+Use the stored monthly record's
+date/receipt first.
 
-Only members who applied between
-Feb 1 and Jun 30 2025 receive
-one free first month.
-
-The registration ₱180 is NOT
-counted as monthly payment.
+If none exists, show the original
+payment transaction information.
 */
+
+const originals =
+originalPayments(
+member,
+year,
+month
+);
+
+if(
+!date &&
+originals.length
+){
+
+date =
+getPaymentDate(
+originals[
+originals.length-1
+]
+);
+
+}
+
+if(
+!receipt &&
+originals.length
+){
+
+receipt =
+getReceipt(
+originals[
+originals.length-1
+]
+);
+
+}
+
+
+/*
+FREE FIRST MONTH PROMO
+*/
+
+const start =
+getStartDate(member);
+
+const isFirstMonth =
+start &&
+year === start.getFullYear() &&
+month === start.getMonth()+1;
 
 if(
 isFreePromo(member) &&
-year === 2025 &&
-month === startDate.getMonth()+1 &&
-amount === 0
+isFirstMonth &&
+actualAmount === 0
 ){
 
-qualifying++;
+status =
+"PAID";
 
-records.push({
-year,
+remarks =
+"FREE 1ST MONTH PROMO";
+
+consecutive++;
+
+rows.push({
 month,
 name,
 amount:0,
-status:"PAID",
-remarks:"FREE 1ST MONTH PROMO",
-date:"",
-receipt:"",
-row
+status,
+remarks,
+record,
+date,
+receipt
 });
 
 continue;
@@ -1068,57 +1355,119 @@ continue;
 
 
 /*
- NO PAYMENT
-*/
-
-if(amount <= 0){
-
-unpaidMonths++;
-
-qualifying = 0;
-
-records.push({
-year,
-month,
-name,
-amount:0,
-status:"UNPAID",
-remarks:"UNPAID",
-date:"",
-receipt:"",
-row
-});
-
-continue;
-
-}
-
-
-/*
- PAYMENT EXISTS
-
-A payment can cover old unpaid
-months first.
+1. Existing advance from an earlier
+month covers this month.
 
 Example:
 
-April = 0
-May = 760
-monthly = 380
+January = ₱1,520
+monthly = ₱380
 
-760 = 2 months
+January transaction has 4 units.
 
-1 payment covers April
-1 payment covers May
+January uses 1.
+February uses 1.
+March uses 1.
+April uses 1.
+*/
 
-Therefore May is where
-contestability restarts.
+if(coveredUnits > 0){
+
+coveredUnits--;
+
+status =
+"COVERED";
+
+remarks =
+"COVERED BY ADVANCE";
+
+consecutive++;
+
+if(
+actualAmount > 0 &&
+rate > 0
+){
+
+/*
+If this month ALSO has a
+recorded payment, its units
+become additional advance
+after this month's coverage.
+*/
+
+const extraUnits =
+Math.max(
+Math.floor(
+actualAmount / rate
+) - 1,
+0
+);
+
+coveredUnits +=
+extraUnits;
+
+}
+
+rows.push({
+month,
+name,
+amount:displayAmount,
+status,
+remarks,
+record,
+date,
+receipt
+});
+
+continue;
+
+}
+
+
+/*
+2. No payment
+*/
+
+if(actualAmount <= 0){
+
+status =
+"UNPAID";
+
+remarks =
+"UNPAID";
+
+unpaidOutstanding++;
+
+consecutive = 0;
+
+rows.push({
+month,
+name,
+amount:0,
+status,
+remarks,
+record,
+date,
+receipt
+});
+
+continue;
+
+}
+
+
+/*
+3. Payment exists
 */
 
 let units =
 rate > 0
-? Math.floor(amount / rate)
-: 1;
+?
+Math.floor(
+actualAmount / rate
+)
+:
+1;
 
 if(units < 1){
 units = 1;
@@ -1126,106 +1475,98 @@ units = 1;
 
 
 /*
- PAY OLD UNPAID MONTHS FIRST
+Payment first clears every old
+unpaid month.
+
+Example:
+
+April = 0
+May = 0
+June = 0
+July = ₱1,520
+
+₱1,520 = 4 units.
+
+3 units clear April/May/June.
+Only 1 unit covers July.
+
+Contestability does NOT restart
+because there is no remaining unit
+for a clean current payment after
+the arrears are cleared.
+
+The member must pay ALL unpaid
+months before contestability can
+restart.
 */
 
-const oldUnpaid =
-unpaidMonths;
+if(unpaidOutstanding > 0){
 
-const coveredOld =
-Math.min(
-oldUnpaid,
-units
-);
+const arrears =
+unpaidOutstanding;
 
-unpaidMonths -=
-coveredOld;
+if(units >= arrears){
 
-units -=
-coveredOld;
+units -= arrears;
 
+unpaidOutstanding = 0;
 
 /*
- IF ALL OLD UNPAID MONTHS
- WERE FULLY PAID, RESTART.
+There must be a fresh current
+month payment after all arrears
+are cleared.
+
+If there is no unit left,
+there is no restart yet.
 */
 
-if(
-oldUnpaid > 0 &&
-unpaidMonths === 0
-){
-
-restartPending = true;
-
-qualifying = 1;
-
-}else if(
-oldUnpaid > 0
-){
-
-qualifying = 0;
-
-}
-
-
-/*
- CURRENT MONTH
-
-If payment still has one unit left,
-it pays the current month.
-*/
-
-let paysCurrent =
-units > 0;
-
-if(paysCurrent){
+if(units > 0){
 
 units--;
 
-if(!restartPending){
-
-qualifying++;
-
-}
-
-}
-
-
-/*
- IF PAYMENT WAS ONLY USED TO
- COVER OLD UNPAID MONTHS,
- IT STILL MEANS THE MEMBER HAS
- CAUGHT UP AND RESTARTS HERE.
-*/
-
-if(
-oldUnpaid > 0 &&
-unpaidMonths === 0
-){
-
-qualifying = 1;
-
-}
-
-
-/*
- REMARKS
-*/
-
-let remarks = "PAID";
-
-if(restartPending){
+consecutive = 1;
 
 remarks =
 "CONTESTABILITY RESTART";
 
-restartPending = false;
+}else{
+
+consecutive = 0;
+
+remarks =
+"ARREARS CLEARED — NO RESTART YET";
 
 }
 
+}else{
+
+unpaidOutstanding -=
+units;
+
+units = 0;
+
+consecutive = 0;
+
+remarks =
+"PARTIAL ARREARS PAYMENT";
+
+}
+
+}else{
+
+/*
+Clean payment.
+One unit pays current month.
+Extra units become advance.
+*/
+
+units--;
+
+consecutive++;
+
 if(
-contestTarget > 0 &&
-qualifying >= contestTarget
+target > 0 &&
+consecutive >= target
 ){
 
 remarks =
@@ -1233,129 +1574,67 @@ remarks =
 
 }
 
+}
+
 
 /*
- PAYMENT DATE / RECEIPT
-
-Use original transaction information
-when available.
+Remaining units are advance for
+following calendar months.
 */
 
-const originalPayments =
-allPayments.filter(
-payment =>
-paymentBelongsToMember(payment,member) &&
-parseDate(getPaymentDate(payment)) &&
-parseDate(getPaymentDate(payment)).getFullYear() === year &&
-parseDate(getPaymentDate(payment)).getMonth()+1 === month
-);
+if(units > 0){
 
-let dateText = "";
-let receiptText = "";
-
-if(originalPayments.length){
-
-const last =
-originalPayments[
-originalPayments.length-1
-];
-
-dateText =
-formatDate(
-getPaymentDate(last)
-);
-
-receiptText =
-getReceipt(last);
+coveredUnits += units;
 
 }
 
 
-records.push({
-year,
-month,
-name,
-amount,
-status:"PAID",
-remarks,
-date:dateText,
-receipt:receiptText,
-row
-});
-
-
 /*
- ADVANCE
-
-If the payment had extra monthly
-units after paying current month,
-the following months are covered.
+If the member just restarted and
+also reaches target, mark completed.
 */
 
-let nextMonth =
-month + 1;
-
-while(
-units > 0 &&
-nextMonth <= 12
+if(
+target > 0 &&
+consecutive >= target
 ){
 
-const nextRow =
-getMonthlyRecord(
-member,
-year,
-nextMonth
-);
+remarks =
+"CONTESTABILITY COMPLETED — CONTINUE MONTHLY PAYMENTS";
 
-const nextAmount =
-nextRow
-? Number(nextRow.amount) || 0
-: 0;
+}
 
+status =
+"PAID";
 
-/*
- Do not overwrite an actual
- payment already recorded.
-*/
-
-if(nextAmount <= 0){
-
-records.push({
-year,
-month:nextMonth,
-name:names[nextMonth-1],
-amount:null,
-status:"ADVANCE",
-remarks:"ADVANCE",
-date:"",
-receipt:"",
-row:nextRow,
-advance:true
+rows.push({
+month,
+name,
+amount:displayAmount,
+status,
+remarks,
+record,
+date,
+receipt
 });
-
-units--;
-
-}
-
-nextMonth++;
-
-}
 
 }
 
 return {
-records,
-contestTarget
+rows,
+target
 };
 
 }
 
 
-/* =========================
-   OVERALL STATUS
-========================= */
+/* =====================================================
+CONTESTABILITY STATUS
+===================================================== */
 
-function getContestabilityStatus(member){
+function getContestabilityStatus(
+member
+){
 
 const target =
 getContestabilityMonths(member);
@@ -1363,22 +1642,16 @@ getContestabilityMonths(member);
 const start =
 getStartDate(member);
 
-if(!target || !start){
+if(
+!target ||
+!start
+){
 
-return {
-text:"CONTESTABILITY PERIOD NOT SET",
-className:""
-};
+return "CONTESTABILITY PERIOD NOT SET";
 
 }
 
-
-/*
- Build the timeline from the
- application date through 2026.
-*/
-
-let qualifying = 0;
+let consecutive = 0;
 let unpaid = 0;
 
 for(
@@ -1387,68 +1660,60 @@ year<=2026;
 year++
 ){
 
-const firstMonth =
+const first =
 year === start.getFullYear()
-? start.getMonth()+1
-: 1;
+?
+start.getMonth()+1
+:
+1;
 
 const calc =
 calculateYear(
 member,
 year,
-firstMonth
+first
 );
 
 for(
-const record of calc.records
+const row of calc.rows
 ){
 
-if(record.status === "UNPAID"){
+if(
+row.status === "UNPAID"
+){
 
 unpaid++;
-
-qualifying = 0;
-
+consecutive=0;
 continue;
 
 }
 
 if(
-record.status === "PAID"
-){
-
-if(
-record.remarks ===
+row.remarks ===
 "CONTESTABILITY RESTART"
 ){
 
-qualifying = 1;
-unpaid = 0;
+consecutive=1;
+unpaid=0;
 
 }else if(
-record.remarks ===
-"FREE 1ST MONTH PROMO"
+row.status === "PAID" ||
+row.status === "COVERED"
 ){
 
-qualifying++;
-
-}else{
-
-qualifying++;
-
+if(unpaid===0){
+consecutive++;
 }
 
 }
 
 if(
-qualifying >= target
+consecutive >= target
 ){
 
-return {
-text:
-"CONTESTABILITY COMPLETED — CONTINUE MONTHLY PAYMENTS",
-className:"completed"
-};
+return(
+"CONTESTABILITY COMPLETED — CONTINUE MONTHLY PAYMENTS"
+);
 
 }
 
@@ -1456,27 +1721,30 @@ className:"completed"
 
 }
 
-return {
-text:
+return(
 "CONTESTABILITY IN PROGRESS — " +
-Math.min(qualifying,target) +
+Math.min(
+consecutive,
+target
+) +
 "/" +
 target +
-" MONTHS",
-className:""
-};
+" MONTHS"
+);
 
 }
 
 
-/* =========================
-   VIEW MEMBER
-========================= */
+/* =====================================================
+VIEW MEMBER
+===================================================== */
 
 function viewMember(member){
 
 const details =
-document.getElementById("memberDetails");
+document.getElementById(
+"memberDetails"
+);
 
 details.innerHTML = "";
 
@@ -1487,12 +1755,14 @@ const column of visibleMemberColumns()
 const box =
 document.createElement("div");
 
-box.className = "detail";
+box.className =
+"detail";
 
 const label =
 document.createElement("b");
 
-label.textContent = column;
+label.textContent =
+column;
 
 const value =
 document.createElement("span");
@@ -1510,7 +1780,8 @@ JSON.stringify(data);
 
 }
 
-value.textContent = data;
+value.textContent =
+data;
 
 box.appendChild(label);
 box.appendChild(value);
@@ -1520,48 +1791,60 @@ details.appendChild(box);
 }
 
 
-const status =
-getContestabilityStatus(member);
+const summary =
+getContestabilityStatus(
+member
+);
 
 document.getElementById(
 "contestabilitySummary"
 ).innerHTML =
 '<div class="summary-box">' +
 '<strong>CONTESTABILITY STATUS:</strong> ' +
-escapeHtml(status.text) +
+escapeHtml(summary) +
 '</div>';
 
 
 renderPaymentYear(
 member,
 2025,
-document.getElementById("payments2025"),
+document.getElementById(
+"payments2025"
+),
 2
 );
 
 renderPaymentYear(
 member,
 2026,
-document.getElementById("payments2026"),
+document.getElementById(
+"payments2026"
+),
 1
 );
 
 document
 .getElementById("memberModal")
-.classList.remove("hidden");
+.classList.remove(
+"hidden"
+);
 
 }
 
 
-/* =========================
-   PAYMENT TABLE
-========================= */
+/* =====================================================
+RENDER PAYMENT YEAR
+
+FIXED 12 MONTH ROWS.
+NO DUPLICATES.
+NO RESHUFFLING.
+===================================================== */
 
 function renderPaymentYear(
 member,
 year,
 container,
-startMonth
+firstMonth
 ){
 
 container.innerHTML = "";
@@ -1570,7 +1853,7 @@ const calc =
 calculateYear(
 member,
 year,
-startMonth
+firstMonth
 );
 
 const table =
@@ -1588,22 +1871,25 @@ document.createElement("tr");
 
 [
 "MONTH",
-"AMOUNT",
+"PAYMENT AMOUNT",
 "STATUS",
 "REMARKS",
 "PAYMENT DATE",
 "RECEIPT NUMBER",
-"EDIT"
-].forEach(text => {
+"ACTION"
+].forEach(
+text => {
 
 const th =
 document.createElement("th");
 
-th.textContent = text;
+th.textContent =
+text;
 
 header.appendChild(th);
 
-});
+}
+);
 
 thead.appendChild(header);
 table.appendChild(thead);
@@ -1613,208 +1899,333 @@ const tbody =
 document.createElement("tbody");
 
 
-for(const record of calc.records){
+/*
+IMPORTANT:
+calc.rows already contains
+one and only one row per month.
+We do not add advance rows.
+*/
+
+for(
+const rowData of calc.rows
+){
 
 const row =
 document.createElement("tr");
 
 
+/* MONTH */
+
 const monthCell =
 document.createElement("td");
 
 monthCell.textContent =
-record.name +
+rowData.name +
 " " +
-record.year;
+year;
+
+row.appendChild(monthCell);
 
 
-/*
- EDITABLE AMOUNT
-*/
+/* AMOUNT */
 
 const amountCell =
 document.createElement("td");
 
-const input =
+const amountInput =
 document.createElement("input");
 
-input.type = "number";
-input.min = "0";
-input.step = "0.01";
-input.className = "payment-edit";
+amountInput.type =
+"number";
 
-if(record.status === "NOT STARTED"){
+amountInput.min =
+"0";
 
-input.value = "";
-input.disabled = true;
+amountInput.step =
+"0.01";
 
-}else if(record.status === "ADVANCE"){
+amountInput.className =
+"payment-input";
 
-input.value = "";
-input.disabled = true;
+amountInput.value =
+rowData.record
+?
+Number(rowData.record.amount) || 0
+:
+rowData.status === "UNPAID"
+?
+0
+:
+"";
 
-}else{
+if(
+rowData.status ===
+"NOT STARTED"
+){
 
-input.value =
-record.row
-? Number(record.row.amount) || 0
-: Number(record.amount) || 0;
+amountInput.disabled =
+true;
 
 }
 
-amountCell.appendChild(input);
+amountCell.appendChild(
+amountInput
+);
+
+row.appendChild(
+amountCell
+);
 
 
-/*
- STATUS
-*/
+/* STATUS */
 
 const statusCell =
 document.createElement("td");
 
 statusCell.textContent =
-record.status;
+rowData.status;
 
-if(record.status === "PAID")
-statusCell.className = "paid";
+if(
+rowData.status === "PAID"
+){
 
-if(record.status === "UNPAID")
-statusCell.className = "unpaid";
+statusCell.className =
+"paid";
 
-if(record.status === "ADVANCE")
-statusCell.className = "advance";
+}else if(
+rowData.status === "UNPAID"
+){
 
-if(record.status === "NOT STARTED")
-statusCell.className = "not-started";
+statusCell.className =
+"unpaid";
+
+}else if(
+rowData.status === "COVERED"
+){
+
+statusCell.className =
+"covered";
+
+}else{
+
+statusCell.className =
+"not-started";
+
+}
+
+row.appendChild(
+statusCell
+);
 
 
-/*
- REMARKS
-*/
+/* REMARKS */
 
 const remarksCell =
 document.createElement("td");
 
 remarksCell.textContent =
-record.remarks;
+rowData.remarks;
 
 if(
-record.remarks.includes("RESTART")
+rowData.remarks.includes(
+"RESTART"
+)
 ){
 
-remarksCell.className = "restart";
+remarksCell.className =
+"restart";
 
 }
 
 if(
-record.remarks.includes("COMPLETED")
+rowData.remarks.includes(
+"COMPLETED"
+)
 ){
 
-remarksCell.className = "completed";
+remarksCell.className =
+"completed";
 
 }
 
+row.appendChild(
+remarksCell
+);
 
-/*
- DATE
-*/
+
+/* PAYMENT DATE */
 
 const dateCell =
 document.createElement("td");
 
-dateCell.textContent =
-record.date || "—";
+const dateInput =
+document.createElement("input");
+
+dateInput.type =
+"date";
+
+dateInput.className =
+"date-input";
+
+if(rowData.record?.payment_date){
+
+dateInput.value =
+String(
+rowData.record.payment_date
+).slice(0,10);
+
+}else if(rowData.date){
+
+dateInput.value =
+String(
+rowData.date
+).slice(0,10);
+
+}
+
+if(
+rowData.status ===
+"NOT STARTED"
+){
+
+dateInput.disabled =
+true;
+
+}
+
+dateCell.appendChild(
+dateInput
+);
+
+row.appendChild(
+dateCell
+);
 
 
-/*
- RECEIPT
-*/
+/* RECEIPT */
 
 const receiptCell =
 document.createElement("td");
 
-receiptCell.textContent =
-record.receipt || "—";
+const receiptInput =
+document.createElement("input");
+
+receiptInput.type =
+"text";
+
+receiptInput.className =
+"receipt-input";
+
+receiptInput.value =
+rowData.record?.receipt_number ??
+rowData.receipt ??
+"";
+
+if(
+rowData.status ===
+"NOT STARTED"
+){
+
+receiptInput.disabled =
+true;
+
+}
+
+receiptCell.appendChild(
+receiptInput
+);
+
+row.appendChild(
+receiptCell
+);
 
 
-/*
- SAVE
-*/
+/* ACTION */
 
-const editCell =
+const actionCell =
 document.createElement("td");
 
-const saveButton =
+const save =
 document.createElement("button");
 
-saveButton.className =
+save.className =
 "month-save";
 
-saveButton.textContent =
+save.textContent =
 "SAVE";
 
-saveButton.onclick =
+save.onclick =
 () =>
 saveMonthlyPayment(
 member,
 year,
-record.month,
-input.value
+rowData.month,
+amountInput.value,
+dateInput.value,
+receiptInput.value
 );
 
-const clearButton =
+const clear =
 document.createElement("button");
 
-clearButton.className =
+clear.className =
 "month-clear";
 
-clearButton.textContent =
+clear.textContent =
 "CLEAR";
 
-clearButton.onclick =
+clear.onclick =
 () =>
 clearMonthlyPayment(
 member,
 year,
-record.month
+rowData.month
 );
 
-editCell.appendChild(saveButton);
-editCell.appendChild(clearButton);
+actionCell.appendChild(
+save
+);
 
+actionCell.appendChild(
+clear
+);
 
-row.appendChild(monthCell);
-row.appendChild(amountCell);
-row.appendChild(statusCell);
-row.appendChild(remarksCell);
-row.appendChild(dateCell);
-row.appendChild(receiptCell);
-row.appendChild(editCell);
+row.appendChild(
+actionCell
+);
 
-tbody.appendChild(row);
-
-}
-
-table.appendChild(tbody);
-
-container.appendChild(table);
+tbody.appendChild(
+row
+);
 
 }
 
+table.appendChild(
+tbody
+);
 
-/* =========================
-   SAVE MONTHLY PAYMENT
-========================= */
+container.appendChild(
+table
+);
+
+}
+
+
+/* =====================================================
+SAVE MONTHLY PAYMENT
+===================================================== */
 
 async function saveMonthlyPayment(
 member,
 year,
 month,
-value
+amount,
+paymentDateValue,
+receiptNumber
 ){
 
-const amount =
-Number(value) || 0;
+const value =
+Number(amount) || 0;
 
 const existing =
 getMonthlyRecord(
@@ -1823,60 +2234,107 @@ year,
 month
 );
 
+const body = {
+
+amount:value,
+
+payment_date:
+paymentDateValue || null,
+
+receipt_number:
+receiptNumber || null
+
+};
+
 try{
 
 if(existing){
 
 await supabaseRequest(
+
 SUPABASE_URL +
 "/rest/v1/" +
 MONTHLY_TABLE +
 "?id=eq." +
-encodeURIComponent(existing.id),
+encodeURIComponent(
+existing.id
+),
+
 {
 method:"PATCH",
+
 headers:{
-"Prefer":"return=representation"
+"Prefer":
+"return=representation"
 },
-body:JSON.stringify({
-amount,
-updated_at:new Date().toISOString()
-})
+
+body:
+JSON.stringify(body)
 }
+
 );
 
-existing.amount =
-amount;
+Object.assign(
+existing,
+body
+);
 
 }else{
 
 const result =
 await supabaseRequest(
+
 SUPABASE_URL +
 "/rest/v1/" +
 MONTHLY_TABLE,
+
 {
 method:"POST",
+
 headers:{
-"Prefer":"return=representation"
+"Prefer":
+"return=representation"
 },
-body:JSON.stringify({
-plan_holder_id:member.id,
-payment_year:year,
-payment_month:month,
-amount,
-notes:"Edited from Owner Dashboard"
+
+body:
+JSON.stringify({
+
+plan_holder_id:
+member.id,
+
+payment_year:
+year,
+
+payment_month:
+month,
+
+amount:value,
+
+payment_date:
+paymentDateValue || null,
+
+receipt_number:
+receiptNumber || null,
+
+notes:
+"Edited from Owner Dashboard"
+
 })
 }
+
 );
 
 if(Array.isArray(result)){
 
-allMonthly.push(...result);
+allMonthly.push(
+...result
+);
 
 }else if(result){
 
-allMonthly.push(result);
+allMonthly.push(
+result
+);
 
 }
 
@@ -1887,12 +2345,12 @@ viewMember(member);
 document.getElementById(
 "status"
 ).textContent =
-"✅ Monthly payment saved.";
+"✅ Monthly payment, date and receipt number saved.";
 
 }catch(e){
 
 alert(
-"Unable to save monthly payment:\n" +
+"Unable to save monthly record:\n" +
 e.message
 );
 
@@ -1901,9 +2359,9 @@ e.message
 }
 
 
-/* =========================
-   CLEAR MONTH
-========================= */
+/* =====================================================
+CLEAR MONTH
+===================================================== */
 
 async function clearMonthlyPayment(
 member,
@@ -1927,36 +2385,52 @@ return;
 try{
 
 await supabaseRequest(
+
 SUPABASE_URL +
 "/rest/v1/" +
 MONTHLY_TABLE +
 "?id=eq." +
-encodeURIComponent(existing.id),
+encodeURIComponent(
+existing.id
+),
+
 {
 method:"PATCH",
+
 headers:{
-"Prefer":"return=representation"
+"Prefer":
+"return=representation"
 },
-body:JSON.stringify({
+
+body:
+JSON.stringify({
+
 amount:0,
-updated_at:new Date().toISOString()
+
+payment_date:null,
+
+receipt_number:null
+
 })
 }
+
 );
 
 existing.amount = 0;
+existing.payment_date = null;
+existing.receipt_number = null;
 
 viewMember(member);
 
 document.getElementById(
 "status"
 ).textContent =
-"✅ Monthly payment cleared.";
+"✅ Monthly record cleared.";
 
 }catch(e){
 
 alert(
-"Unable to clear monthly payment:\n" +
+"Unable to clear monthly record:\n" +
 e.message
 );
 
@@ -1965,9 +2439,9 @@ e.message
 }
 
 
-/* =========================
-   EDIT MEMBER
-========================= */
+/* =====================================================
+EDIT MEMBER
+===================================================== */
 
 function openEdit(member){
 
@@ -1975,7 +2449,9 @@ editingMember =
 member;
 
 const form =
-document.getElementById("editForm");
+document.getElementById(
+"editForm"
+);
 
 form.innerHTML = "";
 
@@ -2002,21 +2478,28 @@ column;
 let input;
 
 if(
-/remark|note|comment/i.test(column)
+/remark|note|comment/i.test(
+column
+)
 ){
 
 input =
-document.createElement("textarea");
+document.createElement(
+"textarea"
+);
 
 }else{
 
 input =
-document.createElement("input");
+document.createElement(
+"input"
+);
 
 }
 
 input.id =
-"edit_" + column;
+"edit_" +
+column;
 
 input.value =
 member[column] ?? "";
@@ -2034,7 +2517,9 @@ document.getElementById(
 
 document.getElementById(
 "editModal"
-).classList.remove("hidden");
+).classList.remove(
+"hidden"
+);
 
 }
 
@@ -2046,7 +2531,9 @@ return;
 }
 
 const error =
-document.getElementById("editError");
+document.getElementById(
+"editError"
+);
 
 error.textContent =
 "Saving changes...";
@@ -2070,8 +2557,10 @@ if(input){
 
 updates[column] =
 input.value === ""
-? null
-: input.value;
+?
+null
+:
+input.value;
 
 }
 
@@ -2080,18 +2569,27 @@ input.value === ""
 try{
 
 await supabaseRequest(
+
 SUPABASE_URL +
 "/rest/v1/" +
 MEMBERS_TABLE +
 "?id=eq." +
-encodeURIComponent(editingMember.id),
+encodeURIComponent(
+editingMember.id
+),
+
 {
 method:"PATCH",
+
 headers:{
-"Prefer":"return=representation"
+"Prefer":
+"return=representation"
 },
-body:JSON.stringify(updates)
+
+body:
+JSON.stringify(updates)
 }
+
 );
 
 Object.assign(
@@ -2121,14 +2619,16 @@ e.message;
 }
 
 
-/* =========================
-   ADD MEMBER
-========================= */
+/* =====================================================
+ADD MEMBER
+===================================================== */
 
 function openAddMember(){
 
 const form =
-document.getElementById("addForm");
+document.getElementById(
+"addForm"
+);
 
 form.innerHTML = "";
 
@@ -2149,26 +2649,34 @@ group.className =
 const label =
 document.createElement("label");
 
-label.textContent = column;
+label.textContent =
+column;
 
 let input;
 
 if(
-/remark|note|comment/i.test(column)
+/remark|note|comment/i.test(
+column
+)
 ){
 
 input =
-document.createElement("textarea");
+document.createElement(
+"textarea"
+);
 
 }else{
 
 input =
-document.createElement("input");
+document.createElement(
+"input"
+);
 
 }
 
 input.id =
-"add_" + column;
+"add_" +
+column;
 
 group.appendChild(label);
 group.appendChild(input);
@@ -2183,7 +2691,9 @@ document.getElementById(
 
 document.getElementById(
 "addModal"
-).classList.remove("hidden");
+).classList.remove(
+"hidden"
+);
 
 }
 
@@ -2191,7 +2701,9 @@ document.getElementById(
 async function addMember(){
 
 const error =
-document.getElementById("addError");
+document.getElementById(
+"addError"
+);
 
 error.textContent =
 "Saving new member...";
@@ -2215,8 +2727,10 @@ if(input){
 
 newMember[column] =
 input.value === ""
-? null
-: input.value;
+?
+null
+:
+input.value;
 
 }
 
@@ -2226,25 +2740,36 @@ try{
 
 const result =
 await supabaseRequest(
+
 SUPABASE_URL +
 "/rest/v1/" +
 MEMBERS_TABLE,
+
 {
 method:"POST",
+
 headers:{
-"Prefer":"return=representation"
+"Prefer":
+"return=representation"
 },
-body:JSON.stringify(newMember)
+
+body:
+JSON.stringify(newMember)
 }
+
 );
 
 if(Array.isArray(result)){
 
-allMembers.push(...result);
+allMembers.push(
+...result
+);
 
 }else if(result){
 
-allMembers.push(result);
+allMembers.push(
+result
+);
 
 }
 
@@ -2280,15 +2805,19 @@ e.message;
 }
 
 
-/* =========================
-   CLOSE
-========================= */
+/* =====================================================
+CLOSE
+===================================================== */
 
 function closeMember(){
 
 document
-.getElementById("memberModal")
-.classList.add("hidden");
+.getElementById(
+"memberModal"
+)
+.classList.add(
+"hidden"
+);
 
 }
 
@@ -2296,8 +2825,12 @@ document
 function closeEdit(){
 
 document
-.getElementById("editModal")
-.classList.add("hidden");
+.getElementById(
+"editModal"
+)
+.classList.add(
+"hidden"
+);
 
 editingMember = null;
 
@@ -2307,15 +2840,19 @@ editingMember = null;
 function closeAddMember(){
 
 document
-.getElementById("addModal")
-.classList.add("hidden");
+.getElementById(
+"addModal"
+)
+.classList.add(
+"hidden"
+);
 
 }
 
 
-/* =========================
-   LOGOUT
-========================= */
+/* =====================================================
+LOGOUT
+===================================================== */
 
 async function logout(){
 
@@ -2324,15 +2861,22 @@ try{
 if(accessToken){
 
 await fetch(
+
 SUPABASE_URL +
 "/auth/v1/logout",
+
 {
 method:"POST",
+
 headers:{
-"apikey":SUPABASE_KEY,
+"apikey":
+SUPABASE_KEY,
+
 "Authorization":
-"Bearer " + accessToken
+"Bearer " +
+accessToken
 }
+
 }
 );
 
@@ -2355,12 +2899,13 @@ location.reload();
 }
 
 
-/* =========================
-   START
-========================= */
+/* =====================================================
+START
+===================================================== */
 
 checkLogin();
 
 </script>
+
 </body>
 </html>
