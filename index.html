@@ -174,3 +174,842 @@ tr:hover{
   background:#07572e;
   color:white;
   padding:8
+px;
+}
+
+.hidden{
+  display:none;
+}
+
+.payment-box{
+  margin-top:20px;
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 2px 8px #0001;
+}
+
+.payment-box h2{
+  color:#07572e;
+}
+
+.small{
+  color:#666;
+  font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="loginPage" class="login-box">
+
+<h2>FutureCare Owner Login</h2>
+
+<p class="small">Owner access only.</p>
+
+<input
+id="email"
+type="email"
+placeholder="Owner email">
+
+<input
+id="password"
+type="password"
+placeholder="Password">
+
+<button class="login-btn" onclick="login()">
+LOGIN
+</button>
+
+<div id="loginError"></div>
+
+</div>
+
+
+<div id="dashboard" class="hidden">
+
+<header>
+
+<div class="header-row">
+
+<h1>FutureCare Owner Dashboard</h1>
+
+<button class="logout" onclick="logout()">
+LOGOUT
+</button>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+<div id="status" class="message">
+Connecting to Supabase...
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+<h3>TOTAL MEMBERS</h3>
+<strong id="totalMembers">0</strong>
+</div>
+
+<div class="card">
+<h3>RECORDS LOADED</h3>
+<strong id="recordsLoaded">0</strong>
+</div>
+
+<div class="card">
+<h3>TOTAL PAYMENTS</h3>
+<strong id="totalPayments">0</strong>
+</div>
+
+<div class="card">
+<h3>TOTAL PAYMENT AMOUNT</h3>
+<strong id="totalAmount">₱0</strong>
+</div>
+
+</div>
+
+
+<input
+id="search"
+class="search"
+type="text"
+placeholder="Search member, Client ID, agent, package..."
+oninput="searchMembers()">
+
+
+<div class="table-wrap">
+
+<div id="loading" class="loading">
+Loading FutureCare members...
+</div>
+
+<table id="membersTable" class="hidden">
+
+<thead id="tableHead"></thead>
+
+<tbody id="tableBody"></tbody>
+
+</table>
+
+</div>
+
+
+<div id="memberDetails" class="payment-box hidden">
+
+<h2>Member Details</h2>
+
+<div id="memberInfo"></div>
+
+<h2>Payment Records</h2>
+
+<div class="table-wrap">
+
+<table id="paymentsTable">
+
+<thead id="paymentsHead"></thead>
+
+<tbody id="paymentsBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+"https://sdxeiofegiqfldpugdqb.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_LFR3IVJkVTicyoEVm1KJwQ_FzogaNP-";
+
+const OWNER_EMAIL =
+"futurcaremplan@gmail.com";
+
+const MEMBERS_TABLE =
+"plan_holders";
+
+const PAYMENTS_TABLE =
+"payments";
+
+let allMembers=[];
+let allPayments=[];
+let memberColumns=[];
+let paymentColumns=[];
+
+
+async function supabaseRequest(url,options={}){
+
+const response=await fetch(url,{
+
+...options,
+
+headers:{
+"apikey":SUPABASE_KEY,
+"Authorization":"Bearer "+SUPABASE_KEY,
+"Content-Type":"application/json",
+...(options.headers||{})
+}
+
+});
+
+if(!response.ok){
+
+const text=await response.text();
+
+throw new Error(
+response.status+" - "+text
+);
+
+}
+
+return response.json();
+
+}
+
+
+async function login(){
+
+const email=
+document.getElementById("email").value.trim();
+
+const password=
+document.getElementById("password").value;
+
+const error=
+document.getElementById("loginError");
+
+error.innerHTML="";
+
+
+if(
+email.toLowerCase() !==
+OWNER_EMAIL.toLowerCase()
+){
+
+error.innerHTML=
+'<div class="message error">Owner access only.</div>';
+
+return;
+
+}
+
+
+if(!email||!password){
+
+error.innerHTML=
+'<div class="message error">Enter your email and password.</div>';
+
+return;
+
+}
+
+
+try{
+
+const response=await fetch(
+
+SUPABASE_URL+
+"/auth/v1/token?grant_type=password",
+
+{
+
+method:"POST",
+
+headers:{
+"apikey":SUPABASE_KEY,
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+email:email,
+password:password
+})
+
+}
+
+);
+
+
+const data=await response.json();
+
+
+if(!response.ok){
+
+throw new Error(
+data.msg||
+data.message||
+data.error_description||
+"Login failed."
+);
+
+}
+
+
+if(!data.user||!data.access_token){
+
+throw new Error(
+"Owner account could not be verified."
+);
+
+}
+
+
+if(
+data.user.email.toLowerCase() !==
+OWNER_EMAIL.toLowerCase()
+){
+
+throw new Error(
+"This account is not the Owner account."
+);
+
+}
+
+
+localStorage.setItem(
+"futurecare_owner_token",
+data.access_token
+);
+
+localStorage.setItem(
+"futurecare_owner_email",
+data.user.email
+);
+
+
+document
+.getElementById("loginPage")
+.classList.add("hidden");
+
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
+
+
+loadDashboard();
+
+}
+catch(err){
+
+error.innerHTML=
+'<div class="message error">'+
+escapeHtml(err.message)+
+'</div>';
+
+}
+
+}
+
+
+function checkLogin(){
+
+const token=
+localStorage.getItem(
+"futurecare_owner_token"
+);
+
+const email=
+localStorage.getItem(
+"futurecare_owner_email"
+);
+
+
+if(
+token&&
+email&&
+email.toLowerCase()===
+OWNER_EMAIL.toLowerCase()
+){
+
+document
+.getElementById("loginPage")
+.classList.add("hidden");
+
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
+
+loadDashboard();
+
+}
+
+}
+
+
+async function loadDashboard(){
+
+const status=
+document.getElementById("status");
+
+try{
+
+status.innerHTML=
+"Loading FutureCare members and payments...";
+
+
+allMembers=
+await supabaseRequest(
+
+SUPABASE_URL+
+"/rest/v1/"+
+MEMBERS_TABLE+
+"?select=*"+
+"&order=id.asc"
+
+);
+
+
+allPayments=
+await supabaseRequest(
+
+SUPABASE_URL+
+"/rest/v1/"+
+PAYMENTS_TABLE+
+"?select=*"+
+"&order=payment_date.asc"
+
+);
+
+
+if(allMembers.length){
+
+memberColumns=
+Object.keys(allMembers[0]);
+
+}
+
+
+if(allPayments.length){
+
+paymentColumns=
+Object.keys(allPayments[0]);
+
+}
+
+
+document.getElementById(
+"totalMembers"
+).textContent=
+allMembers.length;
+
+
+document.getElementById(
+"recordsLoaded"
+).textContent=
+allMembers.length;
+
+
+document.getElementById(
+"totalPayments"
+).textContent=
+allPayments.length;
+
+
+let total=0;
+
+allPayments.forEach(payment=>{
+
+const amount=
+Number(payment.amount);
+
+if(!isNaN(amount)){
+total+=amount;
+}
+
+});
+
+
+document.getElementById(
+"totalAmount"
+).textContent=
+"₱"+total.toLocaleString();
+
+
+status.className=
+"message success";
+
+status.innerHTML=
+"✅ Connected to Supabase. "+
+allMembers.length+
+" member records loaded and "+
+allPayments.length+
+" payment records loaded.";
+
+
+document
+.getElementById("loading")
+.classList.add("hidden");
+
+
+document
+.getElementById("membersTable")
+.classList.remove("hidden");
+
+
+renderMembers(allMembers);
+
+}
+catch(err){
+
+status.className=
+"message error";
+
+status.innerHTML=
+"❌ Unable to load data: "+
+escapeHtml(err.message);
+
+document.getElementById(
+"loading"
+).innerHTML=
+"Unable to load FutureCare records.";
+
+}
+
+}
+
+
+function renderMembers(members){
+
+const head=
+document.getElementById("tableHead");
+
+const body=
+document.getElementById("tableBody");
+
+head.innerHTML="";
+body.innerHTML="";
+
+
+if(!members.length){
+
+body.innerHTML=
+'<tr><td>No members found.</td></tr>';
+
+return;
+
+}
+
+
+let header="<tr>";
+
+memberColumns.forEach(column=>{
+
+header+=
+"<th>"+
+escapeHtml(column)+
+"</th>";
+
+});
+
+
+header+="<th>ACTION</th></tr>";
+
+head.innerHTML=header;
+
+
+members.forEach(member=>{
+
+let row="<tr>";
+
+memberColumns.forEach(column=>{
+
+let value=member[column];
+
+if(value===null||
+value===undefined){
+
+value="";
+
+}
+
+row+=
+"<td>"+
+escapeHtml(String(value))+
+"</td>";
+
+});
+
+
+row+=
+"<td>"+
+'<button class="view-btn" onclick="viewMember(\''+
+String(member.id).replace(/'/g,"\\'")+
+'\')">VIEW</button>'+
+"</td>";
+
+row+="</tr>";
+
+body.innerHTML+=row;
+
+});
+
+}
+
+
+function searchMembers(){
+
+const search=
+document.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
+
+if(!search){
+
+renderMembers(allMembers);
+
+return;
+
+}
+
+
+const filtered=
+allMembers.filter(member=>{
+
+return memberColumns.some(column=>{
+
+return String(
+member[column]??""
+)
+.toLowerCase()
+.includes(search);
+
+});
+
+});
+
+
+renderMembers(filtered);
+
+}
+
+
+function viewMember(id){
+
+const member=
+allMembers.find(
+item=>String(item.id)===String(id)
+);
+
+
+if(!member)return;
+
+
+const details=
+document.getElementById(
+"memberDetails"
+);
+
+const info=
+document.getElementById(
+"memberInfo"
+);
+
+
+details.classList.remove("hidden");
+
+
+let html="<table>";
+
+memberColumns.forEach(column=>{
+
+let value=member[column];
+
+if(value===null||
+value===undefined){
+
+value="";
+
+}
+
+html+=
+"<tr>"+
+"<th>"+
+escapeHtml(column)+
+"</th>"+
+"<td>"+
+escapeHtml(String(value))+
+"</td>"+
+"</tr>";
+
+});
+
+
+html+="</table>";
+
+info.innerHTML=html;
+
+
+const memberPayments=
+allPayments.filter(payment=>{
+
+return String(
+payment.plan_holder_id
+)===String(member.id);
+
+});
+
+
+renderPayments(memberPayments);
+
+
+details.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function renderPayments(payments){
+
+const head=
+document.getElementById(
+"paymentsHead"
+);
+
+const body=
+document.getElementById(
+"paymentsBody"
+);
+
+head.innerHTML="";
+body.innerHTML="";
+
+
+if(!paymentColumns.length){
+
+body.innerHTML=
+'<tr><td>No payment columns found.</td></tr>';
+
+return;
+
+}
+
+
+let header="<tr>";
+
+paymentColumns.forEach(column=>{
+
+header+=
+"<th>"+
+escapeHtml(column)+
+"</th>";
+
+});
+
+header+="</tr>";
+
+head.innerHTML=header;
+
+
+if(!payments.length){
+
+body.innerHTML=
+'<tr><td>No payment records for this member.</td></tr>';
+
+return;
+
+}
+
+
+payments.forEach(payment=>{
+
+let row="<tr>";
+
+paymentColumns.forEach(column=>{
+
+let value=payment[column];
+
+if(value===null||
+value===undefined){
+
+value="";
+
+}
+
+
+if(
+column==="amount"&&
+value!==""
+){
+
+const number=
+Number(value);
+
+if(!isNaN(number)){
+
+value=
+"₱"+
+number.toLocaleString();
+
+}
+
+}
+
+
+row+=
+"<td>"+
+escapeHtml(String(value))+
+"</td>";
+
+});
+
+
+row+="</tr>";
+
+body.innerHTML+=row;
+
+});
+
+}
+
+
+function logout(){
+
+localStorage.removeItem(
+"futurecare_owner_token"
+);
+
+localStorage.removeItem(
+"futurecare_owner_email"
+);
+
+location.reload();
+
+}
+
+
+function escapeHtml(value){
+
+return value
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+checkLogin();
+
+</script>
+
+</body>
+</html>
