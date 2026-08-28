@@ -3,113 +3,298 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>FutureCare Owner Dashboard</title>
+<title>FutureCare Portal</title>
+
 <style>
 *{box-sizing:border-box}
 :root{--green:#07572e;--light:#f3f7f4;--danger:#b00020}
 body{margin:0;font-family:Arial,sans-serif;background:var(--light);color:#222}
 .hidden{display:none!important}
-button{border:0;border-radius:8px;padding:11px 16px;font-weight:bold;cursor:pointer}
-.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{width:100%;max-width:430px;background:#fff;padding:30px;border-radius:18px;box-shadow:0 4px 20px #0002}
-.fc-logo{width:90px;height:90px;border-radius:50%;background:#fff;border:6px solid var(--green);color:var(--green);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:bold;font-size:13px;line-height:1.1;margin:0 auto 15px}
+
+button{
+border:0;border-radius:8px;padding:11px 16px;
+font-weight:bold;cursor:pointer
+}
+
+.login-page{
+min-height:100vh;display:flex;align-items:center;
+justify-content:center;padding:20px
+}
+
+.login-box{
+width:100%;max-width:430px;background:#fff;padding:30px;
+border-radius:18px;box-shadow:0 4px 20px #0002
+}
+
+.fc-logo{
+width:90px;height:90px;border-radius:50%;background:#fff;
+border:6px solid var(--green);color:var(--green);
+display:flex;align-items:center;justify-content:center;
+text-align:center;font-weight:bold;font-size:13px;
+line-height:1.1;margin:0 auto 15px
+}
+
 .login-box h2{text-align:center;color:var(--green);margin:5px 0}
 .login-box p{text-align:center;color:#666}
-.login-box input{width:100%;padding:14px;margin:7px 0;border:1px solid #ccc;border-radius:8px;font-size:16px}
-.login-btn{width:100%;background:var(--green);color:#fff;margin-top:8px}
+
+.login-box input{
+width:100%;padding:14px;margin:7px 0;
+border:1px solid #ccc;border-radius:8px;font-size:16px
+}
+
+.login-btn{
+width:100%;background:var(--green);color:#fff;margin-top:8px
+}
+
 .error{color:var(--danger);margin-top:10px;white-space:pre-wrap}
-header{background:var(--green);color:#fff;padding:14px 20px;position:sticky;top:0;z-index:20}
-.header-inner{max-width:1800px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+
+header{
+background:var(--green);color:#fff;padding:14px 20px;
+position:sticky;top:0;z-index:20
+}
+
+.header-inner{
+max-width:1800px;margin:auto;display:flex;
+align-items:center;justify-content:space-between;gap:20px
+}
+
 .brand{display:flex;align-items:center;gap:12px}
-.header-logo{width:60px;height:60px;min-width:60px;border-radius:50%;background:#fff;overflow:hidden}
-.header-logo img{width:100%;height:100%;object-fit:contain}
+
+.header-logo{
+width:60px;height:60px;min-width:60px;border-radius:50%;
+background:#fff;overflow:hidden
+}
+
+.header-logo img{
+width:100%;height:100%;object-fit:contain
+}
+
 .brand h1{margin:0;font-size:25px}
 .brand small{opacity:.9}
+
 .logout{background:#fff;color:var(--green)}
-.container{max-width:1800px;margin:auto;padding:18px}
-.status{background:#fff;padding:14px;border-radius:10px;margin-bottom:16px;box-shadow:0 2px 7px #0001}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
-.card{background:#fff;padding:18px;border-radius:12px;box-shadow:0 2px 7px #0001}
+
+.container{
+max-width:1800px;margin:auto;padding:18px
+}
+
+.status{
+background:#fff;padding:14px;border-radius:10px;
+margin-bottom:16px;box-shadow:0 2px 7px #0001
+}
+
+.cards{
+display:grid;grid-template-columns:repeat(4,1fr);
+gap:14px;margin-bottom:16px
+}
+
+.card{
+background:#fff;padding:18px;border-radius:12px;
+box-shadow:0 2px 7px #0001
+}
+
 .card h3{margin:0 0 8px;color:#666;font-size:14px}
 .card strong{color:var(--green);font-size:30px}
-.toolbar{background:#fff;padding:14px;border-radius:12px;margin-bottom:16px;display:flex;gap:10px;box-shadow:0 2px 7px #0001}
-.search{flex:1;min-width:250px;padding:13px;border:2px solid #ccc;border-radius:8px;font-size:16px}
+
+.toolbar{
+background:#fff;padding:14px;border-radius:12px;
+margin-bottom:16px;display:flex;gap:10px;
+box-shadow:0 2px 7px #0001
+}
+
+.search{
+flex:1;min-width:250px;padding:13px;
+border:2px solid #ccc;border-radius:8px;font-size:16px
+}
+
 .add-btn{background:var(--green);color:#fff}
-.table-wrap{background:#fff;border-radius:12px;overflow:auto;box-shadow:0 2px 7px #0001}
+
+.table-wrap{
+background:#fff;border-radius:12px;overflow:auto;
+box-shadow:0 2px 7px #0001
+}
+
 table{border-collapse:collapse;width:100%;min-width:1100px}
 th,td{padding:10px;border-bottom:1px solid #eee;text-align:left;white-space:nowrap}
 th{background:var(--green);color:#fff}
 tr:hover{background:#f5faf7}
+
 .view-btn{background:var(--green);color:#fff;padding:7px 11px}
 .edit-btn{background:#555;color:#fff;padding:7px 11px;margin-left:5px}
-.modal{position:fixed;inset:0;background:#0008;z-index:100;padding:15px;overflow:auto}
-.modal-box{background:#fff;max-width:1550px;margin:20px auto;padding:22px;border-radius:14px}
-.modal-title{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}
+
+.modal{
+position:fixed;inset:0;background:#0008;z-index:100;
+padding:15px;overflow:auto
+}
+
+.modal-box{
+background:#fff;max-width:1550px;margin:20px auto;
+padding:22px;border-radius:14px
+}
+
+.modal-title{
+display:flex;align-items:center;justify-content:space-between;
+gap:15px;margin-bottom:18px
+}
+
 .modal-title h2{color:var(--green);margin:0}
 .close{background:#eee}
-.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.detail{background:#f2f6f3;padding:12px;border-radius:8px}
-.detail b{display:block;color:#666;font-size:12px;margin-bottom:5px}
+
+.detail-grid{
+display:grid;grid-template-columns:repeat(4,1fr);gap:10px
+}
+
+.detail{
+background:#f2f6f3;padding:12px;border-radius:8px
+}
+
+.detail b{
+display:block;color:#666;font-size:12px;margin-bottom:5px
+}
+
 .detail span{word-break:break-word}
-.section-title{color:var(--green);margin-top:25px}
-.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+
+.section-title{
+color:var(--green);margin-top:25px
+}
+
+.form-grid{
+display:grid;grid-template-columns:repeat(3,1fr);gap:13px
+}
+
 .form-group{display:flex;flex-direction:column}
-.form-group label{font-weight:bold;color:#555;margin-bottom:5px}
-.form-group input,.form-group textarea{width:100%;padding:11px;border:1px solid #ccc;border-radius:7px;font-size:15px}
+
+.form-group label{
+font-weight:bold;color:#555;margin-bottom:5px
+}
+
+.form-group input,
+.form-group textarea{
+width:100%;padding:11px;border:1px solid #ccc;
+border-radius:7px;font-size:15px
+}
+
 .form-group textarea{min-height:80px}
-.form-actions{display:flex;gap:10px;margin-top:20px}
+
+.form-actions{
+display:flex;gap:10px;margin-top:20px
+}
+
 .save-btn{background:var(--green);color:#fff}
 .cancel-btn{background:#eee}
-.payment-table{min-width:1250px}
-.payment-input{width:110px;padding:8px;border:1px solid #bbb;border-radius:6px}
-.date-input{width:145px;padding:8px;border:1px solid #bbb;border-radius:6px}
-.receipt-input{width:150px;padding:8px;border:1px solid #bbb;border-radius:6px}
+
+.payment-table{min-width:1100px}
+
+.payment-input{
+width:110px;padding:8px;border:1px solid #bbb;border-radius:6px
+}
+
+.date-input{
+width:145px;padding:8px;border:1px solid #bbb;border-radius:6px
+}
+
+.receipt-input{
+width:150px;padding:8px;border:1px solid #bbb;border-radius:6px
+}
+
 .month-save{background:var(--green);color:#fff;padding:7px 10px}
 .month-clear{background:#eee;padding:7px 10px;margin-left:5px}
-.paid{color:var(--green);font-weight:bold}
-.unpaid{color:var(--danger);font-weight:bold}
-.covered{color:var(--green);font-weight:bold}
-.advance{color:var(--green);font-weight:bold}
-.restart{color:var(--danger);font-weight:bold}
-.completed{color:var(--green);font-weight:bold}
+
+.paid,.covered,.advance,.completed{
+color:var(--green);font-weight:bold
+}
+
+.unpaid,.restart{color:var(--danger);font-weight:bold}
 .not-started{color:#777}
-.summary-box{background:#f2f6f3;border-radius:10px;padding:14px;margin-top:15px}
+
+.summary-box{
+background:#f2f6f3;border-radius:10px;padding:14px;margin-top:15px
+}
+
 .summary-box strong{color:var(--green)}
+
+.member-header{
+background:var(--green);color:#fff;padding:20px;
+border-radius:12px;margin-bottom:16px
+}
+
+.member-header h2{margin:0 0 5px}
+.member-header p{margin:0;opacity:.9}
+
+.readonly-note{
+background:#eaf5ee;color:var(--green);
+padding:12px;border-radius:8px;margin-bottom:15px;
+font-weight:bold
+}
+
 .loading{padding:30px;text-align:center}
+
 @media(max-width:950px){
 .cards{grid-template-columns:repeat(2,1fr)}
 .detail-grid{grid-template-columns:repeat(2,1fr)}
 .form-grid{grid-template-columns:repeat(2,1fr)}
 }
+
 @media(max-width:600px){
 .container{padding:10px}
 .toolbar{flex-direction:column}
 .brand h1{font-size:19px}
 .detail-grid,.form-grid{grid-template-columns:1fr 1fr}
+.cards{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 
 <body>
 
+<!-- =====================================================
+LOGIN
+===================================================== -->
+
 <div id="loginPage" class="login-page">
+
 <div class="login-box">
-<div class="fc-logo">FUTURE<br>CARE</div>
-<h2>FutureCare Owner</h2>
-<p>Owner Dashboard</p>
-<input id="email" type="email" placeholder="Owner email" autocomplete="email">
-<input id="password" type="password" placeholder="Password" autocomplete="current-password">
-<button class="login-btn" onclick="login()">LOGIN</button>
+
+<div class="fc-logo">
+FUTURE<br>CARE
+</div>
+
+<h2>FutureCare Portal</h2>
+<p>Owner & Plan Holder Login</p>
+
+<input
+id="email"
+type="text"
+placeholder="Email / Client ID"
+autocomplete="username">
+
+<input
+id="password"
+type="password"
+placeholder="Password"
+autocomplete="current-password">
+
+<button class="login-btn" onclick="login()">
+LOGIN
+</button>
+
 <div id="loginError" class="error"></div>
+
 </div>
 </div>
 
-<div id="dashboard" class="hidden">
+
+<!-- =====================================================
+OWNER DASHBOARD
+===================================================== -->
+
+<div id="ownerDashboard" class="hidden">
 
 <header>
 <div class="header-inner">
 
 <div class="brand">
+
 <div class="header-logo">
 <img src="futurecare-logo.jpg.jpg" alt="FutureCare Logo">
 </div>
@@ -118,16 +303,19 @@ tr:hover{background:#f5faf7}
 <h1>FutureCare Owner Dashboard</h1>
 <small>Member Management System</small>
 </div>
+
 </div>
 
-<button class="logout" onclick="logout()">LOGOUT</button>
+<button class="logout" onclick="logout()">
+LOGOUT
+</button>
 
 </div>
 </header>
 
 <div class="container">
 
-<div id="status" class="status">
+<div id="ownerStatus" class="status">
 Connecting to Supabase...
 </div>
 
@@ -189,7 +377,9 @@ Loading FutureCare members...
 </div>
 
 
-<!-- VIEW MEMBER -->
+<!-- =====================================================
+OWNER VIEW MEMBER
+===================================================== -->
 
 <div id="memberModal" class="modal hidden">
 
@@ -220,7 +410,9 @@ Loading FutureCare members...
 </div>
 
 
-<!-- EDIT MEMBER -->
+<!-- =====================================================
+OWNER EDIT
+===================================================== -->
 
 <div id="editModal" class="modal hidden">
 
@@ -251,7 +443,9 @@ CANCEL
 </div>
 
 
-<!-- ADD MEMBER -->
+<!-- =====================================================
+OWNER ADD
+===================================================== -->
 
 <div id="addModal" class="modal hidden">
 
@@ -277,6 +471,98 @@ CANCEL
 </div>
 
 <div id="addError" class="error"></div>
+
+</div>
+</div>
+
+
+<!-- =====================================================
+PLAN HOLDER DASHBOARD
+===================================================== -->
+
+<div id="memberDashboard" class="hidden">
+
+<header>
+
+<div class="header-inner">
+
+<div class="brand">
+
+<div class="header-logo">
+<img src="futurecare-logo.jpg.jpg" alt="FutureCare Logo">
+</div>
+
+<div>
+<h1>FutureCare Plan Holder</h1>
+<small>Member Portal</small>
+</div>
+
+</div>
+
+<button class="logout" onclick="logout()">
+LOGOUT
+</button>
+
+</div>
+</header>
+
+<div class="container">
+
+<div class="member-header">
+
+<h2 id="memberWelcome">
+Welcome
+</h2>
+
+<p id="memberClientId"></p>
+
+</div>
+
+<div class="readonly-note">
+🔒 VIEW ONLY — Your member information and payment records cannot be edited.
+</div>
+
+<div id="memberStatus" class="status">
+Loading your record...
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>CLIENT ID</h3>
+<strong id="holderClientId" style="font-size:20px">-</strong>
+</div>
+
+<div class="card">
+<h3>DATE APPLIED</h3>
+<strong id="holderDateApplied" style="font-size:20px">-</strong>
+</div>
+
+<div class="card">
+<h3>MONTHLY PAYMENT</h3>
+<strong id="holderMonthly" style="font-size:20px">₱0</strong>
+</div>
+
+<div class="card">
+<h3>CONTESTABILITY</h3>
+<strong id="holderContestability" style="font-size:18px">-</strong>
+</div>
+
+</div>
+
+<h2 class="section-title">
+MY INFORMATION
+</h2>
+
+<div class="table-wrap">
+<div id="memberInformation" class="detail-grid" style="padding:15px"></div>
+</div>
+
+<h2 class="section-title">
+MY PAYMENT RECORDS
+</h2>
+
+<div id="memberPayments"></div>
 
 </div>
 </div>
@@ -312,13 +598,17 @@ STATE
 ===================================================== */
 
 let accessToken =
-localStorage.getItem(
-"futurecare_owner_token"
-) || "";
+localStorage.getItem("futurecare_owner_token") || "";
+
+let currentMode =
+localStorage.getItem("futurecare_mode") || "";
+
+let currentMember = null;
 
 let allMembers = [];
 let allPayments = [];
 let allMonthly = [];
+
 let memberColumns = [];
 let editingMember = null;
 
@@ -335,18 +625,9 @@ const hiddenColumns = [
 ];
 
 const monthNames = [
-"January",
-"February",
-"March",
-"April",
-"May",
-"June",
-"July",
-"August",
-"September",
-"October",
-"November",
-"December"
+"January","February","March","April",
+"May","June","July","August",
+"September","October","November","December"
 ];
 
 
@@ -359,13 +640,10 @@ return "₱0.00";
 }
 
 return "₱" +
-n.toLocaleString(
-"en-PH",
-{
+n.toLocaleString("en-PH",{
 minimumFractionDigits:2,
 maximumFractionDigits:2
-}
-);
+});
 
 }
 
@@ -407,14 +685,11 @@ if(!d){
 return "";
 }
 
-return d.toLocaleDateString(
-"en-PH",
-{
+return d.toLocaleDateString("en-PH",{
 year:"numeric",
 month:"short",
 day:"numeric"
-}
-);
+});
 
 }
 
@@ -459,614 +734,6 @@ payment.or_no ??
 }
 
 
-/* =====================================================
-REQUEST
-===================================================== */
-
-async function supabaseRequest(
-url,
-options={}
-){
-
-const headers = {
-
-"apikey":
-SUPABASE_KEY,
-
-"Authorization":
-"Bearer " +
-(accessToken || SUPABASE_KEY),
-
-"Content-Type":
-"application/json",
-
-...(options.headers || {})
-
-};
-
-const response =
-await fetch(
-url,
-{
-...options,
-headers
-}
-);
-
-const text =
-await response.text();
-
-let data = null;
-
-try{
-
-data =
-text ?
-JSON.parse(text) :
-null;
-
-}catch{
-
-data = text;
-
-}
-
-if(!response.ok){
-
-throw new Error(
-typeof data === "object"
-?
-JSON.stringify(data)
-:
-String(data)
-);
-
-}
-
-return data;
-
-}
-
-
-/* =====================================================
-LOGIN
-===================================================== */
-
-async function login(){
-
-const email =
-document.getElementById(
-"email"
-).value
-.trim()
-.toLowerCase();
-
-const password =
-document.getElementById(
-"password"
-).value;
-
-const error =
-document.getElementById(
-"loginError"
-);
-
-error.textContent = "";
-
-if(!email || !password){
-
-error.textContent =
-"Please enter your email and password.";
-
-return;
-
-}
-
-if(email !== OWNER_EMAIL){
-
-error.textContent =
-"Owner access only.";
-
-return;
-
-}
-
-try{
-
-const response =
-await fetch(
-SUPABASE_URL +
-"/auth/v1/token?grant_type=password",
-{
-method:"POST",
-headers:{
-"apikey":
-SUPABASE_KEY,
-"Content-Type":
-"application/json"
-},
-body:
-JSON.stringify({
-email,
-password
-})
-}
-);
-
-const data =
-await response.json();
-
-if(!response.ok){
-
-throw new Error(
-data.error_description ||
-data.msg ||
-"Login failed."
-);
-
-}
-
-accessToken =
-data.access_token;
-
-localStorage.setItem(
-"futurecare_owner_token",
-accessToken
-);
-
-showDashboard();
-
-await loadDashboard();
-
-}catch(e){
-
-error.textContent =
-e.message ||
-"Login failed.";
-
-}
-
-}
-
-
-/* =====================================================
-CHECK LOGIN
-===================================================== */
-
-async function checkLogin(){
-
-if(!accessToken){
-return;
-}
-
-try{
-
-const user =
-await supabaseRequest(
-SUPABASE_URL +
-"/auth/v1/user"
-);
-
-if(
-!user ||
-!user.email ||
-user.email.toLowerCase()
-!== OWNER_EMAIL
-){
-
-throw new Error(
-"Invalid owner session."
-);
-
-}
-
-showDashboard();
-
-await loadDashboard();
-
-}catch(e){
-
-localStorage.removeItem(
-"futurecare_owner_token"
-);
-
-accessToken = "";
-
-}
-
-}
-
-
-function showDashboard(){
-
-document
-.getElementById("loginPage")
-.classList.add("hidden");
-
-document
-.getElementById("dashboard")
-.classList.remove("hidden");
-
-}
-
-
-/* =====================================================
-LOAD TABLES
-===================================================== */
-
-async function loadTable(table){
-
-const pageSize = 1000;
-
-let result = [];
-
-let start = 0;
-
-while(true){
-
-const end =
-start + pageSize - 1;
-
-const data =
-await supabaseRequest(
-
-SUPABASE_URL +
-"/rest/v1/" +
-table +
-"?select=*",
-
-{
-headers:{
-"Range":
-start + "-" + end,
-"Prefer":
-"count=exact"
-}
-}
-
-);
-
-if(!Array.isArray(data)){
-break;
-}
-
-result =
-result.concat(data);
-
-if(data.length < pageSize){
-break;
-}
-
-start += pageSize;
-
-}
-
-return result;
-
-}
-
-
-/* =====================================================
-LOAD DASHBOARD
-===================================================== */
-
-async function loadDashboard(){
-
-const status =
-document.getElementById("status");
-
-const loading =
-document.getElementById("loading");
-
-try{
-
-status.textContent =
-"Loading members and payments...";
-
-allMembers =
-await loadTable(
-MEMBERS_TABLE
-);
-
-allPayments =
-await loadTable(
-PAYMENTS_TABLE
-);
-
-allMonthly =
-await loadTable(
-MONTHLY_TABLE
-);
-
-memberColumns =
-allMembers.length
-?
-Object.keys(allMembers[0])
-:
-[];
-
-document.getElementById(
-"totalMembers"
-).textContent =
-allMembers.length;
-
-document.getElementById(
-"recordsLoaded"
-).textContent =
-allMembers.length;
-
-document.getElementById(
-"totalPayments"
-).textContent =
-allPayments.length;
-
-let total = 0;
-
-for(
-const payment of allPayments
-){
-
-total += getAmount(payment);
-
-}
-
-document.getElementById(
-"totalAmount"
-).textContent =
-formatMoney(total);
-
-buildMemberHeader();
-
-renderMembers();
-
-loading.classList.add(
-"hidden"
-);
-
-document
-.getElementById("membersTable")
-.classList.remove(
-"hidden"
-);
-
-status.textContent =
-"✅ Connected. " +
-allMembers.length +
-" members and " +
-allPayments.length +
-" payment records loaded.";
-
-}catch(e){
-
-console.error(e);
-
-status.innerHTML =
-"❌ Database loading error:<br>" +
-escapeHtml(e.message);
-
-loading.textContent =
-"Unable to load FutureCare records.";
-
-}
-
-}
-
-
-/* =====================================================
-MEMBERS
-===================================================== */
-
-function visibleMemberColumns(){
-
-return memberColumns.filter(
-column =>
-!hiddenColumns.includes(
-column
-)
-);
-
-}
-
-
-function buildMemberHeader(){
-
-const head =
-document.getElementById(
-"tableHead"
-);
-
-head.innerHTML = "";
-
-const row =
-document.createElement("tr");
-
-for(
-const column of visibleMemberColumns()
-){
-
-const th =
-document.createElement("th");
-
-th.textContent =
-column;
-
-row.appendChild(th);
-
-}
-
-const action =
-document.createElement("th");
-
-action.textContent =
-"ACTION";
-
-row.appendChild(action);
-
-head.appendChild(row);
-
-}
-
-
-function renderMembers(){
-
-const body =
-document.getElementById(
-"tableBody"
-);
-
-body.innerHTML = "";
-
-const search =
-document.getElementById(
-"search"
-).value
-.trim()
-.toLowerCase();
-
-const filtered =
-allMembers.filter(
-member => {
-
-if(!search){
-return true;
-}
-
-return Object.values(member)
-.some(
-value =>
-String(value ?? "")
-.toLowerCase()
-.includes(search)
-);
-
-}
-);
-
-for(
-const member of filtered
-){
-
-const row =
-document.createElement("tr");
-
-for(
-const column of visibleMemberColumns()
-){
-
-const td =
-document.createElement("td");
-
-let value =
-member[column] ?? "";
-
-if(
-typeof value === "object" &&
-value !== null
-){
-
-value =
-JSON.stringify(value);
-
-}
-
-td.textContent =
-value;
-
-row.appendChild(td);
-
-}
-
-const action =
-document.createElement("td");
-
-const view =
-document.createElement("button");
-
-view.className =
-"view-btn";
-
-view.textContent =
-"VIEW";
-
-view.onclick =
-() =>
-viewMember(member);
-
-const edit =
-document.createElement("button");
-
-edit.className =
-"edit-btn";
-
-edit.textContent =
-"EDIT";
-
-edit.onclick =
-() =>
-openEdit(member);
-
-action.appendChild(view);
-action.appendChild(edit);
-
-row.appendChild(action);
-
-body.appendChild(row);
-
-}
-
-if(!filtered.length){
-
-const row =
-document.createElement("tr");
-
-const td =
-document.createElement("td");
-
-td.colSpan =
-visibleMemberColumns().length + 1;
-
-td.textContent =
-"No members found.";
-
-row.appendChild(td);
-
-body.appendChild(row);
-
-}
-
-}
-
-
-/* =====================================================
-MONTHLY RECORD
-===================================================== */
-
-function getMonthlyRecord(
-member,
-year,
-month
-){
-
-return allMonthly.find(
-record =>
-String(
-record.plan_holder_id
-) === String(member.id)
-&&
-Number(record.payment_year)
-=== Number(year)
-&&
-Number(record.payment_month)
-=== Number(month)
-) || null;
-
-}
-
-
-/* =====================================================
-MEMBER SETTINGS
-===================================================== */
-
 function getStartDate(member){
 
 return parseDate(
@@ -1093,26 +760,20 @@ member.monthlyPayment ??
 
 function getContestabilityMonths(member){
 
-const value =
-Number(
+const value = Number(
 member.contestability_months ??
 member.contestabilityMonths ??
 0
 );
 
-return [3,6,12].includes(value)
-?
-value
-:
-0;
+return [3,6,12].includes(value) ? value : 0;
 
 }
 
 
 function isFreePromo(member){
 
-const d =
-getStartDate(member);
+const d = getStartDate(member);
 
 if(!d){
 return false;
@@ -1127,7 +788,716 @@ d <= new Date("2025-06-30T23:59:59")
 
 
 /* =====================================================
-ORIGINAL PAYMENT
+SUPABASE REQUEST
+===================================================== */
+
+async function supabaseRequest(url,options={}){
+
+const headers = {
+
+"apikey":SUPABASE_KEY,
+
+"Authorization":
+"Bearer " +
+(accessToken || SUPABASE_KEY),
+
+"Content-Type":"application/json",
+
+...(options.headers || {})
+
+};
+
+const response =
+await fetch(url,{
+...options,
+headers
+});
+
+const text =
+await response.text();
+
+let data = null;
+
+try{
+data = text ? JSON.parse(text) : null;
+}catch{
+data = text;
+}
+
+if(!response.ok){
+
+throw new Error(
+typeof data === "object"
+? JSON.stringify(data)
+: String(data)
+);
+
+}
+
+return data;
+
+}
+
+
+/* =====================================================
+LOGIN
+===================================================== */
+
+async function login(){
+
+const rawEmail =
+document.getElementById("email")
+.value.trim();
+
+const password =
+document.getElementById("password")
+.value;
+
+const error =
+document.getElementById("loginError");
+
+error.textContent = "";
+
+if(!rawEmail || !password){
+
+error.textContent =
+"Please enter your email/client ID and password.";
+
+return;
+
+}
+
+
+/* OWNER LOGIN */
+
+if(
+rawEmail.toLowerCase() ===
+OWNER_EMAIL.toLowerCase()
+){
+
+try{
+
+const response =
+await fetch(
+SUPABASE_URL +
+"/auth/v1/token?grant_type=password",
+{
+method:"POST",
+headers:{
+"apikey":SUPABASE_KEY,
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+email:OWNER_EMAIL,
+password:password
+})
+}
+);
+
+const data =
+await response.json();
+
+if(!response.ok){
+
+throw new Error(
+data.error_description ||
+data.msg ||
+"Owner login failed."
+);
+
+}
+
+accessToken =
+data.access_token;
+
+localStorage.setItem(
+"futurecare_owner_token",
+accessToken
+);
+
+localStorage.setItem(
+"futurecare_mode",
+"owner"
+);
+
+showOwnerDashboard();
+
+await loadOwnerDashboard();
+
+return;
+
+}catch(e){
+
+error.textContent =
+e.message || "Owner login failed.";
+
+return;
+
+}
+
+}
+
+
+/* =====================================================
+PLAN HOLDER LOGIN
+===================================================== */
+
+let clientId =
+rawEmail.toUpperCase().trim();
+
+if(
+clientId.includes("@futurecare.local")
+){
+
+clientId =
+clientId.split("@")[0];
+
+}
+
+
+/*
+DATE PASSWORD
+
+Example:
+
+date_applied = 2025-02-06
+
+password = 02062025
+*/
+
+let datePassword = password.trim();
+
+try{
+
+const result =
+await supabaseRequest(
+SUPABASE_URL +
+"/rest/v1/rpc/member_login",
+{
+method:"POST",
+headers:{
+"Authorization":
+"Bearer " + SUPABASE_KEY
+},
+body:JSON.stringify({
+p_client_id:clientId,
+p_date_applied:
+convertPasswordToDate(datePassword)
+})
+}
+);
+
+
+/*
+The existing member_login function
+returns the member's email.
+*/
+
+if(!result){
+
+throw new Error(
+"Invalid Client ID or date applied."
+);
+
+}
+
+let memberEmail = "";
+
+if(typeof result === "string"){
+
+memberEmail = result;
+
+}else if(
+Array.isArray(result) &&
+result.length
+){
+
+memberEmail =
+result[0].member_login ||
+result[0].email ||
+result[0];
+
+}else if(typeof result === "object"){
+
+memberEmail =
+result.member_login ||
+result.email ||
+"";
+
+}
+
+if(!memberEmail){
+
+throw new Error(
+"Member account was not found."
+);
+
+}
+
+
+/*
+Sign in using the Auth account.
+
+Email:
+CLIENTID@futurecare.local
+
+Password:
+MMDDYYYY
+*/
+
+const authResponse =
+await fetch(
+SUPABASE_URL +
+"/auth/v1/token?grant_type=password",
+{
+method:"POST",
+headers:{
+"apikey":SUPABASE_KEY,
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+email:memberEmail,
+password:datePassword
+})
+}
+);
+
+const authData =
+await authResponse.json();
+
+if(!authResponse.ok){
+
+throw new Error(
+authData.error_description ||
+authData.msg ||
+"Member login failed."
+);
+
+}
+
+accessToken =
+authData.access_token;
+
+localStorage.setItem(
+"futurecare_owner_token",
+accessToken
+);
+
+localStorage.setItem(
+"futurecare_mode",
+"member"
+);
+
+showMemberDashboard();
+
+await loadMemberDashboard(
+clientId
+);
+
+}catch(e){
+
+error.textContent =
+e.message ||
+"Member login failed.";
+
+}
+
+}
+
+
+/* =====================================================
+DATE PASSWORD TO DATE
+===================================================== */
+
+function convertPasswordToDate(value){
+
+if(!/^\d{8}$/.test(value)){
+
+throw new Error(
+"Password must be the date applied in MMDDYYYY format."
+);
+
+}
+
+const month =
+value.substring(0,2);
+
+const day =
+value.substring(2,4);
+
+const year =
+value.substring(4,8);
+
+return year + "-" +
+month + "-" +
+day;
+
+}
+
+
+/* =====================================================
+SHOW DASHBOARDS
+===================================================== */
+
+function showOwnerDashboard(){
+
+document
+.getElementById("loginPage")
+.classList.add("hidden");
+
+document
+.getElementById("memberDashboard")
+.classList.add("hidden");
+
+document
+.getElementById("ownerDashboard")
+.classList.remove("hidden");
+
+}
+
+
+function showMemberDashboard(){
+
+document
+.getElementById("loginPage")
+.classList.add("hidden");
+
+document
+.getElementById("ownerDashboard")
+.classList.add("hidden");
+
+document
+.getElementById("memberDashboard")
+.classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+LOAD TABLE
+===================================================== */
+
+async function loadTable(table){
+
+const pageSize = 1000;
+
+let result = [];
+
+let start = 0;
+
+while(true){
+
+const end =
+start + pageSize - 1;
+
+const data =
+await supabaseRequest(
+SUPABASE_URL +
+"/rest/v1/" +
+table +
+"?select=*",
+{
+headers:{
+"Range":
+start + "-" + end,
+"Prefer":
+"count=exact"
+}
+}
+);
+
+if(!Array.isArray(data)){
+break;
+}
+
+result =
+result.concat(data);
+
+if(data.length < pageSize){
+break;
+}
+
+start += pageSize;
+
+}
+
+return result;
+
+}
+
+
+/* =====================================================
+OWNER DASHBOARD
+===================================================== */
+
+async function loadOwnerDashboard(){
+
+const status =
+document.getElementById("ownerStatus");
+
+const loading =
+document.getElementById("loading");
+
+try{
+
+status.textContent =
+"Loading members and payments...";
+
+allMembers =
+await loadTable(MEMBERS_TABLE);
+
+allPayments =
+await loadTable(PAYMENTS_TABLE);
+
+allMonthly =
+await loadTable(MONTHLY_TABLE);
+
+memberColumns =
+allMembers.length
+? Object.keys(allMembers[0])
+: [];
+
+document.getElementById(
+"totalMembers"
+).textContent =
+allMembers.length;
+
+document.getElementById(
+"recordsLoaded"
+).textContent =
+allMembers.length;
+
+document.getElementById(
+"totalPayments"
+).textContent =
+allPayments.length;
+
+let total = 0;
+
+for(const payment of allPayments){
+
+total += getAmount(payment);
+
+}
+
+document.getElementById(
+"totalAmount"
+).textContent =
+formatMoney(total);
+
+buildMemberHeader();
+renderMembers();
+
+loading.classList.add("hidden");
+
+document
+.getElementById("membersTable")
+.classList.remove("hidden");
+
+status.textContent =
+"✅ Connected. " +
+allMembers.length +
+" members and " +
+allPayments.length +
+" payment records loaded.";
+
+}catch(e){
+
+console.error(e);
+
+status.innerHTML =
+"❌ Database loading error:<br>" +
+escapeHtml(e.message);
+
+loading.textContent =
+"Unable to load FutureCare records.";
+
+}
+
+}
+
+
+/* =====================================================
+OWNER MEMBER LIST
+===================================================== */
+
+function visibleMemberColumns(){
+
+return memberColumns.filter(
+column =>
+!hiddenColumns.includes(column)
+);
+
+}
+
+
+function buildMemberHeader(){
+
+const head =
+document.getElementById("tableHead");
+
+head.innerHTML = "";
+
+const row =
+document.createElement("tr");
+
+for(const column of visibleMemberColumns()){
+
+const th =
+document.createElement("th");
+
+th.textContent = column;
+
+row.appendChild(th);
+
+}
+
+const action =
+document.createElement("th");
+
+action.textContent = "ACTION";
+
+row.appendChild(action);
+
+head.appendChild(row);
+
+}
+
+
+function renderMembers(){
+
+const body =
+document.getElementById("tableBody");
+
+body.innerHTML = "";
+
+const search =
+document.getElementById("search")
+.value.trim().toLowerCase();
+
+const filtered =
+allMembers.filter(member=>{
+
+if(!search){
+return true;
+}
+
+return Object.values(member)
+.some(value=>
+String(value ?? "")
+.toLowerCase()
+.includes(search)
+);
+
+});
+
+for(const member of filtered){
+
+const row =
+document.createElement("tr");
+
+for(const column of visibleMemberColumns()){
+
+const td =
+document.createElement("td");
+
+let value =
+member[column] ?? "";
+
+if(
+typeof value === "object" &&
+value !== null
+){
+
+value = JSON.stringify(value);
+
+}
+
+td.textContent = value;
+
+row.appendChild(td);
+
+}
+
+const action =
+document.createElement("td");
+
+const view =
+document.createElement("button");
+
+view.className = "view-btn";
+view.textContent = "VIEW";
+
+view.onclick =
+()=>viewMember(member);
+
+const edit =
+document.createElement("button");
+
+edit.className = "edit-btn";
+edit.textContent = "EDIT";
+
+edit.onclick =
+()=>openEdit(member);
+
+action.appendChild(view);
+action.appendChild(edit);
+
+row.appendChild(action);
+
+body.appendChild(row);
+
+}
+
+if(!filtered.length){
+
+const row =
+document.createElement("tr");
+
+const td =
+document.createElement("td");
+
+td.colSpan =
+visibleMemberColumns().length + 1;
+
+td.textContent =
+"No members found.";
+
+row.appendChild(td);
+body.appendChild(row);
+
+}
+
+}
+
+
+/* =====================================================
+MONTHLY RECORD
+===================================================== */
+
+function getMonthlyRecord(
+member,
+year,
+month
+){
+
+return allMonthly.find(
+record =>
+String(record.plan_holder_id)
+=== String(member.id)
+&&
+Number(record.payment_year)
+=== Number(year)
+&&
+Number(record.payment_month)
+=== Number(month)
+) || null;
+
+}
+
+
+/* =====================================================
+ORIGINAL PAYMENTS
 ===================================================== */
 
 function originalPayments(
@@ -1136,18 +1506,11 @@ year,
 month
 ){
 
-return allPayments.filter(
-payment => {
+return allPayments.filter(payment=>{
 
 if(
-String(
-payment.plan_holder_id ??
-""
-) !==
-String(
-member.id ??
-""
-)
+String(payment.plan_holder_id ?? "")
+!== String(member.id ?? "")
 ){
 
 return false;
@@ -1155,9 +1518,7 @@ return false;
 }
 
 const d =
-parseDate(
-getPaymentDate(payment)
-);
+parseDate(getPaymentDate(payment));
 
 if(!d){
 return false;
@@ -1168,24 +1529,13 @@ d.getFullYear() === year &&
 d.getMonth()+1 === month
 );
 
-}
-);
+});
 
 }
 
 
 /* =====================================================
-CALCULATE MONTHS
-
-IMPORTANT:
-
-The display always has EXACTLY
-one row for every month.
-
-Advance money is tracked in
-"coveredUnits".
-
-It NEVER creates extra rows.
+CALCULATE PAYMENT YEAR
 ===================================================== */
 
 function calculateYear(
@@ -1201,18 +1551,12 @@ const target =
 getContestabilityMonths(member);
 
 let coveredUnits = 0;
-
 let consecutive = 0;
-
 let unpaidOutstanding = 0;
 
 const rows = [];
 
-for(
-let month=1;
-month<=12;
-month++
-){
+for(let month=1;month<=12;month++){
 
 const name =
 monthNames[month-1];
@@ -1243,38 +1587,17 @@ month
 
 const actualAmount =
 record
-?
-Number(record.amount) || 0
-:
-0;
+? Number(record.amount)||0
+: 0;
 
-let displayAmount =
-record
-?
-actualAmount
-:
-0;
-
-let status =
-"UNPAID";
-
-let remarks =
-"UNPAID";
+let status = "UNPAID";
+let remarks = "UNPAID";
 
 let date =
 record?.payment_date || "";
 
 let receipt =
 record?.receipt_number || "";
-
-
-/*
-Use the stored monthly record's
-date/receipt first.
-
-If none exists, show the original
-payment transaction information.
-*/
 
 const originals =
 originalPayments(
@@ -1283,38 +1606,26 @@ year,
 month
 );
 
-if(
-!date &&
-originals.length
-){
+if(!date && originals.length){
 
 date =
 getPaymentDate(
-originals[
-originals.length-1
-]
+originals[originals.length-1]
 );
 
 }
 
-if(
-!receipt &&
-originals.length
-){
+if(!receipt && originals.length){
 
 receipt =
 getReceipt(
-originals[
-originals.length-1
-]
+originals[originals.length-1]
 );
 
 }
 
 
-/*
-FREE FIRST MONTH PROMO
-*/
+/* FREE FIRST MONTH */
 
 const start =
 getStartDate(member);
@@ -1330,11 +1641,8 @@ isFirstMonth &&
 actualAmount === 0
 ){
 
-status =
-"PAID";
-
-remarks =
-"FREE 1ST MONTH PROMO";
+status="PAID";
+remarks="FREE 1ST MONTH PROMO";
 
 consecutive++;
 
@@ -1354,64 +1662,33 @@ continue;
 }
 
 
-/*
-1. Existing advance from an earlier
-month covers this month.
-
-Example:
-
-January = ₱1,520
-monthly = ₱380
-
-January transaction has 4 units.
-
-January uses 1.
-February uses 1.
-March uses 1.
-April uses 1.
-*/
+/* ADVANCE */
 
 if(coveredUnits > 0){
 
 coveredUnits--;
 
-status =
-"COVERED";
-
-remarks =
-"COVERED BY ADVANCE";
+status="COVERED";
+remarks="COVERED BY ADVANCE";
 
 consecutive++;
 
-if(
-actualAmount > 0 &&
-rate > 0
-){
-
-/*
-If this month ALSO has a
-recorded payment, its units
-become additional advance
-after this month's coverage.
-*/
+if(actualAmount > 0 && rate > 0){
 
 const extraUnits =
 Math.max(
-Math.floor(
-actualAmount / rate
-) - 1,
+Math.floor(actualAmount/rate)-1,
 0
 );
 
-coveredUnits +=
-extraUnits;
+coveredUnits += extraUnits;
 
 }
 
 rows.push({
 month,
 name,
-amount:displayAmount,
+amount:actualAmount,
 status,
 remarks,
 record,
@@ -1424,21 +1701,15 @@ continue;
 }
 
 
-/*
-2. No payment
-*/
+/* UNPAID */
 
 if(actualAmount <= 0){
 
-status =
-"UNPAID";
-
-remarks =
-"UNPAID";
+status="UNPAID";
+remarks="UNPAID";
 
 unpaidOutstanding++;
-
-consecutive = 0;
+consecutive=0;
 
 rows.push({
 month,
@@ -1456,49 +1727,19 @@ continue;
 }
 
 
-/*
-3. Payment exists
-*/
+/* PAYMENT */
 
 let units =
 rate > 0
-?
-Math.floor(
-actualAmount / rate
-)
-:
-1;
+? Math.floor(actualAmount/rate)
+: 1;
 
 if(units < 1){
-units = 1;
+units=1;
 }
 
 
-/*
-Payment first clears every old
-unpaid month.
-
-Example:
-
-April = 0
-May = 0
-June = 0
-July = ₱1,520
-
-₱1,520 = 4 units.
-
-3 units clear April/May/June.
-Only 1 unit covers July.
-
-Contestability does NOT restart
-because there is no remaining unit
-for a clean current payment after
-the arrears are cleared.
-
-The member must pay ALL unpaid
-months before contestability can
-restart.
-*/
+/* CLEAR ARREARS */
 
 if(unpaidOutstanding > 0){
 
@@ -1509,29 +1750,19 @@ if(units >= arrears){
 
 units -= arrears;
 
-unpaidOutstanding = 0;
-
-/*
-There must be a fresh current
-month payment after all arrears
-are cleared.
-
-If there is no unit left,
-there is no restart yet.
-*/
+unpaidOutstanding=0;
 
 if(units > 0){
 
 units--;
-
-consecutive = 1;
+consecutive=1;
 
 remarks =
 "CONTESTABILITY RESTART";
 
 }else{
 
-consecutive = 0;
+consecutive=0;
 
 remarks =
 "ARREARS CLEARED — NO RESTART YET";
@@ -1540,12 +1771,9 @@ remarks =
 
 }else{
 
-unpaidOutstanding -=
-units;
-
-units = 0;
-
-consecutive = 0;
+unpaidOutstanding -= units;
+units=0;
+consecutive=0;
 
 remarks =
 "PARTIAL ARREARS PAYMENT";
@@ -1554,33 +1782,12 @@ remarks =
 
 }else{
 
-/*
-Clean payment.
-One unit pays current month.
-Extra units become advance.
-*/
-
 units--;
 
 consecutive++;
 
-if(
-target > 0 &&
-consecutive >= target
-){
-
-remarks =
-"CONTESTABILITY COMPLETED — CONTINUE MONTHLY PAYMENTS";
-
 }
 
-}
-
-
-/*
-Remaining units are advance for
-following calendar months.
-*/
 
 if(units > 0){
 
@@ -1589,11 +1796,6 @@ coveredUnits += units;
 }
 
 
-/*
-If the member just restarted and
-also reaches target, mark completed.
-*/
-
 if(
 target > 0 &&
 consecutive >= target
@@ -1604,13 +1806,12 @@ remarks =
 
 }
 
-status =
-"PAID";
+status="PAID";
 
 rows.push({
 month,
 name,
-amount:displayAmount,
+amount:actualAmount,
 status,
 remarks,
 record,
@@ -1629,12 +1830,10 @@ target
 
 
 /* =====================================================
-CONTESTABILITY STATUS
+CONTESTABILITY
 ===================================================== */
 
-function getContestabilityStatus(
-member
-){
+function getContestabilityStatus(member){
 
 const target =
 getContestabilityMonths(member);
@@ -1642,17 +1841,14 @@ getContestabilityMonths(member);
 const start =
 getStartDate(member);
 
-if(
-!target ||
-!start
-){
+if(!target || !start){
 
 return "CONTESTABILITY PERIOD NOT SET";
 
 }
 
-let consecutive = 0;
-let unpaid = 0;
+let consecutive=0;
+let unpaid=0;
 
 for(
 let year=start.getFullYear();
@@ -1662,10 +1858,8 @@ year++
 
 const first =
 year === start.getFullYear()
-?
-start.getMonth()+1
-:
-1;
+? start.getMonth()+1
+: 1;
 
 const calc =
 calculateYear(
@@ -1674,15 +1868,11 @@ year,
 first
 );
 
-for(
-const row of calc.rows
-){
+for(const row of calc.rows){
 
-if(
-row.status === "UNPAID"
-){
+if(row.status==="UNPAID"){
 
-unpaid++;
+unpaid=1;
 consecutive=0;
 continue;
 
@@ -1697,8 +1887,8 @@ consecutive=1;
 unpaid=0;
 
 }else if(
-row.status === "PAID" ||
-row.status === "COVERED"
+row.status==="PAID" ||
+row.status==="COVERED"
 ){
 
 if(unpaid===0){
@@ -1707,12 +1897,10 @@ consecutive++;
 
 }
 
-if(
-consecutive >= target
-){
+if(consecutive>=target){
 
 return(
-"CONTESTABILITY COMPLETED — CONTINUE MONTHLY PAYMENTS"
+"COMPLETED — CONTINUE MONTHLY PAYMENTS"
 );
 
 }
@@ -1722,11 +1910,8 @@ return(
 }
 
 return(
-"CONTESTABILITY IN PROGRESS — " +
-Math.min(
-consecutive,
-target
-) +
+"IN PROGRESS — " +
+Math.min(consecutive,target) +
 "/" +
 target +
 " MONTHS"
@@ -1736,33 +1921,27 @@ target +
 
 
 /* =====================================================
-VIEW MEMBER
+OWNER VIEW MEMBER
 ===================================================== */
 
 function viewMember(member){
 
 const details =
-document.getElementById(
-"memberDetails"
-);
+document.getElementById("memberDetails");
 
-details.innerHTML = "";
+details.innerHTML="";
 
-for(
-const column of visibleMemberColumns()
-){
+for(const column of visibleMemberColumns()){
 
 const box =
 document.createElement("div");
 
-box.className =
-"detail";
+box.className="detail";
 
 const label =
 document.createElement("b");
 
-label.textContent =
-column;
+label.textContent=column;
 
 const value =
 document.createElement("span");
@@ -1771,17 +1950,15 @@ let data =
 member[column] ?? "";
 
 if(
-typeof data === "object" &&
-data !== null
+typeof data==="object" &&
+data!==null
 ){
 
-data =
-JSON.stringify(data);
+data=JSON.stringify(data);
 
 }
 
-value.textContent =
-data;
+value.textContent=data;
 
 box.appendChild(label);
 box.appendChild(value);
@@ -1790,54 +1967,37 @@ details.appendChild(box);
 
 }
 
-
-const summary =
-getContestabilityStatus(
-member
-);
-
 document.getElementById(
 "contestabilitySummary"
 ).innerHTML =
 '<div class="summary-box">' +
 '<strong>CONTESTABILITY STATUS:</strong> ' +
-escapeHtml(summary) +
+escapeHtml(getContestabilityStatus(member)) +
 '</div>';
-
 
 renderPaymentYear(
 member,
 2025,
-document.getElementById(
-"payments2025"
-),
+document.getElementById("payments2025"),
 2
 );
 
 renderPaymentYear(
 member,
 2026,
-document.getElementById(
-"payments2026"
-),
+document.getElementById("payments2026"),
 1
 );
 
 document
 .getElementById("memberModal")
-.classList.remove(
-"hidden"
-);
+.classList.remove("hidden");
 
 }
 
 
 /* =====================================================
-RENDER PAYMENT YEAR
-
-FIXED 12 MONTH ROWS.
-NO DUPLICATES.
-NO RESHUFFLING.
+OWNER PAYMENT TABLE
 ===================================================== */
 
 function renderPaymentYear(
@@ -1847,7 +2007,7 @@ container,
 firstMonth
 ){
 
-container.innerHTML = "";
+container.innerHTML="";
 
 const calc =
 calculateYear(
@@ -1859,9 +2019,7 @@ firstMonth
 const table =
 document.createElement("table");
 
-table.className =
-"payment-table";
-
+table.className="payment-table";
 
 const thead =
 document.createElement("thead");
@@ -1877,52 +2035,33 @@ document.createElement("tr");
 "PAYMENT DATE",
 "RECEIPT NUMBER",
 "ACTION"
-].forEach(
-text => {
+].forEach(text=>{
 
 const th =
 document.createElement("th");
 
-th.textContent =
-text;
-
+th.textContent=text;
 header.appendChild(th);
 
-}
-);
+});
 
 thead.appendChild(header);
 table.appendChild(thead);
 
-
 const tbody =
 document.createElement("tbody");
 
-
-/*
-IMPORTANT:
-calc.rows already contains
-one and only one row per month.
-We do not add advance rows.
-*/
-
-for(
-const rowData of calc.rows
-){
+for(const rowData of calc.rows){
 
 const row =
 document.createElement("tr");
 
 
-/* MONTH */
-
 const monthCell =
 document.createElement("td");
 
 monthCell.textContent =
-rowData.name +
-" " +
-year;
+rowData.name+" "+year;
 
 row.appendChild(monthCell);
 
@@ -1935,46 +2074,24 @@ document.createElement("td");
 const amountInput =
 document.createElement("input");
 
-amountInput.type =
-"number";
-
-amountInput.min =
-"0";
-
-amountInput.step =
-"0.01";
-
-amountInput.className =
-"payment-input";
+amountInput.type="number";
+amountInput.min="0";
+amountInput.step="0.01";
+amountInput.className="payment-input";
 
 amountInput.value =
 rowData.record
-?
-Number(rowData.record.amount) || 0
-:
-rowData.status === "UNPAID"
-?
-0
-:
-"";
+? Number(rowData.record.amount)||0
+: rowData.status==="UNPAID"
+? 0
+: "";
 
-if(
-rowData.status ===
-"NOT STARTED"
-){
-
-amountInput.disabled =
-true;
-
+if(rowData.status==="NOT STARTED"){
+amountInput.disabled=true;
 }
 
-amountCell.appendChild(
-amountInput
-);
-
-row.appendChild(
-amountCell
-);
+amountCell.appendChild(amountInput);
+row.appendChild(amountCell);
 
 
 /* STATUS */
@@ -1985,37 +2102,16 @@ document.createElement("td");
 statusCell.textContent =
 rowData.status;
 
-if(
-rowData.status === "PAID"
-){
+if(rowData.status==="PAID")
+statusCell.className="paid";
+else if(rowData.status==="UNPAID")
+statusCell.className="unpaid";
+else if(rowData.status==="COVERED")
+statusCell.className="covered";
+else
+statusCell.className="not-started";
 
-statusCell.className =
-"paid";
-
-}else if(
-rowData.status === "UNPAID"
-){
-
-statusCell.className =
-"unpaid";
-
-}else if(
-rowData.status === "COVERED"
-){
-
-statusCell.className =
-"covered";
-
-}else{
-
-statusCell.className =
-"not-started";
-
-}
-
-row.appendChild(
-statusCell
-);
+row.appendChild(statusCell);
 
 
 /* REMARKS */
@@ -2026,34 +2122,16 @@ document.createElement("td");
 remarksCell.textContent =
 rowData.remarks;
 
-if(
-rowData.remarks.includes(
-"RESTART"
-)
-){
+if(rowData.remarks.includes("RESTART"))
+remarksCell.className="restart";
 
-remarksCell.className =
-"restart";
+if(rowData.remarks.includes("COMPLETED"))
+remarksCell.className="completed";
 
-}
-
-if(
-rowData.remarks.includes(
-"COMPLETED"
-)
-){
-
-remarksCell.className =
-"completed";
-
-}
-
-row.appendChild(
-remarksCell
-);
+row.appendChild(remarksCell);
 
 
-/* PAYMENT DATE */
+/* DATE */
 
 const dateCell =
 document.createElement("td");
@@ -2061,45 +2139,21 @@ document.createElement("td");
 const dateInput =
 document.createElement("input");
 
-dateInput.type =
-"date";
+dateInput.type="date";
+dateInput.className="date-input";
 
-dateInput.className =
-"date-input";
-
-if(rowData.record?.payment_date){
-
+if(rowData.record?.payment_date)
 dateInput.value =
-String(
-rowData.record.payment_date
-).slice(0,10);
-
-}else if(rowData.date){
-
+String(rowData.record.payment_date).slice(0,10);
+else if(rowData.date)
 dateInput.value =
-String(
-rowData.date
-).slice(0,10);
+String(rowData.date).slice(0,10);
 
-}
+if(rowData.status==="NOT STARTED")
+dateInput.disabled=true;
 
-if(
-rowData.status ===
-"NOT STARTED"
-){
-
-dateInput.disabled =
-true;
-
-}
-
-dateCell.appendChild(
-dateInput
-);
-
-row.appendChild(
-dateCell
-);
+dateCell.appendChild(dateInput);
+row.appendChild(dateCell);
 
 
 /* RECEIPT */
@@ -2110,34 +2164,19 @@ document.createElement("td");
 const receiptInput =
 document.createElement("input");
 
-receiptInput.type =
-"text";
-
-receiptInput.className =
-"receipt-input";
+receiptInput.type="text";
+receiptInput.className="receipt-input";
 
 receiptInput.value =
 rowData.record?.receipt_number ??
 rowData.receipt ??
 "";
 
-if(
-rowData.status ===
-"NOT STARTED"
-){
+if(rowData.status==="NOT STARTED")
+receiptInput.disabled=true;
 
-receiptInput.disabled =
-true;
-
-}
-
-receiptCell.appendChild(
-receiptInput
-);
-
-row.appendChild(
-receiptCell
-);
+receiptCell.appendChild(receiptInput);
+row.appendChild(receiptCell);
 
 
 /* ACTION */
@@ -2148,15 +2187,11 @@ document.createElement("td");
 const save =
 document.createElement("button");
 
-save.className =
-"month-save";
-
-save.textContent =
-"SAVE";
+save.className="month-save";
+save.textContent="SAVE";
 
 save.onclick =
-() =>
-saveMonthlyPayment(
+()=>saveMonthlyPayment(
 member,
 year,
 rowData.month,
@@ -2168,45 +2203,27 @@ receiptInput.value
 const clear =
 document.createElement("button");
 
-clear.className =
-"month-clear";
-
-clear.textContent =
-"CLEAR";
+clear.className="month-clear";
+clear.textContent="CLEAR";
 
 clear.onclick =
-() =>
-clearMonthlyPayment(
+()=>clearMonthlyPayment(
 member,
 year,
 rowData.month
 );
 
-actionCell.appendChild(
-save
-);
+actionCell.appendChild(save);
+actionCell.appendChild(clear);
 
-actionCell.appendChild(
-clear
-);
+row.appendChild(actionCell);
 
-row.appendChild(
-actionCell
-);
-
-tbody.appendChild(
-row
-);
+tbody.appendChild(row);
 
 }
 
-table.appendChild(
-tbody
-);
-
-container.appendChild(
-table
-);
+table.appendChild(tbody);
+container.appendChild(table);
 
 }
 
@@ -2225,7 +2242,7 @@ receiptNumber
 ){
 
 const value =
-Number(amount) || 0;
+Number(amount)||0;
 
 const existing =
 getMonthlyRecord(
@@ -2251,106 +2268,71 @@ try{
 if(existing){
 
 await supabaseRequest(
-
-SUPABASE_URL +
-"/rest/v1/" +
-MONTHLY_TABLE +
-"?id=eq." +
-encodeURIComponent(
-existing.id
-),
-
+SUPABASE_URL+
+"/rest/v1/"+
+MONTHLY_TABLE+
+"?id=eq."+
+encodeURIComponent(existing.id),
 {
 method:"PATCH",
-
 headers:{
 "Prefer":
 "return=representation"
 },
-
-body:
-JSON.stringify(body)
+body:JSON.stringify(body)
 }
-
 );
 
-Object.assign(
-existing,
-body
-);
+Object.assign(existing,body);
 
 }else{
 
 const result =
 await supabaseRequest(
-
-SUPABASE_URL +
-"/rest/v1/" +
+SUPABASE_URL+
+"/rest/v1/"+
 MONTHLY_TABLE,
-
 {
 method:"POST",
-
 headers:{
 "Prefer":
 "return=representation"
 },
+body:JSON.stringify({
 
-body:
-JSON.stringify({
-
-plan_holder_id:
-member.id,
-
-payment_year:
-year,
-
-payment_month:
-month,
-
+plan_holder_id:member.id,
+payment_year:year,
+payment_month:month,
 amount:value,
-
 payment_date:
 paymentDateValue || null,
-
 receipt_number:
 receiptNumber || null,
-
 notes:
 "Edited from Owner Dashboard"
 
 })
 }
-
 );
 
-if(Array.isArray(result)){
-
-allMonthly.push(
-...result
-);
-
-}else if(result){
-
-allMonthly.push(
-result
-);
-
-}
+if(Array.isArray(result))
+allMonthly.push(...result);
+else if(result)
+allMonthly.push(result);
 
 }
 
 viewMember(member);
 
 document.getElementById(
-"status"
+"ownerStatus"
 ).textContent =
-"✅ Monthly payment, date and receipt number saved.";
+"✅ Monthly payment saved.";
 
 }catch(e){
 
 alert(
-"Unable to save monthly record:\n" +
+"Unable to save monthly record:\n"+
 e.message
 );
 
@@ -2377,60 +2359,46 @@ month
 );
 
 if(!existing){
-
 return;
-
 }
 
 try{
 
 await supabaseRequest(
-
-SUPABASE_URL +
-"/rest/v1/" +
-MONTHLY_TABLE +
-"?id=eq." +
-encodeURIComponent(
-existing.id
-),
-
+SUPABASE_URL+
+"/rest/v1/"+
+MONTHLY_TABLE+
+"?id=eq."+
+encodeURIComponent(existing.id),
 {
 method:"PATCH",
-
 headers:{
 "Prefer":
 "return=representation"
 },
-
-body:
-JSON.stringify({
-
+body:JSON.stringify({
 amount:0,
-
 payment_date:null,
-
 receipt_number:null
-
 })
 }
-
 );
 
-existing.amount = 0;
-existing.payment_date = null;
-existing.receipt_number = null;
+existing.amount=0;
+existing.payment_date=null;
+existing.receipt_number=null;
 
 viewMember(member);
 
 document.getElementById(
-"status"
+"ownerStatus"
 ).textContent =
 "✅ Monthly record cleared.";
 
 }catch(e){
 
 alert(
-"Unable to clear monthly record:\n" +
+"Unable to clear monthly record:\n"+
 e.message
 );
 
@@ -2440,86 +2408,57 @@ e.message
 
 
 /* =====================================================
-EDIT MEMBER
+OWNER EDIT
 ===================================================== */
 
 function openEdit(member){
 
-editingMember =
-member;
+editingMember=member;
 
 const form =
-document.getElementById(
-"editForm"
-);
+document.getElementById("editForm");
 
-form.innerHTML = "";
+form.innerHTML="";
 
-for(
-const column of visibleMemberColumns()
-){
+for(const column of visibleMemberColumns()){
 
-if(column === "id"){
+if(column==="id"){
 continue;
 }
 
 const group =
 document.createElement("div");
 
-group.className =
-"form-group";
+group.className="form-group";
 
 const label =
 document.createElement("label");
 
-label.textContent =
-column;
+label.textContent=column;
 
 let input;
 
-if(
-/remark|note|comment/i.test(
-column
-)
-){
+if(/remark|note|comment/i.test(column))
+input=document.createElement("textarea");
+else
+input=document.createElement("input");
 
-input =
-document.createElement(
-"textarea"
-);
-
-}else{
-
-input =
-document.createElement(
-"input"
-);
-
-}
-
-input.id =
-"edit_" +
-column;
-
-input.value =
-member[column] ?? "";
+input.id="edit_"+column;
+input.value=member[column]??"";
 
 group.appendChild(label);
 group.appendChild(input);
-
 form.appendChild(group);
 
 }
 
 document.getElementById(
 "editError"
-).textContent = "";
+).textContent="";
 
 document.getElementById(
 "editModal"
-).classList.remove(
-"hidden"
-);
+).classList.remove("hidden");
 
 }
 
@@ -2531,36 +2470,29 @@ return;
 }
 
 const error =
-document.getElementById(
-"editError"
-);
+document.getElementById("editError");
 
-error.textContent =
-"Saving changes...";
+error.textContent="Saving changes...";
 
-const updates = {};
+const updates={};
 
-for(
-const column of visibleMemberColumns()
-){
+for(const column of visibleMemberColumns()){
 
-if(column === "id"){
+if(column==="id"){
 continue;
 }
 
 const input =
 document.getElementById(
-"edit_" + column
+"edit_"+column
 );
 
 if(input){
 
 updates[column] =
-input.value === ""
-?
-null
-:
-input.value;
+input.value===""
+? null
+: input.value;
 
 }
 
@@ -2569,27 +2501,19 @@ input.value;
 try{
 
 await supabaseRequest(
-
-SUPABASE_URL +
-"/rest/v1/" +
-MEMBERS_TABLE +
-"?id=eq." +
-encodeURIComponent(
-editingMember.id
-),
-
+SUPABASE_URL+
+"/rest/v1/"+
+MEMBERS_TABLE+
+"?id=eq."+
+encodeURIComponent(editingMember.id),
 {
 method:"PATCH",
-
 headers:{
 "Prefer":
 "return=representation"
 },
-
-body:
-JSON.stringify(updates)
+body:JSON.stringify(updates)
 }
-
 );
 
 Object.assign(
@@ -2598,20 +2522,18 @@ updates
 );
 
 closeEdit();
-
 buildMemberHeader();
-
 renderMembers();
 
 document.getElementById(
-"status"
+"ownerStatus"
 ).textContent =
 "✅ Member information saved.";
 
 }catch(e){
 
 error.textContent =
-"Unable to save changes: " +
+"Unable to save changes: "+
 e.message;
 
 }
@@ -2620,63 +2542,40 @@ e.message;
 
 
 /* =====================================================
-ADD MEMBER
+OWNER ADD MEMBER
 ===================================================== */
 
 function openAddMember(){
 
 const form =
-document.getElementById(
-"addForm"
-);
+document.getElementById("addForm");
 
-form.innerHTML = "";
+form.innerHTML="";
 
-for(
-const column of visibleMemberColumns()
-){
+for(const column of visibleMemberColumns()){
 
-if(column === "id"){
+if(column==="id"){
 continue;
 }
 
 const group =
 document.createElement("div");
 
-group.className =
-"form-group";
+group.className="form-group";
 
 const label =
 document.createElement("label");
 
-label.textContent =
-column;
+label.textContent=column;
 
 let input;
 
-if(
-/remark|note|comment/i.test(
-column
-)
-){
+if(/remark|note|comment/i.test(column))
+input=document.createElement("textarea");
+else
+input=document.createElement("input");
 
-input =
-document.createElement(
-"textarea"
-);
-
-}else{
-
-input =
-document.createElement(
-"input"
-);
-
-}
-
-input.id =
-"add_" +
-column;
+input.id="add_"+column;
 
 group.appendChild(label);
 group.appendChild(input);
@@ -2687,13 +2586,11 @@ form.appendChild(group);
 
 document.getElementById(
 "addError"
-).textContent = "";
+).textContent="";
 
 document.getElementById(
 "addModal"
-).classList.remove(
-"hidden"
-);
+).classList.remove("hidden");
 
 }
 
@@ -2701,36 +2598,29 @@ document.getElementById(
 async function addMember(){
 
 const error =
-document.getElementById(
-"addError"
-);
+document.getElementById("addError");
 
-error.textContent =
-"Saving new member...";
+error.textContent="Saving new member...";
 
-const newMember = {};
+const newMember={};
 
-for(
-const column of visibleMemberColumns()
-){
+for(const column of visibleMemberColumns()){
 
-if(column === "id"){
+if(column==="id"){
 continue;
 }
 
 const input =
 document.getElementById(
-"add_" + column
+"add_"+column
 );
 
 if(input){
 
 newMember[column] =
-input.value === ""
-?
-null
-:
-input.value;
+input.value===""
+? null
+: input.value;
 
 }
 
@@ -2740,64 +2630,48 @@ try{
 
 const result =
 await supabaseRequest(
-
-SUPABASE_URL +
-"/rest/v1/" +
+SUPABASE_URL+
+"/rest/v1/"+
 MEMBERS_TABLE,
-
 {
 method:"POST",
-
 headers:{
 "Prefer":
 "return=representation"
 },
-
-body:
-JSON.stringify(newMember)
+body:JSON.stringify(newMember)
 }
-
 );
 
-if(Array.isArray(result)){
-
-allMembers.push(
-...result
-);
-
-}else if(result){
-
-allMembers.push(
-result
-);
-
-}
+if(Array.isArray(result))
+allMembers.push(...result);
+else if(result)
+allMembers.push(result);
 
 closeAddMember();
 
 buildMemberHeader();
-
 renderMembers();
 
 document.getElementById(
 "totalMembers"
-).textContent =
+).textContent=
 allMembers.length;
 
 document.getElementById(
 "recordsLoaded"
-).textContent =
+).textContent=
 allMembers.length;
 
 document.getElementById(
-"status"
+"ownerStatus"
 ).textContent =
 "✅ New member added successfully.";
 
 }catch(e){
 
 error.textContent =
-"Unable to add member: " +
+"Unable to add member: "+
 e.message;
 
 }
@@ -2806,18 +2680,375 @@ e.message;
 
 
 /* =====================================================
-CLOSE
+PLAN HOLDER DASHBOARD
+===================================================== */
+
+async function loadMemberDashboard(clientId){
+
+const status =
+document.getElementById("memberStatus");
+
+try{
+
+status.textContent =
+"Loading your FutureCare record...";
+
+
+/*
+Get ONLY the logged-in plan holder.
+RLS must allow the authenticated
+user to see their own record.
+*/
+
+const members =
+await supabaseRequest(
+SUPABASE_URL+
+"/rest/v1/"+
+MEMBERS_TABLE+
+"?client_id=eq."+
+encodeURIComponent(clientId)+
+"&select=*"
+);
+
+if(
+!Array.isArray(members) ||
+!members.length
+){
+
+throw new Error(
+"Your member record could not be found."
+);
+
+}
+
+currentMember =
+members[0];
+
+
+/* PAYMENT RECORDS */
+
+let payments=[];
+
+try{
+
+payments =
+await supabaseRequest(
+SUPABASE_URL+
+"/rest/v1/"+
+PAYMENTS_TABLE+
+"?plan_holder_id=eq."+
+encodeURIComponent(currentMember.id)+
+"&select=*"
+);
+
+}catch(e){
+
+payments=[];
+
+}
+
+allPayments =
+Array.isArray(payments)
+? payments
+: [];
+
+
+/* MONTHLY RECORDS */
+
+let monthly=[];
+
+try{
+
+monthly =
+await supabaseRequest(
+SUPABASE_URL+
+"/rest/v1/"+
+MONTHLY_TABLE+
+"?plan_holder_id=eq."+
+encodeURIComponent(currentMember.id)+
+"&select=*"
+);
+
+}catch(e){
+
+monthly=[];
+
+}
+
+allMonthly =
+Array.isArray(monthly)
+? monthly
+: [];
+
+
+/* HEADER */
+
+document.getElementById(
+"memberWelcome"
+).textContent =
+"Welcome, "+
+(
+currentMember.full_name ||
+"FutureCare Plan Holder"
+);
+
+document.getElementById(
+"memberClientId"
+).textContent =
+"Client ID: "+
+(
+currentMember.client_id ||
+clientId
+);
+
+
+/* CARDS */
+
+document.getElementById(
+"holderClientId"
+).textContent =
+currentMember.client_id || clientId;
+
+document.getElementById(
+"holderDateApplied"
+).textContent =
+formatDate(
+currentMember.date_applied
+);
+
+document.getElementById(
+"holderMonthly"
+).textContent =
+formatMoney(
+getMonthlyRate(currentMember)
+);
+
+document.getElementById(
+"holderContestability"
+).textContent =
+getContestabilityStatus(
+currentMember
+);
+
+
+/* INFORMATION */
+
+renderMemberInformation(
+currentMember
+);
+
+
+/* PAYMENTS */
+
+renderMemberPaymentHistory(
+currentMember
+);
+
+status.textContent =
+"✅ Your FutureCare record is loaded.";
+
+}catch(e){
+
+console.error(e);
+
+status.innerHTML =
+"❌ Unable to load your record:<br>"+
+escapeHtml(e.message);
+
+}
+
+}
+
+
+/* =====================================================
+PLAN HOLDER INFORMATION
+===================================================== */
+
+function renderMemberInformation(member){
+
+const container =
+document.getElementById(
+"memberInformation"
+);
+
+container.innerHTML="";
+
+for(const key of Object.keys(member)){
+
+if(hiddenColumns.includes(key)){
+continue;
+}
+
+const box =
+document.createElement("div");
+
+box.className="detail";
+
+const label =
+document.createElement("b");
+
+label.textContent=key;
+
+const value =
+document.createElement("span");
+
+let data =
+member[key] ?? "";
+
+if(
+typeof data==="object" &&
+data!==null
+){
+
+data=JSON.stringify(data);
+
+}
+
+value.textContent=data;
+
+box.appendChild(label);
+box.appendChild(value);
+
+container.appendChild(box);
+
+}
+
+}
+
+
+/* =====================================================
+PLAN HOLDER PAYMENT HISTORY
+===================================================== */
+
+function renderMemberPaymentHistory(member){
+
+const container =
+document.getElementById(
+"memberPayments"
+);
+
+container.innerHTML="";
+
+const years=[2025,2026];
+
+for(const year of years){
+
+const title =
+document.createElement("h3");
+
+title.className="section-title";
+
+title.textContent =
+year+" Monthly Payments";
+
+container.appendChild(title);
+
+const calc =
+calculateYear(
+member,
+year,
+year===2025 ? 2 : 1
+);
+
+const table =
+document.createElement("table");
+
+table.className="payment-table";
+
+const thead =
+document.createElement("thead");
+
+const tr =
+document.createElement("tr");
+
+[
+"MONTH",
+"PAYMENT AMOUNT",
+"STATUS",
+"REMARKS",
+"PAYMENT DATE",
+"RECEIPT NUMBER"
+].forEach(text=>{
+
+const th =
+document.createElement("th");
+
+th.textContent=text;
+
+tr.appendChild(th);
+
+});
+
+thead.appendChild(tr);
+table.appendChild(thead);
+
+const tbody =
+document.createElement("tbody");
+
+for(const item of calc.rows){
+
+const row =
+document.createElement("tr");
+
+const values=[
+item.name+" "+year,
+item.amount===null
+? "-"
+: formatMoney(item.amount),
+item.status,
+item.remarks,
+item.date
+? formatDate(item.date)
+: "-",
+item.receipt || "-"
+];
+
+values.forEach((value,index)=>{
+
+const td =
+document.createElement("td");
+
+td.textContent=value;
+
+if(index===2){
+
+if(value==="PAID" ||
+value==="COVERED")
+td.className="paid";
+
+if(value==="UNPAID")
+td.className="unpaid";
+
+}
+
+td.className +=
+" ";
+
+row.appendChild(td);
+
+});
+
+tbody.appendChild(row);
+
+}
+
+table.appendChild(tbody);
+container.appendChild(table);
+
+}
+
+}
+
+
+/* =====================================================
+CLOSE MODALS
 ===================================================== */
 
 function closeMember(){
 
 document
-.getElementById(
-"memberModal"
-)
-.classList.add(
-"hidden"
-);
+.getElementById("memberModal")
+.classList.add("hidden");
 
 }
 
@@ -2825,14 +3056,10 @@ document
 function closeEdit(){
 
 document
-.getElementById(
-"editModal"
-)
-.classList.add(
-"hidden"
-);
+.getElementById("editModal")
+.classList.add("hidden");
 
-editingMember = null;
+editingMember=null;
 
 }
 
@@ -2840,12 +3067,8 @@ editingMember = null;
 function closeAddMember(){
 
 document
-.getElementById(
-"addModal"
-)
-.classList.add(
-"hidden"
-);
+.getElementById("addModal")
+.classList.add("hidden");
 
 }
 
@@ -2861,22 +3084,15 @@ try{
 if(accessToken){
 
 await fetch(
-
-SUPABASE_URL +
+SUPABASE_URL+
 "/auth/v1/logout",
-
 {
 method:"POST",
-
 headers:{
-"apikey":
-SUPABASE_KEY,
-
+"apikey":SUPABASE_KEY,
 "Authorization":
-"Bearer " +
-accessToken
+"Bearer "+accessToken
 }
-
 }
 );
 
@@ -2892,9 +3108,87 @@ localStorage.removeItem(
 "futurecare_owner_token"
 );
 
-accessToken = "";
+localStorage.removeItem(
+"futurecare_mode"
+);
+
+accessToken="";
+currentMode="";
+currentMember=null;
 
 location.reload();
+
+}
+
+
+/* =====================================================
+CHECK EXISTING SESSION
+===================================================== */
+
+async function checkLogin(){
+
+if(!accessToken){
+return;
+}
+
+try{
+
+const user =
+await supabaseRequest(
+SUPABASE_URL+
+"/auth/v1/user"
+);
+
+if(
+!user ||
+!user.email
+){
+
+throw new Error(
+"Invalid session."
+);
+
+}
+
+if(
+user.email.toLowerCase() ===
+OWNER_EMAIL.toLowerCase()
+){
+
+showOwnerDashboard();
+await loadOwnerDashboard();
+
+}else{
+
+showMemberDashboard();
+
+const email =
+user.email.toLowerCase();
+
+const clientId =
+email
+.replace("@futurecare.local","")
+.toUpperCase();
+
+await loadMemberDashboard(
+clientId
+);
+
+}
+
+}catch(e){
+
+localStorage.removeItem(
+"futurecare_owner_token"
+);
+
+localStorage.removeItem(
+"futurecare_mode"
+);
+
+accessToken="";
+
+}
 
 }
 
