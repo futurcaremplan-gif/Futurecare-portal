@@ -7,7 +7,9 @@
 <title>FutureCare Owner Dashboard</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -126,6 +128,7 @@ th{
   color:white;
   position:sticky;
   top:0;
+  z-index:2;
 }
 
 tr:hover{
@@ -197,7 +200,7 @@ tr:hover{
 
 .modal-box{
   background:white;
-  max-width:1000px;
+  max-width:1200px;
   margin:30px auto;
   border-radius:15px;
   padding:22px;
@@ -229,13 +232,60 @@ tr:hover{
 }
 
 .section-title{
-  margin-top:25px;
+  margin-top:28px;
   color:#07572e;
+}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+  margin-top:15px;
+}
+
+.summary-card{
+  background:#f4f7fb;
+  padding:15px;
+  border-radius:10px;
+}
+
+.summary-card b{
+  display:block;
+  color:#666;
+  margin-bottom:6px;
+}
+
+.summary-card strong{
+  color:#07572e;
+  font-size:24px;
+}
+
+.year-title{
+  background:#07572e;
+  color:white;
+  padding:12px;
+  border-radius:8px;
+  margin-top:18px;
+}
+
+.month-paid{
+  font-weight:bold;
+  color:#07572e;
+}
+
+.month-none{
+  color:#999;
 }
 
 .loading{
   padding:30px;
   text-align:center;
+}
+
+.small-note{
+  color:#666;
+  font-size:14px;
+  margin-top:8px;
 }
 </style>
 </head>
@@ -328,7 +378,7 @@ tr:hover{
 
     <div class="card">
       <h3>TOTAL PAYMENT AMOUNT</h3>
-      <strong id="totalAmount">₱0</strong>
+      <strong id="totalAmount">₱0.00</strong>
     </div>
 
   </div>
@@ -346,7 +396,7 @@ tr:hover{
   <div class="table-wrap">
 
     <div id="loading" class="loading">
-      Loading FutureCare members...
+      Loading FutureCare members and payments...
     </div>
 
     <table id="membersTable" class="hidden">
@@ -380,11 +430,100 @@ tr:hover{
       Member Details
     </h2>
 
+    <!-- ALL MEMBER INFORMATION -->
     <div id="memberDetails" class="detail-grid"></div>
 
+
+    <!-- PAYMENT SUMMARY -->
     <h2 class="section-title">
-      Payment History
+      Payment Summary
     </h2>
+
+    <div class="summary-grid">
+
+      <div class="summary-card">
+        <b>Total Payment Records</b>
+        <strong id="memberPaymentCount">0</strong>
+      </div>
+
+      <div class="summary-card">
+        <b>Total Amount Paid</b>
+        <strong id="memberPaymentTotal">₱0.00</strong>
+      </div>
+
+      <div class="summary-card">
+        <b>2025 Total</b>
+        <strong id="member2025Total">₱0.00</strong>
+      </div>
+
+      <div class="summary-card">
+        <b>2026 Total</b>
+        <strong id="member2026Total">₱0.00</strong>
+      </div>
+
+    </div>
+
+
+    <!-- 2025 MONTHLY PAYMENTS -->
+    <h2 class="section-title">
+      2025 Monthly Payments
+    </h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>MONTH</th>
+            <th>PAYMENT DATE</th>
+            <th>AMOUNT</th>
+            <th>RECEIPT NUMBER</th>
+            <th>NOTES</th>
+          </tr>
+        </thead>
+
+        <tbody id="payments2025Body"></tbody>
+
+      </table>
+
+    </div>
+
+
+    <!-- 2026 MONTHLY PAYMENTS -->
+    <h2 class="section-title">
+      2026 Monthly Payments
+    </h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>MONTH</th>
+            <th>PAYMENT DATE</th>
+            <th>AMOUNT</th>
+            <th>RECEIPT NUMBER</th>
+            <th>NOTES</th>
+          </tr>
+        </thead>
+
+        <tbody id="payments2026Body"></tbody>
+
+      </table>
+
+    </div>
+
+
+    <!-- COMPLETE PAYMENT HISTORY -->
+    <h2 class="section-title">
+      Complete Payment History
+    </h2>
+
+    <div class="small-note">
+      All payment records belonging to this member are shown below.
+    </div>
 
     <div class="table-wrap">
 
@@ -445,11 +584,11 @@ let paymentColumns = [];
    SUPABASE REQUEST
    ========================================================= */
 
-async function supabaseRequest(url, options={}){
+async function supabaseRequest(url,options={}){
 
   const headers = {
 
-    "apikey": SUPABASE_KEY,
+    "apikey":SUPABASE_KEY,
 
     "Authorization":
       "Bearer " +
@@ -463,10 +602,13 @@ async function supabaseRequest(url, options={}){
   };
 
   const response =
-    await fetch(url,{
-      ...options,
-      headers
-    });
+    await fetch(
+      url,
+      {
+        ...options,
+        headers
+      }
+    );
 
   const text =
     await response.text();
@@ -474,10 +616,14 @@ async function supabaseRequest(url, options={}){
   let data;
 
   try{
+
     data =
       text ? JSON.parse(text) : null;
+
   }catch{
+
     data = text;
+
   }
 
   if(!response.ok){
@@ -511,14 +657,14 @@ async function login(){
     document.getElementById("password")
       .value;
 
-  const error =
+  const errorBox =
     document.getElementById("loginError");
 
-  error.textContent = "";
+  errorBox.textContent = "";
 
   if(!email || !password){
 
-    error.textContent =
+    errorBox.textContent =
       "Please enter your email and password.";
 
     return;
@@ -527,7 +673,7 @@ async function login(){
 
   if(email !== OWNER_EMAIL){
 
-    error.textContent =
+    errorBox.textContent =
       "This login is for the FutureCare owner only.";
 
     return;
@@ -586,17 +732,13 @@ async function login(){
 
     await loadDashboard();
 
-  }catch(error){
+  }catch(err){
 
-    console.error(error);
+    console.error(err);
 
-    error =
-      error.message || "Login failed.";
-
-    document.getElementById(
-      "loginError"
-    ).textContent =
-      error;
+    errorBox.textContent =
+      err.message ||
+      "Login failed.";
 
   }
 
@@ -643,7 +785,7 @@ async function checkLogin(){
 
     await loadDashboard();
 
-  }catch(error){
+  }catch(err){
 
     localStorage.removeItem(
       "futurecare_owner_token"
@@ -657,7 +799,127 @@ async function checkLogin(){
 
 
 /* =========================================================
-   LOAD ALL DATA
+   LOAD MEMBERS - ALL RECORDS
+   ========================================================= */
+
+async function loadMembers(){
+
+  const pageSize = 1000;
+
+  let result = [];
+
+  let from = 0;
+
+  while(true){
+
+    const to =
+      from + pageSize - 1;
+
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/" +
+      MEMBERS_TABLE +
+      "?select=*";
+
+    const page =
+      await supabaseRequest(
+        url,
+        {
+          headers:{
+            "Range":
+              from + "-" + to,
+            "Prefer":
+              "count=exact"
+          }
+        }
+      );
+
+    if(!Array.isArray(page)){
+
+      break;
+
+    }
+
+    result =
+      result.concat(page);
+
+    if(page.length < pageSize){
+
+      break;
+
+    }
+
+    from += pageSize;
+
+  }
+
+  return result;
+
+}
+
+
+/* =========================================================
+   LOAD PAYMENTS - ALL RECORDS
+   ========================================================= */
+
+async function loadPayments(){
+
+  const pageSize = 1000;
+
+  let result = [];
+
+  let from = 0;
+
+  while(true){
+
+    const to =
+      from + pageSize - 1;
+
+    const url =
+      SUPABASE_URL +
+      "/rest/v1/" +
+      PAYMENTS_TABLE +
+      "?select=*";
+
+    const page =
+      await supabaseRequest(
+        url,
+        {
+          headers:{
+            "Range":
+              from + "-" + to,
+            "Prefer":
+              "count=exact"
+          }
+        }
+      );
+
+    if(!Array.isArray(page)){
+
+      break;
+
+    }
+
+    result =
+      result.concat(page);
+
+    if(page.length < pageSize){
+
+      break;
+
+    }
+
+    from += pageSize;
+
+  }
+
+  return result;
+
+}
+
+
+/* =========================================================
+   LOAD DASHBOARD
    ========================================================= */
 
 async function loadDashboard(){
@@ -671,59 +933,32 @@ async function loadDashboard(){
   try{
 
     status.textContent =
-      "Loading members and payments...";
+      "Loading all FutureCare members and payment records...";
 
     loading.classList.remove("hidden");
 
-    /*
-      Load members.
-      Supabase normally allows 1000 records per request.
-      We use a large range because your current database
-      has 558 members.
-    */
+    document.getElementById(
+      "membersTable"
+    ).classList.add("hidden");
 
-    const membersUrl =
-      SUPABASE_URL +
-      "/rest/v1/" +
-      MEMBERS_TABLE +
-      "?select=*";
+
+    /* LOAD ALL 558 MEMBERS */
 
     allMembers =
-      await supabaseRequest(
-        membersUrl,
-        {
-          headers:{
-            "Range":"0-9999"
-          }
-        }
-      );
+      await loadMembers();
+
+
+    /* LOAD ALL PAYMENT RECORDS */
+
+    allPayments =
+      await loadPayments();
+
 
     if(!Array.isArray(allMembers)){
 
       allMembers = [];
 
     }
-
-
-    /*
-      Load payments.
-    */
-
-    const paymentsUrl =
-      SUPABASE_URL +
-      "/rest/v1/" +
-      PAYMENTS_TABLE +
-      "?select=*";
-
-    allPayments =
-      await supabaseRequest(
-        paymentsUrl,
-        {
-          headers:{
-            "Range":"0-9999"
-          }
-        }
-      );
 
     if(!Array.isArray(allPayments)){
 
@@ -732,10 +967,7 @@ async function loadDashboard(){
     }
 
 
-    /*
-      Determine column order directly
-      from Supabase response.
-    */
+    /* GET MEMBER COLUMNS */
 
     if(allMembers.length){
 
@@ -743,6 +975,9 @@ async function loadDashboard(){
         Object.keys(allMembers[0]);
 
     }
+
+
+    /* GET PAYMENT COLUMNS */
 
     if(allPayments.length){
 
@@ -752,25 +987,29 @@ async function loadDashboard(){
     }
 
 
-    /*
-      Update dashboard numbers.
-    */
+    /* TOTAL MEMBERS */
 
     document.getElementById(
       "totalMembers"
     ).textContent =
       allMembers.length;
 
+
     document.getElementById(
       "recordsLoaded"
     ).textContent =
       allMembers.length;
+
+
+    /* TOTAL PAYMENTS */
 
     document.getElementById(
       "totalPayments"
     ).textContent =
       allPayments.length;
 
+
+    /* TOTAL PAYMENT AMOUNT */
 
     let totalAmount = 0;
 
@@ -790,23 +1029,15 @@ async function loadDashboard(){
     document.getElementById(
       "totalAmount"
     ).textContent =
-      "₱" +
-      totalAmount.toLocaleString(
-        "en-PH",
-        {
-          minimumFractionDigits:2,
-          maximumFractionDigits:2
-        }
-      );
+      formatMoney(totalAmount);
 
 
-    /*
-      Build member table.
-    */
+    /* BUILD MEMBER TABLE */
 
     buildMemberHeader();
 
     renderMembers();
+
 
     loading.classList.add("hidden");
 
@@ -818,22 +1049,43 @@ async function loadDashboard(){
     status.textContent =
       "✅ Connected to Supabase. " +
       allMembers.length +
-      " member records loaded and " +
+      " members and " +
       allPayments.length +
       " payment records loaded.";
 
-  }catch(error){
+  }catch(err){
 
-    console.error(error);
+    console.error(err);
 
     loading.textContent =
-      "Unable to load the FutureCare records.";
+      "Unable to load FutureCare records.";
 
     status.innerHTML =
       "❌ Database loading error:<br><br>" +
-      escapeHtml(error.message);
+      escapeHtml(err.message);
 
   }
+
+}
+
+
+/* =========================================================
+   FORMAT MONEY
+   ========================================================= */
+
+function formatMoney(value){
+
+  const number =
+    Number(value) || 0;
+
+  return "₱" +
+    number.toLocaleString(
+      "en-PH",
+      {
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+      }
+    );
 
 }
 
@@ -942,6 +1194,7 @@ function renderMembers(){
     const actionTd =
       document.createElement("td");
 
+
     const button =
       document.createElement("button");
 
@@ -953,6 +1206,7 @@ function renderMembers(){
 
     button.onclick =
       () => viewMember(member);
+
 
     actionTd.appendChild(button);
 
@@ -992,11 +1246,16 @@ function renderMembers(){
 
 function viewMember(member){
 
-  document.getElementById(
-    "memberTitle"
-  ).textContent =
+  const title =
+    document.getElementById(
+      "memberTitle"
+    );
+
+  title.textContent =
     "Member Details";
 
+
+  /* MEMBER DETAILS */
 
   const details =
     document.getElementById(
@@ -1014,17 +1273,20 @@ function viewMember(member){
     box.className =
       "detail";
 
+
     const label =
       document.createElement("b");
 
     label.textContent =
       column;
 
+
     const value =
       document.createElement("span");
 
     value.textContent =
       member[column] ?? "";
+
 
     box.appendChild(label);
 
@@ -1035,41 +1297,343 @@ function viewMember(member){
   }
 
 
-  /*
-    Find this member's ID.
-    Your payments table contains plan_holder_id.
-  */
+  /* MEMBER ID */
 
   const memberId =
     member.id;
 
 
-  const memberPayments =
+  /*
+    IMPORTANT:
+    Payments use plan_holder_id.
+    We match it against the member's id.
+  */
+
+  let memberPayments =
     allPayments.filter(payment => {
 
       return String(
         payment.plan_holder_id ?? ""
-      ) === String(
+      ).trim() === String(
         memberId ?? ""
-      );
+      ).trim();
 
     });
 
 
-  buildPaymentTable(
-    memberPayments
-  );
+  /* SORT PAYMENT HISTORY BY DATE */
+
+  memberPayments.sort(
+    (a,b) => {
+
+      const dateA =
+        new Date(
+          a.payment_month ||
+          a.payment_date ||
+          0
+        );
+
+      const dateB =
+        new Date(
+          b.payment_month ||
+        b.payment_date ||
+0
+);
+
+return dateA - dateB;
+
+}
+);
 
 
-  document.getElementById(
-    "memberModal"
-  ).classList.remove("hidden");
+/* =========================================================
+   PAYMENT SUMMARY
+   ========================================================= */
+
+document.getElementById(
+  "memberPaymentCount"
+).textContent =
+  memberPayments.length;
+
+let total = 0;
+let total2025 = 0;
+let total2026 = 0;
+
+for(const payment of memberPayments){
+
+  const amount =
+    Number(payment.amount) || 0;
+
+  total += amount;
+
+  const year =
+    getPaymentYear(payment);
+
+  if(year === 2025){
+    total2025 += amount;
+  }
+
+  if(year === 2026){
+    total2026 += amount;
+  }
+
+}
+
+document.getElementById(
+  "memberPaymentTotal"
+).textContent =
+  formatMoney(total);
+
+document.getElementById(
+  "member2025Total"
+).textContent =
+  formatMoney(total2025);
+
+document.getElementById(
+  "member2026Total"
+).textContent =
+  formatMoney(total2026);
+
+
+/* BUILD 2025 */
+
+buildYearPayments(
+  memberPayments,
+  2025,
+  "payments2025Body"
+);
+
+
+/* BUILD 2026 */
+
+buildYearPayments(
+  memberPayments,
+  2026,
+  "payments2026Body"
+);
+
+
+/* COMPLETE HISTORY */
+
+buildPaymentTable(
+  memberPayments
+);
+
+
+/* OPEN MODAL */
+
+document.getElementById(
+  "memberModal"
+).classList.remove("hidden");
 
 }
 
 
 /* =========================================================
-   PAYMENT TABLE
+   GET PAYMENT DATE
+   ========================================================= */
+
+function getPaymentDate(payment){
+
+  return (
+    payment.payment_month ||
+    payment.payment_date ||
+    payment.created_at ||
+    ""
+  );
+
+}
+
+
+/* =========================================================
+   GET PAYMENT YEAR
+   ========================================================= */
+
+function getPaymentYear(payment){
+
+  const value =
+    getPaymentDate(payment);
+
+  if(!value){
+    return null;
+  }
+
+  const date =
+    new Date(value);
+
+  if(Number.isNaN(date.getTime())){
+    return null;
+  }
+
+  return date.getFullYear();
+
+}
+
+
+/* =========================================================
+   GET PAYMENT MONTH
+   ========================================================= */
+
+function getPaymentMonth(payment){
+
+  const value =
+    getPaymentDate(payment);
+
+  if(!value){
+    return null;
+  }
+
+  const date =
+    new Date(value);
+
+  if(Number.isNaN(date.getTime())){
+    return null;
+  }
+
+  return date.getMonth() + 1;
+
+}
+
+
+/* =========================================================
+   BUILD 2025 / 2026 MONTHLY PAYMENT TABLE
+   ========================================================= */
+
+function buildYearPayments(
+  payments,
+  year,
+  bodyId
+){
+
+  const body =
+    document.getElementById(
+      bodyId
+    );
+
+  body.innerHTML = "";
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  const startMonth =
+    year === 2025 ? 2 : 1;
+
+  for(
+    let month = startMonth;
+    month <= 12;
+    month++
+  ){
+
+    const monthPayments =
+      payments.filter(payment => {
+
+        return (
+          getPaymentYear(payment) === year &&
+          getPaymentMonth(payment) === month
+        );
+
+      });
+
+    let amount = 0;
+
+    for(
+      const payment of monthPayments
+    ){
+
+      amount +=
+        Number(payment.amount) || 0;
+
+    }
+
+    const row =
+      document.createElement("tr");
+
+    const monthTd =
+      document.createElement("td");
+
+    const dateTd =
+      document.createElement("td");
+
+    const amountTd =
+      document.createElement("td");
+
+    const receiptTd =
+      document.createElement("td");
+
+    const notesTd =
+      document.createElement("td");
+
+    monthTd.textContent =
+      months[month - 1] +
+      " " +
+      year;
+
+    if(monthPayments.length){
+
+      monthTd.className =
+        "month-paid";
+
+      dateTd.textContent =
+        monthPayments
+          .map(p => p.payment_date || "")
+          .filter(Boolean)
+          .join(", ");
+
+      amountTd.textContent =
+        formatMoney(amount);
+
+      receiptTd.textContent =
+        monthPayments
+          .map(p => p.receipt_number || "")
+          .filter(Boolean)
+          .join(", ");
+
+      notesTd.textContent =
+        monthPayments
+          .map(p => p.notes || "")
+          .filter(Boolean)
+          .join(" | ");
+
+    }else{
+
+      monthTd.className =
+        "month-none";
+
+      dateTd.textContent = "—";
+      amountTd.textContent = "—";
+      receiptTd.textContent = "—";
+      notesTd.textContent =
+        "No payment recorded";
+
+    }
+
+    row.appendChild(monthTd);
+    row.appendChild(dateTd);
+    row.appendChild(amountTd);
+    row.appendChild(receiptTd);
+    row.appendChild(notesTd);
+
+    body.appendChild(row);
+
+  }
+
+}
+
+
+/* =========================================================
+   COMPLETE PAYMENT HISTORY
    ========================================================= */
 
 function buildPaymentTable(payments){
@@ -1085,9 +1649,7 @@ function buildPaymentTable(payments){
     );
 
   head.innerHTML = "";
-
   body.innerHTML = "";
-
 
   if(!paymentColumns.length){
 
@@ -1098,22 +1660,21 @@ function buildPaymentTable(payments){
       document.createElement("td");
 
     td.textContent =
-      "No payment records found.";
+      "No payment columns found.";
 
     row.appendChild(td);
-
     body.appendChild(row);
 
     return;
 
   }
 
-
   const headRow =
     document.createElement("tr");
 
-
-  for(const column of paymentColumns){
+  for(
+    const column of paymentColumns
+  ){
 
     const th =
       document.createElement("th");
@@ -1126,7 +1687,6 @@ function buildPaymentTable(payments){
   }
 
   head.appendChild(headRow);
-
 
   if(!payments.length){
 
@@ -1143,21 +1703,22 @@ function buildPaymentTable(payments){
       "No payment records found for this member.";
 
     row.appendChild(td);
-
     body.appendChild(row);
 
     return;
 
   }
 
-
-  for(const payment of payments){
+  for(
+    const payment of payments
+  ){
 
     const row =
       document.createElement("tr");
 
-
-    for(const column of paymentColumns){
+    for(
+      const column of paymentColumns
+    ){
 
       const td =
         document.createElement("td");
@@ -1204,7 +1765,6 @@ async function logout(){
         "/auth/v1/logout",
         {
           method:"POST",
-
           headers:{
             "apikey":SUPABASE_KEY,
             "Authorization":
@@ -1216,9 +1776,9 @@ async function logout(){
 
     }
 
-  }catch(error){
+  }catch(err){
 
-    console.error(error);
+    console.error(err);
 
   }
 
@@ -1234,7 +1794,7 @@ async function logout(){
 
 
 /* =========================================================
-   HTML ESCAPE
+   ESCAPE HTML
    ========================================================= */
 
 function escapeHtml(value){
@@ -1250,7 +1810,7 @@ function escapeHtml(value){
 
 
 /* =========================================================
-   START
+   START APPLICATION
    ========================================================= */
 
 checkLogin();
@@ -1258,4 +1818,4 @@ checkLogin();
 </script>
 
 </body>
-  </html>
+</html>
