@@ -1,833 +1,925 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
 <title>FutureCare Owner Dashboard</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box;
+}
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f3f6f4;
-  color:#222;
-}
-
-header{
-  background:#07572e;
-  color:white;
-  padding:12px 18px;
-  position:sticky;
-  top:0;
-  z-index:20;
-}
-
-.header-inner{
-  max-width:1800px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logo{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  background:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  color:#07572e;
-  font-weight:bold;
-  font-size:12px;
-  text-align:center;
-}
-
-.logo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-.brand h1{
-  margin:0;
-  font-size:24px;
-}
-
-.brand small{
-  display:block;
-  margin-top:3px;
-  opacity:.85;
-}
-
-.logout{
-  background:white;
-  color:#07572e;
-  border:0;
-  border-radius:8px;
-  padding:11px 18px;
-  font-weight:bold;
-}
-
-button{
-  cursor:pointer;
-}
-
-.container{
-  max-width:1800px;
-  margin:auto;
-  padding:18px;
-}
-
-.status{
-  background:white;
-  padding:14px 16px;
-  border-radius:10px;
-  margin-bottom:15px;
-  box-shadow:0 2px 7px #0001;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:14px;
-  margin-bottom:16px;
-}
-
-.card{
-  background:white;
-  border-radius:10px;
-  padding:18px;
-  box-shadow:0 2px 7px #0001;
-}
-
-.card h3{
-  margin:0 0 8px;
-  color:#666;
-  font-size:14px;
-}
-
-.card strong{
-  color:#07572e;
-  font-size:28px;
-}
-
-.toolbar{
-  background:white;
-  padding:14px;
-  border-radius:10px;
-  margin-bottom:15px;
-  display:flex;
-  gap:10px;
-  align-items:center;
-  flex-wrap:wrap;
-  box-shadow:0 2px 7px #0001;
-}
-
-.search{
-  flex:1;
-  min-width:260px;
-  padding:13px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
-}
-
-.primary{
-  background:#07572e;
-  color:white;
-  border:0;
-  border-radius:8px;
-  padding:13px 18px;
-  font-weight:bold;
-}
-
-.secondary{
-  background:#e8eee9;
-  color:#07572e;
-  border:0;
-  border-radius:8px;
-  padding:13px 18px;
-  font-weight:bold;
-}
-
-.table-wrap{
-  background:white;
-  border-radius:10px;
-  overflow:auto;
-  box-shadow:0 2px 7px #0001;
-}
-
-table{
-  border-collapse:collapse;
-  width:100%;
-  min-width:1100px;
-}
-
-th,td{
-  border-bottom:1px solid #e5e5e5;
-  padding:10px;
-  text-align:left;
-  white-space:nowrap;
-}
-
-th{
-  background:#07572e;
-  color:white;
-  position:sticky;
-  top:0;
-  z-index:2;
-}
-
-tr:hover{
-  background:#f4f8f5;
-}
-
-.action-btn{
-  background:#07572e;
-  color:white;
-  border:0;
-  border-radius:6px;
-  padding:7px 10px;
-  margin-right:5px;
-  font-weight:bold;
-}
-
-.edit-btn{
-  background:#b27a00;
-}
-
-.loading{
-  padding:30px;
-  text-align:center;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3f6f5;
+color:#222;
 }
 
 .hidden{
-  display:none!important;
+display:none!important;
 }
 
+/* =========================
+   COLORS
+========================= */
+
+:root{
+--green:#07572e;
+--green2:#08743d;
+--light:#f3f6f5;
+--white:#ffffff;
+--gray:#666;
+--border:#d9d9d9;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
 .login-page{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:var(--light);
 }
 
 .login-box{
-  width:100%;
-  max-width:420px;
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:0 3px 15px #0002;
-  text-align:center;
+width:100%;
+max-width:430px;
+background:white;
+padding:30px;
+border-radius:18px;
+box-shadow:0 4px 20px #0002;
 }
 
-.login-box .logo{
-  margin:0 auto 15px;
+.logo{
+width:90px;
+height:90px;
+border-radius:50%;
+background:white;
+border:6px solid var(--green);
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0 auto 15px;
+color:var(--green);
+font-weight:bold;
+font-size:13px;
+text-align:center;
 }
 
 .login-box h2{
-  color:#07572e;
+text-align:center;
+color:var(--green);
+margin:5px 0;
+font-size:28px;
 }
 
-.login-box input,
-.form-field input,
-.form-field select,
-.form-field textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccc;
-  border-radius:7px;
-  font-size:16px;
+.login-box p{
+text-align:center;
+color:#666;
 }
 
 .login-box input{
-  margin:7px 0;
+width:100%;
+padding:15px;
+margin:7px 0;
+border:1px solid #ccc;
+border-radius:9px;
+font-size:16px;
 }
 
 .login-btn{
-  width:100%;
-  background:#07572e;
-  color:white;
-  border:0;
-  border-radius:8px;
-  padding:13px;
-  margin-top:8px;
-  font-weight:bold;
+width:100%;
+background:var(--green);
+color:white;
+margin-top:10px;
 }
 
 .error{
-  color:#b00020;
-  margin-top:10px;
+color:#b00020;
+margin-top:12px;
 }
 
+/* =========================
+   HEADER
+========================= */
+
+header{
+background:var(--green);
+color:white;
+padding:18px 25px;
+}
+
+.header-inner{
+max-width:1600px;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.brand-logo{
+width:65px;
+height:65px;
+background:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:var(--green);
+font-size:10px;
+font-weight:bold;
+text-align:center;
+border:4px solid white;
+}
+
+.brand-text h1{
+margin:0;
+font-size:28px;
+}
+
+.brand-text p{
+margin:3px 0 0;
+font-size:16px;
+opacity:.9;
+}
+
+.logout{
+background:white;
+color:var(--green);
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+max-width:1600px;
+margin:auto;
+padding:20px;
+}
+
+.status{
+background:white;
+padding:16px;
+border-radius:12px;
+margin-bottom:18px;
+box-shadow:0 2px 8px #0001;
+}
+
+.cards{
+display:grid;
+grid-template-columns:
+repeat(4,minmax(200px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:14px;
+box-shadow:0 2px 8px #0001;
+}
+
+.card h3{
+margin:0 0 8px;
+font-size:17px;
+color:#666;
+}
+
+.card strong{
+font-size:32px;
+color:var(--green);
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-area{
+background:white;
+padding:18px;
+border-radius:14px;
+margin-bottom:18px;
+box-shadow:0 2px 8px #0001;
+display:flex;
+gap:12px;
+align-items:center;
+}
+
+.search{
+flex:1;
+padding:15px;
+border:2px solid #ccc;
+border-radius:9px;
+font-size:17px;
+}
+
+.add-btn{
+background:var(--green);
+color:white;
+white-space:nowrap;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+background:white;
+border-radius:14px;
+overflow:auto;
+box-shadow:0 2px 8px #0001;
+}
+
+table{
+border-collapse:collapse;
+width:100%;
+min-width:1100px;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #eee;
+text-align:left;
+white-space:nowrap;
+}
+
+th{
+background:var(--green);
+color:white;
+position:sticky;
+top:0;
+z-index:2;
+}
+
+tr:hover{
+background:#f5faf7;
+}
+
+.view-btn,
+.edit-btn{
+padding:8px 12px;
+border-radius:7px;
+color:white;
+}
+
+.view-btn{
+background:var(--green);
+}
+
+.edit-btn{
+background:#555;
+}
+
+/* =========================
+   MODAL
+========================= */
+
 .modal{
-  position:fixed;
-  inset:0;
-  background:#0009;
-  z-index:100;
-  overflow:auto;
-  padding:20px;
+position:fixed;
+inset:0;
+background:#0008;
+z-index:100;
+padding:15px;
+overflow:auto;
 }
 
 .modal-box{
-  background:white;
-  max-width:1500px;
-  margin:20px auto;
-  border-radius:12px;
-  padding:22px;
+background:white;
+max-width:1300px;
+margin:20px auto;
+border-radius:16px;
+padding:22px;
 }
 
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:15px;
+.modal-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-bottom:15px;
+}
+
+.modal-title h2{
+margin:0;
+color:var(--green);
 }
 
 .close{
-  background:#eee;
-  border:0;
-  border-radius:7px;
-  padding:10px 15px;
-  font-weight:bold;
+background:#eee;
 }
 
+/* =========================
+   DETAILS
+========================= */
+
 .detail-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
+display:grid;
+grid-template-columns:
+repeat(4,minmax(200px,1fr));
+gap:10px;
 }
 
 .detail{
-  background:#f3f6f4;
-  padding:12px;
-  border-radius:8px;
-  min-width:0;
+background:#f4f7fb;
+padding:12px;
+border-radius:8px;
 }
 
-.detail label{
-  display:block;
-  color:#666;
-  font-size:12px;
-  margin-bottom:5px;
-  font-weight:bold;
+.detail b{
+display:block;
+color:#666;
+margin-bottom:6px;
+font-size:13px;
 }
 
-.detail-value{
-  word-break:break-word;
+.detail span{
+font-size:16px;
+word-break:break-word;
+}
+
+/* =========================
+   FORMS
+========================= */
+
+.form-grid{
+display:grid;
+grid-template-columns:
+repeat(3,minmax(200px,1fr));
+gap:14px;
+}
+
+.form-group{
+display:flex;
+flex-direction:column;
+}
+
+.form-group label{
+font-weight:bold;
+margin-bottom:5px;
+color:#555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:15px;
+}
+
+.form-group textarea{
+min-height:90px;
+resize:vertical;
+}
+
+.form-actions{
+margin-top:20px;
+display:flex;
+gap:10px;
+}
+
+.save-btn{
+background:var(--green);
+color:white;
+}
+
+.cancel-btn{
+background:#eee;
+}
+
+/* =========================
+   PAYMENT HISTORY
+========================= */
+
+.section-title{
+color:var(--green);
+margin-top:28px;
+}
+
+.payment-table{
+min-width:600px;
+}
+
+.payment-table th{
+position:static;
+}
+
+.paid{
+font-weight:bold;
+color:var(--green);
+}
+
+.unpaid{
+color:#777;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+padding:30px;
+text-align:center;
+font-size:18px;
+}
+
+/* =========================
+   LANDSCAPE / MOBILE
+========================= */
+
+@media(max-width:900px){
+
+.cards{
+grid-template-columns:
+repeat(2,minmax(180px,1fr));
+}
+
+.detail-grid{
+grid-template-columns:
+repeat(2,minmax(180px,1fr));
 }
 
 .form-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
+grid-template-columns:
+repeat(2,minmax(180px,1fr));
 }
 
-.form-field label{
-  display:block;
-  font-weight:bold;
-  margin-bottom:5px;
+.header-inner{
+flex-direction:row;
 }
 
-.form-field{
-  min-width:0;
+.brand-text h1{
+font-size:22px;
 }
 
-.section-title{
-  color:#07572e;
-  margin-top:25px;
-}
-
-.summary{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-bottom:15px;
-}
-
-.summary-card{
-  background:#f3f6f4;
-  padding:15px;
-  border-radius:8px;
-}
-
-.summary-card b{
-  display:block;
-  color:#666;
-  font-size:13px;
-}
-
-.summary-card strong{
-  display:block;
-  color:#07572e;
-  font-size:23px;
-  margin-top:5px;
-}
-
-@media(max-width:900px){
-  .cards{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .detail-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .form-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
 }
 
 @media(max-width:600px){
-  .cards{
-    grid-template-columns:1fr 1fr;
-  }
 
-  .detail-grid,
-  .form-grid,
-  .summary{
-    grid-template-columns:1fr;
-  }
-
-  .brand h1{
-    font-size:18px;
-  }
+.container{
+padding:12px;
 }
+
+.cards{
+grid-template-columns:
+repeat(2,minmax(150px,1fr));
+}
+
+.card{
+padding:15px;
+}
+
+.card strong{
+font-size:27px;
+}
+
+.search-area{
+flex-direction:column;
+align-items:stretch;
+}
+
+.detail-grid,
+.form-grid{
+grid-template-columns:1fr 1fr;
+}
+
+.brand-logo{
+width:52px;
+height:52px;
+}
+
+.brand-text h1{
+font-size:19px;
+}
+
+.brand-text p{
+font-size:13px;
+}
+
+.modal-box{
+padding:15px;
+}
+
+}
+
+/* Force a wide working area on landscape phones */
+
+@media(orientation:landscape){
+
+.container{
+max-width:1600px;
+}
+
+.cards{
+grid-template-columns:
+repeat(4,minmax(180px,1fr));
+}
+
+.detail-grid{
+grid-template-columns:
+repeat(4,minmax(180px,1fr));
+}
+
+.form-grid{
+grid-template-columns:
+repeat(3,minmax(180px,1fr));
+}
+
+}
+
+/* =========================
+   YEAR HEADERS
+========================= */
+
+.year-title{
+font-size:25px;
+font-weight:bold;
+color:var(--green);
+margin:30px 0 12px;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<!-- =========================
-     OWNER LOGIN
-========================= -->
 
-<div id="loginPage" class="login-page">
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
 
-  <div class="login-box">
+<div id="loginPage"
+class="login-page">
 
-    <div class="logo">
-      FUTURECARE
-    </div>
+<div class="login-box">
 
-    <h2>FutureCare Owner</h2>
+<div class="logo">
+FUTURE<br>CARE
+</div>
 
-    <p>Owner Dashboard Login</p>
+<h2>FutureCare Owner</h2>
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Owner email"
-      autocomplete="email"
-    >
+<p>Owner Dashboard</p>
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Password"
-      autocomplete="current-password"
-    >
+<input
+id="email"
+type="email"
+placeholder="Owner email"
+autocomplete="email">
 
-    <button
-      class="login-btn"
-      onclick="login()"
-    >
-      LOGIN
-    </button>
+<input
+id="password"
+type="password"
+placeholder="Password"
+autocomplete="current-password">
 
-    <div id="loginError" class="error"></div>
+<button
+class="login-btn"
+onclick="login()">
+LOGIN
+</button>
 
-  </div>
+<div
+id="loginError"
+class="error">
+</div>
+
+</div>
 
 </div>
 
 
-<!-- =========================
+<!-- =====================================================
      DASHBOARD
-========================= -->
+===================================================== -->
 
-<div id="dashboard" class="hidden">
+<div
+id="dashboard"
+class="hidden">
 
 <header>
 
-  <div class="header-inner">
+<div class="header-inner">
 
-    <div class="brand">
+<div class="brand">
 
-      <div class="logo">
-        FUTURECARE
-      </div>
+<div class="brand-logo">
+FUTURE<br>CARE
+</div>
 
-      <div>
-        <h1>FutureCare Owner Dashboard</h1>
-        <small>Member Management System</small>
-      </div>
+<div class="brand-text">
 
-    </div>
+<h1>FutureCare Owner Dashboard</h1>
 
-    <button
-      class="logout"
-      onclick="logout()"
-    >
-      LOGOUT
-    </button>
+<p>
+Member Management System
+</p>
 
-  </div>
+</div>
+
+</div>
+
+<button
+class="logout"
+onclick="logout()">
+LOGOUT
+</button>
+
+</div>
 
 </header>
 
 
 <div class="container">
 
-  <div id="status" class="status">
-    Connecting to Supabase...
-  </div>
-
-
-  <!-- SUMMARY -->
-
-  <div class="cards">
-
-    <div class="card">
-      <h3>TOTAL MEMBERS</h3>
-      <strong id="totalMembers">0</strong>
-    </div>
-
-    <div class="card">
-      <h3>RECORDS LOADED</h3>
-      <strong id="recordsLoaded">0</strong>
-    </div>
-
-    <div class="card">
-      <h3>TOTAL PAYMENTS</h3>
-      <strong id="totalPayments">0</strong>
-    </div>
-
-    <div class="card">
-      <h3>TOTAL PAYMENT AMOUNT</h3>
-      <strong id="totalAmount">₱0.00</strong>
-    </div>
-
-  </div>
-
-
-  <!-- TOOLBAR -->
-
-  <div class="toolbar">
-
-    <input
-      id="search"
-      class="search"
-      type="text"
-      placeholder="Search member, Client ID, agent, package..."
-      oninput="renderMembers()"
-    >
-
-    <button
-      class="primary"
-      onclick="openAddMember()"
-    >
-      + ADD NEW MEMBER
-    </button>
-
-  </div>
-
-
-  <!-- MEMBERS -->
-
-  <div class="table-wrap">
-
-    <div
-      id="loading"
-      class="loading"
-    >
-      Loading FutureCare members...
-    </div>
-
-    <table
-      id="membersTable"
-      class="hidden"
-    >
-
-      <thead id="tableHead"></thead>
-
-      <tbody id="tableBody"></tbody>
-
-    </table>
-
-  </div>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-     VIEW MEMBER
-========================= -->
 
 <div
-  id="viewModal"
-  class="modal hidden"
->
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <h2>Member Details</h2>
-
-      <button
-        class="close"
-        onclick="closeView()"
-      >
-        CLOSE
-      </button>
-
-    </div>
+id="status"
+class="status">
+Connecting to Supabase...
+</div>
 
 
-    <div
-      id="viewDetails"
-      class="detail-grid"
-    ></div>
+<!-- CARDS -->
 
+<div class="cards">
 
-    <h2 class="section-title">
-      Payment Summary
-    </h2>
+<div class="card">
 
-    <div class="summary">
+<h3>TOTAL MEMBERS</h3>
 
-      <div class="summary-card">
-        <b>Total Payment Records</b>
-        <strong id="memberPaymentCount">0</strong>
-      </div>
-
-      <div class="summary-card">
-        <b>Total Amount Paid</b>
-        <strong id="memberPaymentTotal">₱0.00</strong>
-      </div>
-
-      <div class="summary-card">
-        <b>2025 Total</b>
-        <strong id="member2025Total">₱0.00</strong>
-      </div>
-
-      <div class="summary-card">
-        <b>2026 Total</b>
-        <strong id="member2026Total">₱0.00</strong>
-      </div>
-
-    </div>
-
-
-    <h2 class="section-title">
-      2025 Monthly Payments
-    </h2>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>MONTH</th>
-            <th>PAYMENT DATE</th>
-            <th>AMOUNT</th>
-            <th>RECEIPT NUMBER</th>
-            <th>NOTES</th>
-          </tr>
-        </thead>
-
-        <tbody id="payments2025Body"></tbody>
-
-      </table>
-
-    </div>
-
-
-    <h2 class="section-title">
-      2026 Monthly Payments
-    </h2>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead>
-          <tr>
-            <th>MONTH</th>
-            <th>PAYMENT DATE</th>
-            <th>AMOUNT</th>
-            <th>RECEIPT NUMBER</th>
-            <th>NOTES</th>
-          </tr>
-        </thead>
-
-        <tbody id="payments2026Body"></tbody>
-
-      </table>
-
-    </div>
-
-
-    <h2 class="section-title">
-      Complete Payment History
-    </h2>
-
-    <div class="table-wrap">
-
-      <table>
-
-        <thead id="paymentHead"></thead>
-
-        <tbody id="paymentBody"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
+<strong
+id="totalMembers">
+0
+</strong>
 
 </div>
 
 
-<!-- =========================
-     EDIT MEMBER
-========================= -->
+<div class="card">
 
-<div
-  id="editModal"
-  class="modal hidden"
->
+<h3>RECORDS LOADED</h3>
 
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <h2 id="editTitle">
-        Edit Member
-      </h2>
-
-      <button
-        class="close"
-        onclick="closeEdit()"
-      >
-        CLOSE
-      </button>
-
-    </div>
-
-    <form
-      id="editForm"
-      onsubmit="saveMember(event)"
-    >
-
-      <div
-        id="editFields"
-        class="form-grid"
-      ></div>
-
-      <br>
-
-      <button
-        type="submit"
-        class="primary"
-      >
-        SAVE CHANGES
-      </button>
-
-    </form>
-
-    <div
-      id="editMessage"
-      class="small-note"
-    ></div>
-
-  </div>
+<strong
+id="recordsLoaded">
+0
+</strong>
 
 </div>
 
 
-<!-- =========================
-     ADD MEMBER
-========================= -->
+<div class="card">
+
+<h3>TOTAL PAYMENTS</h3>
+
+<strong
+id="totalPayments">
+0
+</strong>
+
+</div>
+
+
+<div class="card">
+
+<h3>TOTAL PAYMENT AMOUNT</h3>
+
+<strong
+id="totalAmount">
+₱0.00
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="search-area">
+
+<input
+id="search"
+class="search"
+placeholder="Search member, Client ID, agent, package..."
+oninput="renderMembers()">
+
+<button
+class="add-btn"
+onclick="openAddMember()">
++ ADD NEW MEMBER
+</button>
+
+</div>
+
+
+<!-- MEMBER TABLE -->
+
+<div class="table-wrap">
 
 <div
-  id="addModal"
-  class="modal hidden"
->
+id="loading"
+class="loading">
+Loading FutureCare members...
+</div>
 
-  <div class="modal-box">
+<table
+id="membersTable"
+class="hidden">
 
-    <div class="modal-head">
+<thead id="tableHead"></thead>
 
-      <h2>
-        Add New Member
-      </h2>
+<tbody id="tableBody"></tbody>
 
-      <button
-        class="close"
-        onclick="closeAdd()"
-      >
-        CLOSE
-      </button>
+</table>
 
-    </div>
+</div>
 
-    <form
-      id="addForm"
-      onsubmit="addMember(event)"
-    >
 
-      <div
-        id="addFields"
-        class="form-grid"
-      ></div>
+</div>
 
-      <br>
+</div>
 
-      <button
-        type="submit"
-        class="primary"
-      >
-        ADD MEMBER
-      </button>
 
-    </form>
+<!-- =====================================================
+     VIEW MEMBER MODAL
+===================================================== -->
 
-    <div
-      id="addMessage"
-      class="small-note"
-    ></div>
+<div
+id="memberModal"
+class="modal hidden">
 
-  </div>
+<div class="modal-box">
+
+<div class="modal-title">
+
+<h2>Member Details</h2>
+
+<button
+class="close"
+onclick="closeModal()">
+CLOSE
+</button>
+
+</div>
+
+<div
+id="memberDetails"
+class="detail-grid">
+</div>
+
+
+<h2 class="section-title">
+2025 Monthly Payments
+</h2>
+
+<div id="payments2025"></div>
+
+
+<h2 class="section-title">
+2026 Monthly Payments
+</h2>
+
+<div id="payments2026"></div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     EDIT MEMBER MODAL
+===================================================== -->
+
+<div
+id="editModal"
+class="modal hidden">
+
+<div class="modal-box">
+
+<div class="modal-title">
+
+<h2>Edit Member</h2>
+
+<button
+class="close"
+onclick="closeEdit()">
+CLOSE
+</button>
+
+</div>
+
+<div
+id="editForm"
+class="form-grid">
+</div>
+
+<div class="form-actions">
+
+<button
+class="save-btn"
+onclick="saveMember()">
+SAVE CHANGES
+</button>
+
+<button
+class="cancel-btn"
+onclick="closeEdit()">
+CANCEL
+</button>
+
+</div>
+
+<div
+id="editError"
+class="error">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     ADD MEMBER MODAL
+===================================================== -->
+
+<div
+id="addModal"
+class="modal hidden">
+
+<div class="modal-box">
+
+<div class="modal-title">
+
+<h2>Add New Member</h2>
+
+<button
+class="close"
+onclick="closeAddMember()">
+CLOSE
+</button>
+
+</div>
+
+<div
+id="addForm"
+class="form-grid">
+</div>
+
+<div class="form-actions">
+
+<button
+class="save-btn"
+onclick="addMember()">
+SAVE NEW MEMBER
+</button>
+
+<button
+class="cancel-btn"
+onclick="closeAddMember()">
+CANCEL
+</button>
+
+</div>
+
+<div
+id="addError"
+class="error">
+</div>
+
+</div>
 
 </div>
 
 
 <script>
 
-/* =========================================================
+/* =====================================================
    SUPABASE SETTINGS
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://sdxeiofegiqfldpugdqb.supabase.co";
@@ -845,14 +937,19 @@ const PAYMENTS_TABLE =
 "payments";
 
 
-/* =========================================================
-   VARIABLES
-========================================================= */
+/* =====================================================
+   LOGIN TOKEN
+===================================================== */
 
 let accessToken =
 localStorage.getItem(
-  "futurecare_owner_token"
+"futurecare_owner_token"
 ) || "";
+
+
+/* =====================================================
+   DATA
+===================================================== */
 
 let allMembers = [];
 
@@ -862,589 +959,546 @@ let memberColumns = [];
 
 let paymentColumns = [];
 
-let currentEditingMember = null;
+let editingMember = null;
 
 
-/* =========================================================
-   HIDDEN INTERNAL COLUMNS
-========================================================= */
+/* =====================================================
+   HIDDEN MEMBER COLUMNS
+===================================================== */
 
-const HIDDEN_MEMBER_COLUMNS = [
-  "id",
-  "auth_user_id",
-  "created_at",
-  "user_id"
+const hiddenMemberColumns = [
+
+"id",
+"auth_user_id",
+"created_at",
+"user_id"
+
 ];
 
 
-/* =========================================================
-   SUPABASE REQUEST
-========================================================= */
+/* =====================================================
+   FORMAT MONEY
+===================================================== */
 
-async function supabaseRequest(
-  url,
-  options={}
-){
+function formatMoney(value){
 
-  const headers = {
+const amount =
+Number(value);
 
-    "apikey":
-      SUPABASE_KEY,
+if(!Number.isFinite(amount)){
+return "₱0.00";
+}
 
-    "Authorization":
-      "Bearer " +
-      (accessToken || SUPABASE_KEY),
-
-    "Content-Type":
-      "application/json",
-
-    ...(options.headers || {})
-
-  };
-
-
-  const response =
-    await fetch(
-      url,
-      {
-        ...options,
-        headers
-      }
-    );
-
-
-  const text =
-    await response.text();
-
-
-  let data = null;
-
-
-  try{
-
-    data =
-      text
-      ? JSON.parse(text)
-      : null;
-
-  }catch{
-
-    data = text;
-
-  }
-
-
-  if(!response.ok){
-
-    throw new Error(
-      typeof data === "object"
-      ? JSON.stringify(data)
-      : data
-    );
-
-  }
-
-
-  return data;
+return "₱" +
+amount.toLocaleString(
+"en-PH",
+{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+}
+);
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(value){
+
+if(!value){
+return "";
+}
+
+const d =
+new Date(value);
+
+if(Number.isNaN(d.getTime())){
+return value;
+}
+
+return d.toLocaleDateString(
+"en-PH",
+{
+year:"numeric",
+month:"short",
+day:"numeric"
+}
+);
+
+}
+
+
+/* =====================================================
+   SUPABASE REQUEST
+===================================================== */
+
+async function supabaseRequest(
+url,
+options={}
+){
+
+const headers = {
+
+"apikey":SUPABASE_KEY,
+
+"Authorization":
+"Bearer " +
+(accessToken || SUPABASE_KEY),
+
+"Content-Type":
+"application/json",
+
+...(options.headers || {})
+
+};
+
+const response =
+await fetch(
+url,
+{
+...options,
+headers
+}
+);
+
+const text =
+await response.text();
+
+let data;
+
+try{
+
+data =
+text ?
+JSON.parse(text) :
+null;
+
+}catch{
+
+data = text;
+
+}
+
+if(!response.ok){
+
+throw new Error(
+typeof data === "object"
+?
+JSON.stringify(data)
+:
+data
+);
+
+}
+
+return data;
+
+}
+
+
+/* =====================================================
    LOGIN
-========================================================= */
+===================================================== */
 
 async function login(){
 
-  const email =
-    document.getElementById("email")
-      .value
-      .trim()
-      .toLowerCase();
+const email =
+document
+.getElementById("email")
+.value
+.trim()
+.toLowerCase();
 
-  const password =
-    document.getElementById("password")
-      .value;
+const password =
+document
+.getElementById("password")
+.value;
 
-  const errorBox =
-    document.getElementById(
-      "loginError"
-    );
+const errorBox =
+document
+.getElementById("loginError");
 
-  errorBox.textContent = "";
-
-
-  if(!email || !password){
-
-    errorBox.textContent =
-      "Please enter your email and password.";
-
-    return;
-
-  }
+errorBox.textContent = "";
 
 
-  if(email !== OWNER_EMAIL){
+if(!email || !password){
 
-    errorBox.textContent =
-      "Owner access only.";
+errorBox.textContent =
+"Please enter your email and password.";
 
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/auth/v1/token?grant_type=password",
-        {
-          method:"POST",
-
-          headers:{
-            "apikey":SUPABASE_KEY,
-            "Content-Type":
-              "application/json"
-          },
-
-          body:JSON.stringify({
-            email,
-            password
-          })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(!response.ok){
-
-      throw new Error(
-        data.error_description ||
-        data.msg ||
-        "Login failed."
-      );
-
-    }
-
-
-    accessToken =
-      data.access_token;
-
-
-    localStorage.setItem(
-      "futurecare_owner_token",
-      accessToken
-    );
-
-
-    document.getElementById(
-      "loginPage"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-      "dashboard"
-    ).classList.remove("hidden");
-
-
-    await loadDashboard();
-
-  }catch(err){
-
-    console.error(err);
-
-    errorBox.textContent =
-      err.message ||
-      "Login failed.";
-
-  }
+return;
 
 }
 
 
-/* =========================================================
-   SESSION
-========================================================= */
+if(email !== OWNER_EMAIL){
+
+errorBox.textContent =
+"This login is for the FutureCare owner only.";
+
+return;
+
+}
+
+
+try{
+
+const response =
+await fetch(
+SUPABASE_URL +
+"/auth/v1/token?grant_type=password",
+{
+method:"POST",
+
+headers:{
+"apikey":SUPABASE_KEY,
+"Content-Type":
+"application/json"
+},
+
+body:JSON.stringify({
+email:email,
+password:password
+})
+
+}
+);
+
+
+const data =
+await response.json();
+
+
+if(!response.ok){
+
+throw new Error(
+data.error_description ||
+data.msg ||
+"Login failed."
+);
+
+}
+
+
+accessToken =
+data.access_token;
+
+
+localStorage.setItem(
+"futurecare_owner_token",
+accessToken
+);
+
+
+document
+.getElementById("loginPage")
+.classList.add("hidden");
+
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
+
+
+await loadDashboard();
+
+
+}catch(error){
+
+console.error(error);
+
+errorBox.textContent =
+error.message ||
+"Login failed.";
+
+}
+
+}
+
+
+/* =====================================================
+   CHECK LOGIN
+===================================================== */
 
 async function checkLogin(){
 
-  if(!accessToken){
+if(!accessToken){
+return;
+}
 
-    return;
+try{
 
-  }
-
-
-  try{
-
-    const user =
-      await supabaseRequest(
-        SUPABASE_URL +
-        "/auth/v1/user"
-      );
+const user =
+await supabaseRequest(
+SUPABASE_URL +
+"/auth/v1/user"
+);
 
 
-    if(
-      !user ||
-      !user.email ||
-      user.email.toLowerCase() !==
-      OWNER_EMAIL
-    ){
+if(
+!user ||
+!user.email ||
+user.email.toLowerCase()
+!== OWNER_EMAIL
+){
 
-      throw new Error(
-        "Invalid owner session."
-      );
-
-    }
-
-
-    document.getElementById(
-      "loginPage"
-    ).classList.add("hidden");
-
-
-    document.getElementById(
-      "dashboard"
-    ).classList.remove("hidden");
-
-
-    await loadDashboard();
-
-  }catch(err){
-
-    localStorage.removeItem(
-      "futurecare_owner_token"
-    );
-
-    accessToken = "";
-
-  }
+throw new Error(
+"Not owner"
+);
 
 }
 
 
-/* =========================================================
-   LOAD ALL MEMBERS
-========================================================= */
+document
+.getElementById("loginPage")
+.classList.add("hidden");
 
-async function loadMembers(){
-
-  const pageSize = 1000;
-
-  let result = [];
-
-  let from = 0;
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
 
 
-  while(true){
-
-    const to =
-      from + pageSize - 1;
+await loadDashboard();
 
 
-    const data =
-      await supabaseRequest(
+}catch(error){
 
-        SUPABASE_URL +
-        "/rest/v1/" +
-        MEMBERS_TABLE +
-        "?select=*",
+localStorage.removeItem(
+"futurecare_owner_token"
+);
 
-        {
-          headers:{
-            "Range":
-              from + "-" + to,
-            "Prefer":
-              "count=exact"
-          }
-        }
+accessToken = "";
 
-      );
-
-
-    if(!Array.isArray(data)){
-
-      break;
-
-    }
-
-
-    result =
-      result.concat(data);
-
-
-    if(data.length < pageSize){
-
-      break;
-
-    }
-
-
-    from += pageSize;
-
-  }
-
-
-  return result;
+}
 
 }
 
 
-/* =========================================================
-   LOAD ALL PAYMENTS
-========================================================= */
-
-async function loadPayments(){
-
-  const pageSize = 1000;
-
-  let result = [];
-
-  let from = 0;
-
-
-  while(true){
-
-    const to =
-      from + pageSize - 1;
-
-
-    const data =
-      await supabaseRequest(
-
-        SUPABASE_URL +
-        "/rest/v1/" +
-        PAYMENTS_TABLE +
-        "?select=*",
-
-        {
-          headers:{
-            "Range":
-              from + "-" + to,
-            "Prefer":
-              "count=exact"
-          }
-        }
-
-      );
-
-
-    if(!Array.isArray(data)){
-
-      break;
-
-    }
-
-
-    result =
-      result.concat(data);
-
-
-    if(data.length < pageSize){
-
-      break;
-
-    }
-
-
-    from += pageSize;
-
-  }
-
-
-  return result;
-
-}
-
-
-/* =========================================================
+/* =====================================================
    LOAD DASHBOARD
-========================================================= */
+===================================================== */
 
 async function loadDashboard(){
 
-  const status =
-    document.getElementById(
-      "status"
-    );
+const status =
+document.getElementById("status");
 
-  const loading =
-    document.getElementById(
-      "loading"
-    );
+const loading =
+document.getElementById("loading");
 
 
-  try{
+try{
 
-    status.textContent =
-      "Loading FutureCare records...";
-
-
-    allMembers =
-      await loadMembers();
+status.textContent =
+"Loading members and payments...";
 
 
-    allPayments =
-      await loadPayments();
+loading.classList.remove(
+"hidden"
+);
 
 
-    if(allMembers.length){
+/* MEMBERS */
 
-      memberColumns =
-        Object.keys(
-          allMembers[0]
-        );
-
-    }
-
-
-    if(allPayments.length){
-
-      paymentColumns =
-        Object.keys(
-          allPayments[0]
-        );
-
-    }
+allMembers =
+await supabaseRequest(
+SUPABASE_URL +
+"/rest/v1/" +
+MEMBERS_TABLE +
+"?select=*&order=id.asc",
+{
+headers:{
+"Range":"0-9999"
+}
+}
+);
 
 
-    document.getElementById(
-      "totalMembers"
-    ).textContent =
-      allMembers.length;
+if(!Array.isArray(allMembers)){
+allMembers = [];
+}
 
 
-    document.getElementById(
-      "recordsLoaded"
-    ).textContent =
-      allMembers.length;
+/* PAYMENTS */
+
+allPayments =
+await supabaseRequest(
+SUPABASE_URL +
+"/rest/v1/" +
+PAYMENTS_TABLE +
+"?select=*&order=payment_date.asc",
+{
+headers:{
+"Range":"0-9999"
+}
+}
+);
 
 
-    document.getElementById(
-      "totalPayments"
-    ).textContent =
-      allPayments.length;
+if(!Array.isArray(allPayments)){
+allPayments = [];
+}
 
 
-    let totalAmount = 0;
+/* COLUMNS */
 
+if(allMembers.length){
 
-    for(
-      const payment of allPayments
-    ){
-
-      const amount =
-        Number(payment.amount) || 0;
-
-      totalAmount += amount;
-
-    }
-
-
-    document.getElementById(
-      "totalAmount"
-    ).textContent =
-      formatMoney(totalAmount);
-
-
-    buildMemberHeader();
-
-    renderMembers();
-
-
-    loading.classList.add(
-      "hidden"
-    );
-
-
-    document.getElementById(
-      "membersTable"
-    ).classList.remove(
-      "hidden"
-    );
-
-
-    status.textContent =
-      "✅ Connected. " +
-      allMembers.length +
-      " members and " +
-      allPayments.length +
-      " payments loaded.";
-
-  }catch(err){
-
-    console.error(err);
-
-    status.innerHTML =
-      "❌ Database loading error:<br>" +
-      escapeHtml(
-        err.message
-      );
-
-  }
+memberColumns =
+Object.keys(
+allMembers[0]
+);
 
 }
 
 
-/* =========================================================
-   VISIBLE MEMBER COLUMNS
-========================================================= */
+if(allPayments.length){
+
+paymentColumns =
+Object.keys(
+allPayments[0]
+);
+
+}
+
+
+/* CARDS */
+
+document
+.getElementById("totalMembers")
+.textContent =
+allMembers.length;
+
+
+document
+.getElementById("recordsLoaded")
+.textContent =
+allMembers.length;
+
+
+document
+.getElementById("totalPayments")
+.textContent =
+allPayments.length;
+
+
+let totalAmount = 0;
+
+
+for(
+const payment of allPayments
+){
+
+const amount =
+Number(payment.amount);
+
+if(Number.isFinite(amount)){
+
+totalAmount += amount;
+
+}
+
+}
+
+
+document
+.getElementById("totalAmount")
+.textContent =
+formatMoney(totalAmount);
+
+
+/* TABLE */
+
+buildMemberHeader();
+
+renderMembers();
+
+
+loading.classList.add("hidden");
+
+document
+.getElementById("membersTable")
+.classList.remove("hidden");
+
+
+status.innerHTML =
+"✅ Connected to Supabase. " +
+allMembers.length +
+" members and " +
+allPayments.length +
+" payment records loaded.";
+
+
+}catch(error){
+
+console.error(error);
+
+loading.textContent =
+"Unable to load FutureCare records.";
+
+status.innerHTML =
+"❌ Database loading error:<br>" +
+escapeHtml(error.message);
+
+}
+
+}
+
+
+/* =====================================================
+   VISIBLE COLUMNS
+===================================================== */
 
 function visibleMemberColumns(){
 
-  return memberColumns.filter(
-    column =>
-      !HIDDEN_MEMBER_COLUMNS.includes(
-        column
-      )
-  );
+return memberColumns.filter(
+column =>
+!hiddenMemberColumns.includes(
+column
+)
+);
 
 }
 
 
-/* =========================================================
+/* =====================================================
    MEMBER HEADER
-========================================================= */
+===================================================== */
 
 function buildMemberHeader(){
 
-  const head =
-    document.getElementById(
-      "tableHead"
-    );
+const head =
+document.getElementById(
+"tableHead"
+);
 
-  head.innerHTML = "";
+head.innerHTML = "";
 
-
-  const row =
-    document.createElement("tr");
-
-
-  for(
-    const column of visibleMemberColumns()
-  ){
-
-    const th =
-      document.createElement("th");
-
-    th.textContent =
-      column;
-
-    row.appendChild(th);
-
-  }
+const row =
+document.createElement("tr");
 
 
-  const action =
-    document.createElement("th");
+for(
+const column of visibleMemberColumns()
+){
 
-  action.textContent =
-  "ACTION";
+const th =
+document.createElement("th");
+
+th.textContent =
+column;
+
+row.appendChild(th);
+
+}
+
+
+const action =
+document.createElement("th");
+
+action.textContent =
+"ACTION";
 
 row.appendChild(action);
 
@@ -1453,486 +1507,1104 @@ head.appendChild(row);
 }
 
 
-/* =========================================================
-   MEMBER TABLE
-========================================================= */
+/* =====================================================
+   RENDER MEMBERS
+===================================================== */
 
 function renderMembers(){
 
-  const body =
-    document.getElementById(
-      "tableBody"
-    );
+const body =
+document.getElementById(
+"tableBody"
+);
 
-  body.innerHTML = "";
+body.innerHTML = "";
 
-  const search =
-    document.getElementById(
-      "search"
-    )
-    .value
-    .trim()
-    .toLowerCase();
 
-  const filtered =
-    allMembers.filter(member => {
+const search =
+document
+.getElementById("search")
+.value
+.trim()
+.toLowerCase();
 
-      if(!search){
-        return true;
-      }
 
-      return visibleMemberColumns()
-        .some(
-          column =>
-            String(
-              member[column] ?? ""
-            )
-            .toLowerCase()
-            .includes(search)
-        );
+const filtered =
+allMembers.filter(
+member => {
 
-    });
+if(!search){
+return true;
+}
 
-  for(
-    const member of filtered
-  ){
+return Object
+.values(member)
+.some(
+value =>
+String(
+value ?? ""
+)
+.toLowerCase()
+.includes(search)
+);
 
-    const row =
-      document.createElement("tr");
+}
+);
 
-    for(
-      const column of visibleMemberColumns()
-    ){
 
-      const td =
-        document.createElement("td");
+for(
+const member of filtered
+){
 
-      td.textContent =
-        member[column] ?? "";
+const row =
+document.createElement("tr");
 
-      row.appendChild(td);
 
-    }
+for(
+const column of visibleMemberColumns()
+){
 
-    const action =
-      document.createElement("td");
+const td =
+document.createElement("td");
 
-    const view =
-      document.createElement("button");
 
-    view.className =
-      "action-btn";
+let value =
+member[column] ?? "";
 
-    view.textContent =
-      "VIEW";
 
-    view.onclick =
-      () => viewMember(member);
+if(
+column === "monthly_payment" ||
+column === "registration_fee"
+){
 
-    const edit =
-      document.createElement("button");
+value =
+formatMoney(value);
 
-    edit.className =
-      "action-btn edit-btn";
+}
 
-    edit.textContent =
-      "EDIT";
 
-    edit.onclick =
-      () => openEditMember(member);
+td.textContent =
+value;
 
-    action.appendChild(view);
-    action.appendChild(edit);
+row.appendChild(td);
 
-    row.appendChild(action);
+}
 
-    body.appendChild(row);
 
-  }
+/* ACTION */
 
-  if(!filtered.length){
+const actionTd =
+document.createElement("td");
 
-    const row =
-      document.createElement("tr");
 
-    const td =
-      document.createElement("td");
+const viewButton =
+document.createElement("button");
 
-    td.colSpan =
-      visibleMemberColumns().length + 1;
+viewButton.className =
+"view-btn";
 
-    td.textContent =
-      "No members found.";
+viewButton.textContent =
+"VIEW";
 
-    row.appendChild(td);
+viewButton.onclick =
+() => viewMember(member);
 
-    body.appendChild(row);
 
-  }
+const editButton =
+document.createElement("button");
 
-  }/* =========================================================
-   VIEW MEMBER DETAILS
-========================================================= */
+editButton.className =
+"edit-btn";
+
+editButton.textContent =
+"EDIT";
+
+editButton.style.marginLeft =
+"6px";
+
+editButton.onclick =
+() => openEdit(member);
+
+
+actionTd.appendChild(
+viewButton
+);
+
+actionTd.appendChild(
+editButton
+);
+
+row.appendChild(
+actionTd
+);
+
+
+body.appendChild(row);
+
+}
+
+
+if(!filtered.length){
+
+const row =
+document.createElement("tr");
+
+const td =
+document.createElement("td");
+
+td.colSpan =
+visibleMemberColumns()
+.length + 1;
+
+td.textContent =
+"No members found.";
+
+row.appendChild(td);
+
+body.appendChild(row);
+
+}
+
+}
+
+
+/* =====================================================
+   VIEW MEMBER
+===================================================== */
 
 function viewMember(member){
 
-  document.getElementById("memberTitle").textContent =
-    "Member Details";
-
-  const details =
-    document.getElementById("memberDetails");
-
-  details.innerHTML = "";
-
-  for(const column of visibleMemberColumns()){
-
-    const box =
-      document.createElement("div");
-
-    box.className = "detail";
-
-    const label =
-      document.createElement("b");
-
-    label.textContent = column;
-
-    const value =
-      document.createElement("span");
-
-    value.textContent =
-      member[column] ?? "";
-
-    box.appendChild(label);
-    box.appendChild(value);
-
-    details.appendChild(box);
-
-  }
-
-  const memberId = member.id;
-
-  const memberPayments =
-    allPayments.filter(payment =>
-      String(payment.plan_holder_id ?? "").trim() ===
-      String(memberId ?? "").trim()
-    );
-
-  buildPaymentHistory(memberPayments);
-
-  document.getElementById("memberModal")
-    .classList.remove("hidden");
-
-}
-
-
-/* =========================================================
-   PAYMENT HISTORY
-   2025 FEBRUARY - DECEMBER
-   2026 JANUARY - DECEMBER
-========================================================= */
-
-function buildPaymentHistory(payments){
-
-  const head =
-    document.getElementById("paymentHead");
-
-  const body =
-    document.getElementById("paymentBody");
-
-  head.innerHTML = "";
-  body.innerHTML = "";
-
-  const months2025 = [
-    ["February 2025","2025-02"],
-    ["March 2025","2025-03"],
-    ["April 2025","2025-04"],
-    ["May 2025","2025-05"],
-    ["June 2025","2025-06"],
-    ["July 2025","2025-07"],
-    ["August 2025","2025-08"],
-    ["September 2025","2025-09"],
-    ["October 2025","2025-10"],
-    ["November 2025","2025-11"],
-    ["December 2025","2025-12"]
-  ];
-
-  const months2026 = [
-    ["January 2026","2026-01"],
-    ["February 2026","2026-02"],
-    ["March 2026","2026-03"],
-    ["April 2026","2026-04"],
-    ["May 2026","2026-05"],
-    ["June 2026","2026-06"],
-    ["July 2026","2026-07"],
-    ["August 2026","2026-08"],
-    ["September 2026","2026-09"],
-    ["October 2026","2026-10"],
-    ["November 2026","2026-11"],
-    ["December 2026","2026-12"]
-  ];
-
-
-  function paymentForMonth(monthKey){
-
-    return payments.filter(payment => {
-
-      const date =
-        String(
-          payment.payment_month ??
-          payment.payment_date ??
-          ""
-        ).trim();
-
-      return date.startsWith(monthKey);
-
-    });
-
-  }
-
-
-  function addYear(title, months){
-
-    const titleRow =
-      document.createElement("tr");
-
-    const titleCell =
-      document.createElement("th");
-
-    titleCell.colSpan = 4;
-
-    titleCell.textContent = title;
-
-    titleRow.appendChild(titleCell);
-
-    head.appendChild(titleRow);
-
-
-    const headerRow =
-      document.createElement("tr");
-
-    ["MONTH","PAYMENT DATE","AMOUNT","RECEIPT NUMBER"]
-      .forEach(text => {
-
-        const th =
-          document.createElement("th");
-
-        th.textContent = text;
-
-        headerRow.appendChild(th);
-
-      });
-
-    body.appendChild(headerRow);
-
-
-    for(const [monthName,monthKey] of months){
-
-      const records =
-        paymentForMonth(monthKey);
-
-
-      if(!records.length){
-
-        const row =
-          document.createElement("tr");
-
-        const month =
-          document.createElement("td");
-
-        month.textContent = monthName;
-
-        const date =
-          document.createElement("td");
-
-        date.textContent = "—";
-
-        const amount =
-          document.createElement("td");
-
-        amount.textContent = "—";
-
-        const receipt =
-          document.createElement("td");
-
-        receipt.textContent = "—";
-
-        row.appendChild(month);
-        row.appendChild(date);
-        row.appendChild(amount);
-        row.appendChild(receipt);
-
-        body.appendChild(row);
-
-        return;
-
-      }
-
-
-      for(const payment of records){
-
-        const row =
-          document.createElement("tr");
-
-        const month =
-          document.createElement("td");
-
-        month.textContent = monthName;
-
-        const date =
-          document.createElement("td");
-
-        date.textContent =
-          payment.payment_date ?? "—";
-
-        const amount =
-          document.createElement("td");
-
-        const numericAmount =
-          Number(payment.amount);
-
-        amount.textContent =
-          Number.isFinite(numericAmount)
-          ? "₱" +
-            numericAmount.toLocaleString(
-              "en-PH",
-              {
-                minimumFractionDigits:2,
-                maximumFractionDigits:2
-              }
-            )
-          : (payment.amount ?? "—");
-
-
-        const receipt =
-          document.createElement("td");
-
-        receipt.textContent =
-          payment.receipt_number ?? "—";
-
-
-        row.appendChild(month);
-        row.appendChild(date);
-        row.appendChild(amount);
-        row.appendChild(receipt);
-
-        body.appendChild(row);
-
-      }
-
-    }
-
-  }
-
-
-  addYear(
-    "2025 MONTHLY PAYMENTS",
-    months2025
-  );
-
-  addYear(
-    "2026 MONTHLY PAYMENTS",
-   months2026
+const details =
+document.getElementById(
+"memberDetails"
 );
 
-if(!payments.length){
+details.innerHTML = "";
 
-  const row =
-    document.createElement("tr");
 
-  const td =
-    document.createElement("td");
+for(
+const column of visibleMemberColumns()
+){
 
-  td.colSpan = 4;
+const box =
+docu"div"
+);
 
-  td.textContent =
-    "No payment records found for this member.";
+box.className =
+"detail";
 
-  row.appendChild(td);
+const label =
+document.createElement(
+"b"
+);
 
-  body.appendChild(row);
+label.textContent =
+column;
+
+const value =
+document.createElement(
+"span"
+);
+
+let data =
+member[column] ?? "";
+
+if(
+column === "monthly_payment" ||
+column === "registration_fee"
+){
+
+data =
+formatMoney(data);
+
+}
+
+if(
+column === "date_applied" ||
+column === "date_of_birth"
+){
+
+data =
+formatDate(data);
+
+}
+
+value.textContent =
+data;
+
+box.appendChild(label);
+
+box.appendChild(value);
+
+details.appendChild(box);
+
+}
+
+
+/* 2025 PAYMENT HISTORY */
+
+renderYearPayments(
+member.id,
+2025,
+document.getElementById(
+"payments2025"
+)
+);
+
+
+/* 2026 PAYMENT HISTORY */
+
+renderYearPayments(
+member.id,
+2026,
+document.getElementById(
+"payments2026"
+)
+);
+
+
+document
+.getElementById("memberModal")
+.classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+   MONTHLY PAYMENT HISTORY
+===================================================== */
+
+function renderYearPayments(
+memberId,
+year,
+container
+){
+
+container.innerHTML = "";
+
+const months = [
+"January",
+"February",
+"March",
+"April",
+"May",
+"June",
+"July",
+"August",
+"September",
+"October",
+"November",
+"December"
+];
+
+const table =
+document.createElement("table");
+
+table.className =
+"payment-table";
+
+const thead =
+document.createElement("thead");
+
+const header =
+document.createElement("tr");
+
+const h1 =
+document.createElement("th");
+
+h1.textContent =
+"MONTH";
+
+const h2 =
+document.createElement("th");
+
+h2.textContent =
+"PAYMENT";
+
+const h3 =
+document.createElement("th");
+
+h3.textContent =
+"DATE";
+
+const h4 =
+document.createElement("th");
+
+h4.textContent =
+"RECEIPT";
+
+header.appendChild(h1);
+header.appendChild(h2);
+header.appendChild(h3);
+header.appendChild(h4);
+
+thead.appendChild(header);
+
+table.appendChild(thead);
+
+const tbody =
+document.createElement("tbody");
+
+for(
+let monthIndex = 0;
+monthIndex < 12;
+monthIndex++
+){
+
+const month =
+monthIndex + 1;
+
+const matching =
+allPayments.filter(
+payment => {
+
+if(
+String(
+payment.plan_holder_id ?? ""
+) !==
+String(memberId ?? "")
+){
+
+return false;
+
+}
+
+const dateValue =
+payment.payment_date ||
+payment.payment_month;
+
+if(!dateValue){
+return false;
+}
+
+const date =
+new Date(dateValue);
+
+if(
+Number.isNaN(
+date.getTime()
+)
+){
+
+return false;
+
+}
+
+return(
+date.getFullYear() === year &&
+date.getMonth() + 1 === month
+);
+
+}
+);
+
+let total = 0;
+
+let latestDate = "";
+
+let receipt = "";
+
+for(
+const payment of matching
+){
+
+const amount =
+Number(payment.amount);
+
+if(
+Number.isFinite(amount)
+){
+
+total += amount;
+
+}
+
+latestDate =
+payment.payment_date ||
+payment.payment_month ||
+"";
+
+receipt =
+payment.receipt_number ||
+"";
+
+}
+
+const row =
+document.createElement("tr");
+
+const monthCell =
+document.createElement("td");
+
+monthCell.textContent =
+months[monthIndex] +
+" " +
+year;
+
+const amountCell =
+document.createElement("td");
+
+if(matching.length){
+
+amountCell.textContent =
+formatMoney(total);
+
+amountCell.className =
+"paid";
+
+}else{
+
+amountCell.textContent =
+"—";
+
+amountCell.className =
+"unpaid";
+
+}
+
+const dateCell =
+document.createElement("td");
+
+dateCell.textContent =
+latestDate ?
+formatDate(latestDate) :
+"—";
+
+const receiptCell =
+document.createElement("td");
+
+receiptCell.textContent =
+receipt ||
+"—";
+
+row.appendChild(monthCell);
+
+row.appendChild(amountCell);
+
+row.appendChild(dateCell);
+
+row.appendChild(receiptCell);
+
+tbody.appendChild(row);
+
+}
+
+table.appendChild(tbody);
+
+container.appendChild(table);
+
+}
+
+
+/* =====================================================
+   EDIT MEMBER
+===================================================== */
+
+function openEdit(member){
+
+editingMember =
+member;
+
+const form =
+document.getElementById(
+"editForm"
+);
+
+form.innerHTML = "";
+
+for(
+const column of visibleMemberColumns()
+){
+
+if(column === "id"){
+continue;
+}
+
+const group =
+document.createElement(
+"div"
+);
+
+group.className =
+"form-group";
+
+const label =
+document.createElement(
+"label"
+);
+
+label.textContent =
+column;
+
+let input;
+
+if(column === "remarks"){
+
+input =
+document.createElement(
+"textarea"
+);
+
+}else{
+
+input =
+document.createElement(
+"input"
+);
+
+}
+
+input.id =
+"edit_" + column;
+
+input.value =
+member[column] ?? "";
+
+if(
+column === "date_applied" ||
+column === "date_of_birth"
+){
+
+input.type =
+"date";
+
+if(member[column]){
+
+input.value =
+String(
+member[column]
+).substring(0,10);
+
+}
+
+}
+
+if(
+column === "monthly_payment" ||
+column === "registration_fee"
+){
+
+input.type =
+"number";
+
+input.step =
+"0.01";
+
+}
+
+group.appendChild(label);
+
+group.appendChild(input);
+
+form.appendChild(group);
+
+}
+
+document.getElementById(
+"editError"
+).textContent = "";
+
+document.getElementById(
+"editModal"
+).classList.remove(
+"hidden"
+);
+
+}
+
+
+/* =====================================================
+   SAVE MEMBER
+===================================================== */
+
+async function saveMember(){
+
+if(!editingMember){
+return;
+}
+
+const errorBox =
+document.getElementById(
+"editError"
+);
+
+errorBox.textContent =
+"Saving...";
+
+const updates = {};
+
+for(
+const column of visibleMemberColumns()
+){
+
+if(column === "id"){
+continue;
+}
+
+const input =
+document.getElementById(
+"edit_" + column
+);
+
+if(!input){
+continue;
+}
+
+let value =
+input.value;
+
+if(
+column === "monthly_payment" ||
+column === "registration_fee"
+){
+
+value =
+value === "" ?
+null :
+Number(value);
+
+}
+
+updates[column] =
+value;
+
+}
+
+try{
+
+await supabaseRequest(
+SUPABASE_URL +
+"/rest/v1/" +
+MEMBERS_TABLE +
+"?id=eq." +
+encodeURIComponent(
+editingMember.id
+),
+{
+method:"PATCH",
+
+headers:{
+"Prefer":
+"return=representation"
+},
+
+body:
+JSON.stringify(updates)
+
+}
+);
+
+Object.assign(
+editingMember,
+updates
+);
+
+closeEdit();
+
+buildMemberHeader();
+
+renderMembers();
+
+document.getElementById(
+"status"
+).textContent =
+"✅ Member information updated successfully.";
+
+}catch(error){
+
+console.error(error);
+
+errorBox.textContent =
+"Unable to save: " +
+error.message;
 
 }
 
 }
 
 
-/* =========================================================
-   CLOSE MEMBER DETAILS
-========================================================= */
+/* =====================================================
+   ADD NEW MEMBER
+===================================================== */
+
+function openAddMember(){
+
+const form =
+document.getElementById(
+"addForm"
+);
+
+form.innerHTML = "";
+
+const addColumns = [
+
+"client_id",
+"full_name",
+"address",
+"date_of_birth",
+"date_applied",
+"plan_type",
+"monthly_payment",
+"phone",
+"registration_fee",
+"promo_type",
+"cash_assistance",
+"agent_name",
+"remarks"
+
+];
+
+for(
+const column of addColumns
+){
+
+const group =
+document.createElement(
+"div"
+);
+
+group.className =
+"form-group";
+
+const label =
+document.createElement(
+"label"
+);
+
+label.textContent =
+column;
+
+let input;
+
+if(column === "remarks"){
+
+input =
+document.createElement(
+"textarea"
+);
+
+}else{
+
+input =
+document.createElement(
+"input"
+);
+
+}
+
+input.id =
+"add_" + column;
+
+if(
+column === "date_of_birth" ||
+column === "date_applied"
+){
+
+input.type =
+"date";
+
+}
+
+if(
+column === "monthly_payment" ||
+column === "registration_fee"
+){
+
+input.type =
+"number";
+
+input.step =
+"0.01";
+
+}
+
+group.appendChild(label);
+
+group.appendChild(input);
+
+form.appendChild(group);
+
+}
+
+document.getElementById(
+"addError"
+).textContent = "";
+
+document.getElementById(
+"addModal"
+).classList.remove(
+"hidden"
+);
+
+}
+
+
+/* =====================================================
+   ADD MEMBER
+===================================================== */
+
+async function addMember(){
+
+const errorBox =
+document.getElementById(
+"addError"
+);
+
+errorBox.textContent =
+"Saving new member...";
+
+const columns = [
+
+"client_id",
+"full_name",
+"address",
+"date_of_birth",
+"date_applied",
+"plan_type",
+"monthly_payment",
+"phone",
+"registration_fee",
+"promo_type",
+"cash_assistance",
+"agent_name",
+"remarks"
+
+];
+
+const newMember = {};
+
+for(
+const column of columns
+){
+
+const input =
+document.getElementById(
+"add_" + column
+);
+
+if(!input){
+continue;
+}
+
+let value =
+input.value;
+
+if(
+column === "monthly_payment" ||
+column === "registration_fee"
+){
+
+value =
+value === "" ?
+null :
+Number(value);
+
+}
+
+newMember[column] =
+value === "" ?
+null :
+value;
+
+}
+
+try{
+
+const result =
+await supabaseRequest(
+SUPABASE_URL +
+"/rest/v1/" +
+MEMBERS_TABLE,
+{
+method:"POST",
+
+headers:{
+"Prefer":
+"return=representation"
+},
+
+body:
+JSON.stringify(newMember)
+
+}
+);
+
+if(Array.isArray(result)){
+
+allMembers.push(
+...result
+);
+
+}else if(result){
+
+allMembers.push(result);
+
+}
+
+closeAddMember();
+
+document.getElementById(
+"totalMembers"
+).textContent =
+allMembers.length;
+
+document.getElementById(
+"recordsLoaded"
+).textContent =
+allMembers.length;
+
+buildMemberHeader();
+
+renderMembers();
+
+document.getElementById(
+"status"
+).textContent =
+"✅ New member added successfully.";
+
+}catch(error){
+
+console.error(error);
+
+errorBox.textContent =
+"Unable to add member: " +
+error.message;
+
+}
+
+}
+
+
+/* =====================================================
+   CLOSE MODALS
+===================================================== */
 
 function closeModal(){
 
-  document.getElementById("memberModal")
-    .classList.add("hidden");
+document.getElementById(
+"memberModal"
+).classList.add(
+"hidden"
+);
+
+}
+
+function closeEdit(){
+
+document.getElementById(
+"editModal"
+).classList.add(
+"hidden"
+);
+
+editingMember = null;
+
+}
+
+function closeAddMember(){
+
+document.getElementById(
+"addModal"
+).classList.add(
+"hidden"
+);
 
 }
 
 
-/* =========================================================
+/* =====================================================
    LOGOUT
-========================================================= */
+===================================================== */
 
 async function logout(){
 
-  try{
+try{
 
-    if(accessToken){
+if(accessToken){
 
-      await fetch(
-        SUPABASE_URL +
-        "/auth/v1/logout",
-        {
-          method:"POST",
-          headers:{
-            "apikey":SUPABASE_KEY,
-            "Authorization":
-              "Bearer " + accessToken
-          }
-        }
-      );
+await fetch(
+SUPABASE_URL +
+"/auth/v1/logout",
+{
+method:"POST",
 
-    }
+headers:{
+"apikey":
+SUPABASE_KEY,
 
-  }catch(error){
+"Authorization":
+"Bearer " +
+accessToken
+}
 
-    console.error(error);
+}
+);
 
-  }
+}
 
-  localStorage.removeItem(
-    "futurecare_owner_token"
-  );
+}catch(error){
 
-  accessToken = "";
+console.error(error);
 
-  location.reload();
+}
+
+localStorage.removeItem(
+"futurecare_owner_token"
+);
+
+accessToken = "";
+
+location.reload();
 
 }
 
 
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+return String(
+value ?? ""
+)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
 
 }
 
 
-/* =========================================================
+/* =====================================================
    START APPLICATION
-========================================================= */
+===================================================== */
 
 checkLogin();
 
 </script>
 
 </body>
+
 </html>
