@@ -2,14 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>FutureCare Owner Dashboard</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -21,89 +19,52 @@ body{
 header{
   background:#07572e;
   color:white;
-  padding:18px;
+  padding:22px 18px;
   position:sticky;
   top:0;
   z-index:10;
 }
 
-header h1{
-  margin:0;
-  font-size:24px;
-}
-
-.header-row{
+.header-inner{
+  max-width:1500px;
+  margin:auto;
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:15px;
 }
 
+header h1{
+  margin:0;
+  font-size:28px;
+}
+
 button{
   border:0;
-  border-radius:8px;
-  padding:12px 18px;
-  font-size:15px;
+  border-radius:10px;
+  padding:13px 20px;
+  font-size:16px;
+  font-weight:bold;
   cursor:pointer;
 }
 
 .logout{
   background:white;
   color:#07572e;
-  font-weight:bold;
 }
 
 .container{
-  padding:18px;
-  max-width:1600px;
+  max-width:1500px;
   margin:auto;
+  padding:20px;
 }
 
-.login-box{
-  max-width:420px;
-  margin:80px auto;
+.status{
   background:white;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 2px 12px #0002;
-}
-
-.login-box h2{
-  color:#07572e;
-}
-
-input{
-  width:100%;
-  padding:14px;
-  margin:8px 0;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
-}
-
-.login-btn{
-  width:100%;
-  background:#07572e;
-  color:white;
-  font-weight:bold;
-  margin-top:10px;
-}
-
-.message{
-  padding:15px;
-  border-radius:8px;
-  margin-bottom:15px;
-  background:white;
-}
-
-.error{
-  color:#b00020;
-  background:#ffecec;
-}
-
-.success{
-  color:#07572e;
-  background:#eafff1;
+  padding:16px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 2px 8px #0001;
 }
 
 .cards{
@@ -115,33 +76,34 @@ input{
 
 .card{
   background:white;
-  padding:20px;
-  border-radius:12px;
+  padding:22px;
+  border-radius:14px;
   box-shadow:0 2px 8px #0001;
 }
 
 .card h3{
-  margin:0 0 8px;
+  margin:0 0 10px;
   color:#666;
+  font-size:18px;
 }
 
 .card strong{
-  font-size:30px;
   color:#07572e;
+  font-size:34px;
 }
 
 .search{
   width:100%;
-  padding:14px;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
+  padding:16px;
+  border:2px solid #ccc;
+  border-radius:10px;
+  font-size:17px;
   margin-bottom:15px;
 }
 
 .table-wrap{
   background:white;
-  border-radius:12px;
+  border-radius:14px;
   overflow:auto;
   box-shadow:0 2px 8px #0001;
 }
@@ -149,12 +111,12 @@ input{
 table{
   border-collapse:collapse;
   width:100%;
-  min-width:1000px;
+  min-width:900px;
 }
 
 th,td{
   border-bottom:1px solid #eee;
-  padding:10px;
+  padding:11px;
   text-align:left;
   white-space:nowrap;
 }
@@ -173,163 +135,279 @@ tr:hover{
 .view-btn{
   background:#07572e;
   color:white;
-  padding:8
-px;
+  padding:8px 12px;
+  border-radius:7px;
+}
+
+.login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-box{
+  width:100%;
+  max-width:430px;
+  background:white;
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 3px 15px #0002;
+}
+
+.login-box h2{
+  color:#07572e;
+  text-align:center;
+}
+
+.login-box input{
+  width:100%;
+  padding:14px;
+  margin:8px 0;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:16px;
+}
+
+.login-btn{
+  width:100%;
+  background:#07572e;
+  color:white;
+  margin-top:10px;
+}
+
+.error{
+  color:#b00020;
+  margin-top:12px;
 }
 
 .hidden{
-  display:none;
+  display:none!important;
 }
 
-.payment-box{
-  margin-top:20px;
-  background:white;
+.modal{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  z-index:100;
   padding:20px;
-  border-radius:12px;
-  box-shadow:0 2px 8px #0001;
+  overflow:auto;
 }
 
-.payment-box h2{
+.modal-box{
+  background:white;
+  max-width:1000px;
+  margin:30px auto;
+  border-radius:15px;
+  padding:22px;
+}
+
+.close{
+  background:#eee;
+  float:right;
+}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:10px;
+  margin-top:20px;
+}
+
+.detail{
+  background:#f4f7fb;
+  padding:12px;
+  border-radius:8px;
+  word-break:break-word;
+}
+
+.detail b{
+  display:block;
+  color:#666;
+  margin-bottom:5px;
+}
+
+.section-title{
+  margin-top:25px;
   color:#07572e;
 }
 
-.small{
-  color:#666;
-  font-size:14px;
+.loading{
+  padding:30px;
+  text-align:center;
 }
-
 </style>
 </head>
 
 <body>
 
-<div id="loginPage" class="login-box">
+<!-- LOGIN -->
+<div id="loginPage" class="login-page">
 
-<h2>FutureCare Owner Login</h2>
+  <div class="login-box">
 
-<p class="small">Owner access only.</p>
+    <h2>FutureCare Owner</h2>
 
-<input
-id="email"
-type="email"
-placeholder="Owner email">
+    <p style="text-align:center">
+      Owner Dashboard Login
+    </p>
 
-<input
-id="password"
-type="password"
-placeholder="Password">
+    <input
+      id="email"
+      type="email"
+      placeholder="Owner email"
+      autocomplete="email"
+    >
 
-<button class="login-btn" onclick="login()">
-LOGIN
-</button>
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
 
-<div id="loginError"></div>
+    <button
+      class="login-btn"
+      onclick="login()"
+    >
+      LOGIN
+    </button>
+
+    <div id="loginError" class="error"></div>
+
+  </div>
 
 </div>
 
 
+<!-- DASHBOARD -->
 <div id="dashboard" class="hidden">
 
 <header>
 
-<div class="header-row">
+  <div class="header-inner">
 
-<h1>FutureCare Owner Dashboard</h1>
+    <h1>FutureCare Owner Dashboard</h1>
 
-<button class="logout" onclick="logout()">
-LOGOUT
-</button>
+    <button
+      class="logout"
+      onclick="logout()"
+    >
+      LOGOUT
+    </button>
 
-</div>
+  </div>
 
 </header>
 
 
 <div class="container">
 
-<div id="status" class="message">
-Connecting to Supabase...
-</div>
+  <div id="status" class="status">
+    Connecting to Supabase...
+  </div>
 
 
-<div class="cards">
+  <div class="cards">
 
-<div class="card">
-<h3>TOTAL MEMBERS</h3>
-<strong id="totalMembers">0</strong>
-</div>
+    <div class="card">
+      <h3>TOTAL MEMBERS</h3>
+      <strong id="totalMembers">0</strong>
+    </div>
 
-<div class="card">
-<h3>RECORDS LOADED</h3>
-<strong id="recordsLoaded">0</strong>
-</div>
+    <div class="card">
+      <h3>RECORDS LOADED</h3>
+      <strong id="recordsLoaded">0</strong>
+    </div>
 
-<div class="card">
-<h3>TOTAL PAYMENTS</h3>
-<strong id="totalPayments">0</strong>
-</div>
+    <div class="card">
+      <h3>TOTAL PAYMENTS</h3>
+      <strong id="totalPayments">0</strong>
+    </div>
 
-<div class="card">
-<h3>TOTAL PAYMENT AMOUNT</h3>
-<strong id="totalAmount">₱0</strong>
-</div>
+    <div class="card">
+      <h3>TOTAL PAYMENT AMOUNT</h3>
+      <strong id="totalAmount">₱0</strong>
+    </div>
 
-</div>
-
-
-<input
-id="search"
-class="search"
-type="text"
-placeholder="Search member, Client ID, agent, package..."
-oninput="searchMembers()">
+  </div>
 
 
-<div class="table-wrap">
-
-<div id="loading" class="loading">
-Loading FutureCare members...
-</div>
-
-<table id="membersTable" class="hidden">
-
-<thead id="tableHead"></thead>
-
-<tbody id="tableBody"></tbody>
-
-</table>
-
-</div>
+  <input
+    id="search"
+    class="search"
+    type="text"
+    placeholder="Search member, Client ID, agent, package..."
+    oninput="renderMembers()"
+  >
 
 
-<div id="memberDetails" class="payment-box hidden">
+  <div class="table-wrap">
 
-<h2>Member Details</h2>
+    <div id="loading" class="loading">
+      Loading FutureCare members...
+    </div>
 
-<div id="memberInfo"></div>
+    <table id="membersTable" class="hidden">
 
-<h2>Payment Records</h2>
+      <thead id="tableHead"></thead>
 
-<div class="table-wrap">
+      <tbody id="tableBody"></tbody>
 
-<table id="paymentsTable">
+    </table>
 
-<thead id="paymentsHead"></thead>
-
-<tbody id="paymentsBody"></tbody>
-
-</table>
+  </div>
 
 </div>
 
 </div>
 
-</div>
+
+<!-- MEMBER MODAL -->
+<div id="memberModal" class="modal hidden">
+
+  <div class="modal-box">
+
+    <button
+      class="close"
+      onclick="closeModal()"
+    >
+      CLOSE
+    </button>
+
+    <h2 id="memberTitle">
+      Member Details
+    </h2>
+
+    <div id="memberDetails" class="detail-grid"></div>
+
+    <h2 class="section-title">
+      Payment History
+    </h2>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead id="paymentHead"></thead>
+
+        <tbody id="paymentBody"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
 
 </div>
 
 
 <script>
+
+/* =========================================================
+   FUTURECARE SUPABASE SETTINGS
+   ========================================================= */
 
 const SUPABASE_URL =
 "https://sdxeiofegiqfldpugdqb.supabase.co";
@@ -346,670 +424,838 @@ const MEMBERS_TABLE =
 const PAYMENTS_TABLE =
 "payments";
 
-let allMembers=[];
-let allPayments=[];
-let memberColumns=[];
-let paymentColumns=[];
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+let accessToken =
+localStorage.getItem("futurecare_owner_token") || "";
+
+let allMembers = [];
+
+let allPayments = [];
+
+let memberColumns = [];
+
+let paymentColumns = [];
 
 
-async function supabaseRequest(url,options={}){
+/* =========================================================
+   SUPABASE REQUEST
+   ========================================================= */
 
-const response=await fetch(url,{
+async function supabaseRequest(url, options={}){
 
-...options,
+  const headers = {
 
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer "+SUPABASE_KEY,
-"Content-Type":"application/json",
-...(options.headers||{})
+    "apikey": SUPABASE_KEY,
+
+    "Authorization":
+      "Bearer " +
+      (accessToken || SUPABASE_KEY),
+
+    "Content-Type":
+      "application/json",
+
+    ...(options.headers || {})
+
+  };
+
+  const response =
+    await fetch(url,{
+      ...options,
+      headers
+    });
+
+  const text =
+    await response.text();
+
+  let data;
+
+  try{
+    data =
+      text ? JSON.parse(text) : null;
+  }catch{
+    data = text;
+  }
+
+  if(!response.ok){
+
+    throw new Error(
+      typeof data === "object"
+      ? JSON.stringify(data)
+      : data
+    );
+
+  }
+
+  return data;
+
 }
 
-});
 
-if(!response.ok){
-
-const text=await response.text();
-
-throw new Error(
-response.status+" - "+text
-);
-
-}
-
-return response.json();
-
-}
-
+/* =========================================================
+   LOGIN
+   ========================================================= */
 
 async function login(){
 
-const email=
-document.getElementById("email").value.trim();
+  const email =
+    document.getElementById("email")
+      .value
+      .trim()
+      .toLowerCase();
 
-const password=
-document.getElementById("password").value;
+  const password =
+    document.getElementById("password")
+      .value;
 
-const error=
-document.getElementById("loginError");
+  const error =
+    document.getElementById("loginError");
 
-error.innerHTML="";
+  error.textContent = "";
 
+  if(!email || !password){
 
-if(
-email.toLowerCase() !==
-OWNER_EMAIL.toLowerCase()
-){
+    error.textContent =
+      "Please enter your email and password.";
 
-error.innerHTML=
-'<div class="message error">Owner access only.</div>';
+    return;
 
-return;
+  }
 
-}
+  if(email !== OWNER_EMAIL){
 
+    error.textContent =
+      "This login is for the FutureCare owner only.";
 
-if(!email||!password){
+    return;
 
-error.innerHTML=
-'<div class="message error">Enter your email and password.</div>';
+  }
 
-return;
+  try{
 
-}
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/auth/v1/token?grant_type=password",
+        {
+          method:"POST",
 
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Content-Type":"application/json"
+          },
 
-try{
+          body:JSON.stringify({
+            email:email,
+            password:password
+          })
+        }
+      );
 
-const response=await fetch(
+    const data =
+      await response.json();
 
-SUPABASE_URL+
-"/auth/v1/token?grant_type=password",
+    if(!response.ok){
 
-{
+      throw new Error(
+        data.error_description ||
+        data.msg ||
+        "Login failed."
+      );
 
-method:"POST",
+    }
 
-headers:{
-"apikey":SUPABASE_KEY,
-"Content-Type":"application/json"
-},
+    accessToken =
+      data.access_token;
 
-body:JSON.stringify({
-email:email,
-password:password
-})
+    localStorage.setItem(
+      "futurecare_owner_token",
+      accessToken
+    );
 
-}
+    document.getElementById(
+      "loginPage"
+    ).classList.add("hidden");
 
-);
+    document.getElementById(
+      "dashboard"
+    ).classList.remove("hidden");
 
+    await loadDashboard();
 
-const data=await response.json();
+  }catch(error){
 
+    console.error(error);
 
-if(!response.ok){
+    error =
+      error.message || "Login failed.";
 
-throw new Error(
-data.msg||
-data.message||
-data.error_description||
-"Login failed."
-);
+    document.getElementById(
+      "loginError"
+    ).textContent =
+      error;
 
-}
-
-
-if(!data.user||!data.access_token){
-
-throw new Error(
-"Owner account could not be verified."
-);
-
-}
-
-
-if(
-data.user.email.toLowerCase() !==
-OWNER_EMAIL.toLowerCase()
-){
-
-throw new Error(
-"This account is not the Owner account."
-);
-
-}
-
-
-localStorage.setItem(
-"futurecare_owner_token",
-data.access_token
-);
-
-localStorage.setItem(
-"futurecare_owner_email",
-data.user.email
-);
-
-
-document
-.getElementById("loginPage")
-.classList.add("hidden");
-
-document
-.getElementById("dashboard")
-.classList.remove("hidden");
-
-
-loadDashboard();
-
-}
-catch(err){
-
-error.innerHTML=
-'<div class="message error">'+
-escapeHtml(err.message)+
-'</div>';
-
-}
+  }
 
 }
 
 
-function checkLogin(){
+/* =========================================================
+   CHECK EXISTING LOGIN
+   ========================================================= */
 
-const token=
-localStorage.getItem(
-"futurecare_owner_token"
-);
+async function checkLogin(){
 
-const email=
-localStorage.getItem(
-"futurecare_owner_email"
-);
+  if(!accessToken){
 
+    return;
 
-if(
-token&&
-email&&
-email.toLowerCase()===
-OWNER_EMAIL.toLowerCase()
-){
+  }
 
-document
-.getElementById("loginPage")
-.classList.add("hidden");
+  try{
 
-document
-.getElementById("dashboard")
-.classList.remove("hidden");
+    const user =
+      await supabaseRequest(
+        SUPABASE_URL +
+        "/auth/v1/user"
+      );
 
-loadDashboard();
+    if(
+      !user ||
+      !user.email ||
+      user.email.toLowerCase() !== OWNER_EMAIL
+    ){
+
+      throw new Error("Not owner");
+
+    }
+
+    document.getElementById(
+      "loginPage"
+    ).classList.add("hidden");
+
+    document.getElementById(
+      "dashboard"
+    ).classList.remove("hidden");
+
+    await loadDashboard();
+
+  }catch(error){
+
+    localStorage.removeItem(
+      "futurecare_owner_token"
+    );
+
+    accessToken = "";
+
+  }
 
 }
 
-}
 
+/* =========================================================
+   LOAD ALL DATA
+   ========================================================= */
 
 async function loadDashboard(){
 
-const status=
-document.getElementById("status");
+  const status =
+    document.getElementById("status");
 
-try{
+  const loading =
+    document.getElementById("loading");
 
-status.innerHTML=
-"Loading FutureCare members and payments...";
+  try{
+
+    status.textContent =
+      "Loading members and payments...";
+
+    loading.classList.remove("hidden");
+
+    /*
+      Load members.
+      Supabase normally allows 1000 records per request.
+      We use a large range because your current database
+      has 558 members.
+    */
+
+    const membersUrl =
+      SUPABASE_URL +
+      "/rest/v1/" +
+      MEMBERS_TABLE +
+      "?select=*";
+
+    allMembers =
+      await supabaseRequest(
+        membersUrl,
+        {
+          headers:{
+            "Range":"0-9999"
+          }
+        }
+      );
+
+    if(!Array.isArray(allMembers)){
+
+      allMembers = [];
+
+    }
 
 
-allMembers=
-await supabaseRequest(
+    /*
+      Load payments.
+    */
 
-SUPABASE_URL+
-"/rest/v1/"+
-MEMBERS_TABLE+
-"?select=*"+
-"&order=id.asc"
+    const paymentsUrl =
+      SUPABASE_URL +
+      "/rest/v1/" +
+      PAYMENTS_TABLE +
+      "?select=*";
 
-);
+    allPayments =
+      await supabaseRequest(
+        paymentsUrl,
+        {
+          headers:{
+            "Range":"0-9999"
+          }
+        }
+      );
+
+    if(!Array.isArray(allPayments)){
+
+      allPayments = [];
+
+    }
 
 
-allPayments=
-await supabaseRequest(
+    /*
+      Determine column order directly
+      from Supabase response.
+    */
 
-SUPABASE_URL+
-"/rest/v1/"+
-PAYMENTS_TABLE+
-"?select=*"+
-"&order=payment_date.asc"
+    if(allMembers.length){
 
-);
+      memberColumns =
+        Object.keys(allMembers[0]);
+
+    }
+
+    if(allPayments.length){
+
+      paymentColumns =
+        Object.keys(allPayments[0]);
+
+    }
 
 
-if(allMembers.length){
+    /*
+      Update dashboard numbers.
+    */
 
-memberColumns=
-Object.keys(allMembers[0]);
+    document.getElementById(
+      "totalMembers"
+    ).textContent =
+      allMembers.length;
+
+    document.getElementById(
+      "recordsLoaded"
+    ).textContent =
+      allMembers.length;
+
+    document.getElementById(
+      "totalPayments"
+    ).textContent =
+      allPayments.length;
+
+
+    let totalAmount = 0;
+
+    for(const payment of allPayments){
+
+      const amount =
+        Number(payment.amount);
+
+      if(Number.isFinite(amount)){
+
+        totalAmount += amount;
+
+      }
+
+    }
+
+    document.getElementById(
+      "totalAmount"
+    ).textContent =
+      "₱" +
+      totalAmount.toLocaleString(
+        "en-PH",
+        {
+          minimumFractionDigits:2,
+          maximumFractionDigits:2
+        }
+      );
+
+
+    /*
+      Build member table.
+    */
+
+    buildMemberHeader();
+
+    renderMembers();
+
+    loading.classList.add("hidden");
+
+    document.getElementById(
+      "membersTable"
+    ).classList.remove("hidden");
+
+
+    status.textContent =
+      "✅ Connected to Supabase. " +
+      allMembers.length +
+      " member records loaded and " +
+      allPayments.length +
+      " payment records loaded.";
+
+  }catch(error){
+
+    console.error(error);
+
+    loading.textContent =
+      "Unable to load the FutureCare records.";
+
+    status.innerHTML =
+      "❌ Database loading error:<br><br>" +
+      escapeHtml(error.message);
+
+  }
 
 }
 
 
-if(allPayments.length){
+/* =========================================================
+   MEMBER TABLE HEADER
+   ========================================================= */
 
-paymentColumns=
-Object.keys(allPayments[0]);
+function buildMemberHeader(){
 
-}
+  const head =
+    document.getElementById(
+      "tableHead"
+    );
 
+  head.innerHTML = "";
 
-document.getElementById(
-"totalMembers"
-).textContent=
-allMembers.length;
+  const row =
+    document.createElement("tr");
 
+  for(const column of memberColumns){
 
-document.getElementById(
-"recordsLoaded"
-).textContent=
-allMembers.length;
+    const th =
+      document.createElement("th");
 
+    th.textContent =
+      column;
 
-document.getElementById(
-"totalPayments"
-).textContent=
-allPayments.length;
+    row.appendChild(th);
 
+  }
 
-let total=0;
+  const action =
+    document.createElement("th");
 
-allPayments.forEach(payment=>{
+  action.textContent =
+    "ACTION";
 
-const amount=
-Number(payment.amount);
+  row.appendChild(action);
 
-if(!isNaN(amount)){
-total+=amount;
-}
-
-});
-
-
-document.getElementById(
-"totalAmount"
-).textContent=
-"₱"+total.toLocaleString();
-
-
-status.className=
-"message success";
-
-status.innerHTML=
-"✅ Connected to Supabase. "+
-allMembers.length+
-" member records loaded and "+
-allPayments.length+
-" payment records loaded.";
-
-
-document
-.getElementById("loading")
-.classList.add("hidden");
-
-
-document
-.getElementById("membersTable")
-.classList.remove("hidden");
-
-
-renderMembers(allMembers);
-
-}
-catch(err){
-
-status.className=
-"message error";
-
-status.innerHTML=
-"❌ Unable to load data: "+
-escapeHtml(err.message);
-
-document.getElementById(
-"loading"
-).innerHTML=
-"Unable to load FutureCare records.";
-
-}
+  head.appendChild(row);
 
 }
 
 
-function renderMembers(members){
+/* =========================================================
+   RENDER MEMBERS
+   ========================================================= */
 
-const head=
-document.getElementById("tableHead");
+function renderMembers(){
 
-const body=
-document.getElementById("tableBody");
+  const body =
+    document.getElementById(
+      "tableBody"
+    );
 
-head.innerHTML="";
-body.innerHTML="";
+  body.innerHTML = "";
 
-
-if(!members.length){
-
-body.innerHTML=
-'<tr><td>No members found.</td></tr>';
-
-return;
-
-}
-
-
-let header="<tr>";
-
-memberColumns.forEach(column=>{
-
-header+=
-"<th>"+
-escapeHtml(column)+
-"</th>";
-
-});
+  const search =
+    document.getElementById(
+      "search"
+    )
+    .value
+    .trim()
+    .toLowerCase();
 
 
-header+="<th>ACTION</th></tr>";
+  const filtered =
+    allMembers.filter(member => {
 
-head.innerHTML=header;
+      if(!search){
 
+        return true;
 
-members.forEach(member=>{
+      }
 
-let row="<tr>";
+      return Object.values(member)
+        .some(value =>
+          String(value ?? "")
+            .toLowerCase()
+            .includes(search)
+        );
 
-memberColumns.forEach(column=>{
-
-let value=member[column];
-
-if(value===null||
-value===undefined){
-
-value="";
-
-}
-
-row+=
-"<td>"+
-escapeHtml(String(value))+
-"</td>";
-
-});
+    });
 
 
-row+=
-"<td>"+
-'<button class="view-btn" onclick="viewMember(\''+
-String(member.id).replace(/'/g,"\\'")+
-'\')">VIEW</button>'+
-"</td>";
+  for(const member of filtered){
 
-row+="</tr>";
-
-body.innerHTML+=row;
-
-});
-
-}
+    const row =
+      document.createElement("tr");
 
 
-function searchMembers(){
+    for(const column of memberColumns){
 
-const search=
-document.getElementById("search")
-.value
-.toLowerCase()
-.trim();
+      const td =
+        document.createElement("td");
 
+      td.textContent =
+        member[column] ?? "";
 
-if(!search){
+      row.appendChild(td);
 
-renderMembers(allMembers);
-
-return;
-
-}
+    }
 
 
-const filtered=
-allMembers.filter(member=>{
+    const actionTd =
+      document.createElement("td");
 
-return memberColumns.some(column=>{
+    const button =
+      document.createElement("button");
 
-return String(
-member[column]??""
-)
-.toLowerCase()
-.includes(search);
+    button.className =
+      "view-btn";
 
-});
+    button.textContent =
+      "VIEW";
 
-});
+    button.onclick =
+      () => viewMember(member);
+
+    actionTd.appendChild(button);
+
+    row.appendChild(actionTd);
+
+    body.appendChild(row);
+
+  }
 
 
-renderMembers(filtered);
+  if(!filtered.length){
+
+    const row =
+      document.createElement("tr");
+
+    const td =
+      document.createElement("td");
+
+    td.colSpan =
+      memberColumns.length + 1;
+
+    td.textContent =
+      "No members found.";
+
+    row.appendChild(td);
+
+    body.appendChild(row);
+
+  }
 
 }
 
 
-function viewMember(id){
+/* =========================================================
+   VIEW MEMBER
+   ========================================================= */
 
-const member=
-allMembers.find(
-item=>String(item.id)===String(id)
-);
+function viewMember(member){
 
-
-if(!member)return;
-
-
-const details=
-document.getElementById(
-"memberDetails"
-);
-
-const info=
-document.getElementById(
-"memberInfo"
-);
+  document.getElementById(
+    "memberTitle"
+  ).textContent =
+    "Member Details";
 
 
-details.classList.remove("hidden");
+  const details =
+    document.getElementById(
+      "memberDetails"
+    );
+
+  details.innerHTML = "";
 
 
-let html="<table>";
+  for(const column of memberColumns){
 
-memberColumns.forEach(column=>{
+    const box =
+      document.createElement("div");
 
-let value=member[column];
+    box.className =
+      "detail";
 
-if(value===null||
-value===undefined){
+    const label =
+      document.createElement("b");
 
-value="";
+    label.textContent =
+      column;
 
-}
+    const value =
+      document.createElement("span");
 
-html+=
-"<tr>"+
-"<th>"+
-escapeHtml(column)+
-"</th>"+
-"<td>"+
-escapeHtml(String(value))+
-"</td>"+
-"</tr>";
+    value.textContent =
+      member[column] ?? "";
 
-});
+    box.appendChild(label);
 
+    box.appendChild(value);
 
-html+="</table>";
+    details.appendChild(box);
 
-info.innerHTML=html;
+  }
 
 
-const memberPayments=
-allPayments.filter(payment=>{
+  /*
+    Find this member's ID.
+    Your payments table contains plan_holder_id.
+  */
 
-return String(
-payment.plan_holder_id
-)===String(member.id);
-
-});
-
-
-renderPayments(memberPayments);
+  const memberId =
+    member.id;
 
 
-details.scrollIntoView({
-behavior:"smooth"
-});
+  const memberPayments =
+    allPayments.filter(payment => {
 
-}
+      return String(
+        payment.plan_holder_id ?? ""
+      ) === String(
+        memberId ?? ""
+      );
 
-
-function renderPayments(payments){
-
-const head=
-document.getElementById(
-"paymentsHead"
-);
-
-const body=
-document.getElementById(
-"paymentsBody"
-);
-
-head.innerHTML="";
-body.innerHTML="";
+    });
 
 
-if(!paymentColumns.length){
+  buildPaymentTable(
+    memberPayments
+  );
 
-body.innerHTML=
-'<tr><td>No payment columns found.</td></tr>';
 
-return;
+  document.getElementById(
+    "memberModal"
+  ).classList.remove("hidden");
 
 }
 
 
-let header="<tr>";
+/* =========================================================
+   PAYMENT TABLE
+   ========================================================= */
 
-paymentColumns.forEach(column=>{
+function buildPaymentTable(payments){
 
-header+=
-"<th>"+
-escapeHtml(column)+
-"</th>";
+  const head =
+    document.getElementById(
+      "paymentHead"
+    );
 
-});
+  const body =
+    document.getElementById(
+      "paymentBody"
+    );
 
-header+="</tr>";
+  head.innerHTML = "";
 
-head.innerHTML=header;
+  body.innerHTML = "";
 
 
-if(!payments.length){
+  if(!paymentColumns.length){
 
-body.innerHTML=
-'<tr><td>No payment records for this member.</td></tr>';
+    const row =
+      document.createElement("tr");
 
-return;
+    const td =
+      document.createElement("td");
+
+    td.textContent =
+      "No payment records found.";
+
+    row.appendChild(td);
+
+    body.appendChild(row);
+
+    return;
+
+  }
+
+
+  const headRow =
+    document.createElement("tr");
+
+
+  for(const column of paymentColumns){
+
+    const th =
+      document.createElement("th");
+
+    th.textContent =
+      column;
+
+    headRow.appendChild(th);
+
+  }
+
+  head.appendChild(headRow);
+
+
+  if(!payments.length){
+
+    const row =
+      document.createElement("tr");
+
+    const td =
+      document.createElement("td");
+
+    td.colSpan =
+      paymentColumns.length;
+
+    td.textContent =
+      "No payment records found for this member.";
+
+    row.appendChild(td);
+
+    body.appendChild(row);
+
+    return;
+
+  }
+
+
+  for(const payment of payments){
+
+    const row =
+      document.createElement("tr");
+
+
+    for(const column of paymentColumns){
+
+      const td =
+        document.createElement("td");
+
+      td.textContent =
+        payment[column] ?? "";
+
+      row.appendChild(td);
+
+    }
+
+    body.appendChild(row);
+
+  }
 
 }
 
 
-payments.forEach(payment=>{
+/* =========================================================
+   CLOSE MODAL
+   ========================================================= */
 
-let row="<tr>";
+function closeModal(){
 
-paymentColumns.forEach(column=>{
-
-let value=payment[column];
-
-if(value===null||
-value===undefined){
-
-value="";
+  document.getElementById(
+    "memberModal"
+  ).classList.add("hidden");
 
 }
 
 
-if(
-column==="amount"&&
-value!==""
-){
+/* =========================================================
+   LOGOUT
+   ========================================================= */
 
-const number=
-Number(value);
+async function logout(){
 
-if(!isNaN(number)){
+  try{
 
-value=
-"₱"+
-number.toLocaleString();
+    if(accessToken){
 
-}
+      await fetch(
+        SUPABASE_URL +
+        "/auth/v1/logout",
+        {
+          method:"POST",
 
-}
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Authorization":
+              "Bearer " +
+              accessToken
+          }
+        }
+      );
 
+    }
 
-row+=
-"<td>"+
-escapeHtml(String(value))+
-"</td>";
+  }catch(error){
 
-});
+    console.error(error);
 
+  }
 
-row+="</tr>";
+  localStorage.removeItem(
+    "futurecare_owner_token"
+  );
 
-body.innerHTML+=row;
+  accessToken = "";
 
-});
-
-}
-
-
-function logout(){
-
-localStorage.removeItem(
-"futurecare_owner_token"
-);
-
-localStorage.removeItem(
-"futurecare_owner_email"
-);
-
-location.reload();
+  location.reload();
 
 }
 
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
 
 function escapeHtml(value){
 
-return value
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
+
+/* =========================================================
+   START
+   ========================================================= */
 
 checkLogin();
 
 </script>
 
 </body>
-</html>
+  </html>
