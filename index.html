@@ -222,14 +222,38 @@ if(!Array.isArray(agents)||!agents.length)throw new Error("Agent account was not
 currentAgent=agents[0];
 const user=await supabaseRequest(SUPABASE_URL+"/auth/v1/user");
 if(currentAgent.user_id&&user.id!==currentAgent.user_id)throw new Error("This login is not linked to this agent.");
-const assignments=await supabaseRequest(SUPABASE_URL+"/rest/v1/agent_assignments?agent_id=eq."+encodeURIComponent(currentAgent.id)+"&select=plan_holder_id");
-const ids=(Array.isArray(assignments)?assignments:[]).map(x=>x.plan_holder_id).filter(Boolean);
+/*
+Fetch assigned members through the agent's RLS-visible assignments.
+The assignments_agent_view policy restricts this query to the
+authenticated agent's own assignments.
+*/
+const assignments=await supabaseRequest(
+SUPABASE_URL+
+"/rest/v1/agent_assignments?agent_id=eq."+
+encodeURIComponent(currentAgent.id)+
+"&select=plan_holder_id"
+);
+
+const ids=(Array.isArray(assignments)?assignments:[])
+.map(x=>x.plan_holder_id)
+.filter(Boolean);
+
 agentMembers=[];
+
 if(ids.length){
-const chunks=[];for(let i=0;i<ids.length;i+=80)chunks.push(ids.slice(i,i+80));
+const chunks=[];
+for(let i=0;i<ids.length;i+=80) chunks.push(ids.slice(i,i+80));
+
 for(const chunk of chunks){
-const members=await supabaseRequest(SUPABASE_URL+"/rest/v1/"+MEMBERS_TABLE+"?id=in.("+chunk.map(x=>encodeURIComponent(x)).join(",")+")&select=*");
-if(Array.isArray(members))agentMembers.push(...members);
+const members=await supabaseRequest(
+SUPABASE_URL+
+"/rest/v1/"+MEMBERS_TABLE+
+"?id=in.("+chunk.join(",")+")&select=*"
+);
+
+if(Array.isArray(members)){
+agentMembers.push(...members);
+}
 }
 }
 document.getElementById("agentName").textContent=currentAgent.full_name||"-";
