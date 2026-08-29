@@ -215,18 +215,57 @@ function renderMemberInformation(member){const container=document.getElementById
 function renderMemberPaymentHistory(member){const container=document.getElementById("memberPayments");container.innerHTML="";[2025,2026].forEach(year=>{const title=document.createElement("h3");title.className="section-title";title.textContent=year+" Monthly Payments";container.appendChild(title);const holder=document.createElement("div");renderPaymentYear(member,year,holder,year===2025?2:1,false);container.appendChild(holder)})}
 
 async function loadAgentDashboard(agentCode){
+async function loadAgentDashboard(agentCode){
 const status=document.getElementById("agentStatus");
+
 try{
-const agents=await supabaseRequest(SUPABASE_URL+"/rest/v1/agents?agent_code=eq."+encodeURIComponent(agentCode)+"&select=*");
-if(!Array.isArray(agents)||!agents.length)throw new Error("Agent account was not found.");
+
+/* Get the currently logged-in Auth user first */
+const user=await supabaseRequest(
+SUPABASE_URL+"/auth/v1/user"
+);
+
+/* Find agent by linked Auth user_id first */
+let agents=[];
+
+if(user && user.id){
+agents=await supabaseRequest(
+SUPABASE_URL+
+"/rest/v1/agents?user_id=eq."+
+encodeURIComponent(user.id)+
+"&select=*"
+);
+}
+
+/* If user_id is not linked yet, find by agent_code */
+if(!Array.isArray(agents)||!agents.length){
+agents=await supabaseRequest(
+SUPABASE_URL+
+"/rest/v1/agents?agent_code=eq."+
+encodeURIComponent(agentCode.toUpperCase())+
+"&select=*"
+);
+}
+
+if(!Array.isArray(agents)||!agents.length){
+throw new Error(
+"Agent record was not found in the agents table for "+
+agentCode.toUpperCase()
+);
+}
+
 currentAgent=agents[0];
-const user=await supabaseRequest(SUPABASE_URL+"/auth/v1/user");
-if(currentAgent.user_id&&user.id!==currentAgent.user_id)throw new Error("This login is not linked to this agent.");
-/*
-Fetch assigned members through the agent's RLS-visible assignments.
-The assignments_agent_view policy restricts this query to the
-authenticated agent's own assignments.
-*/
+
+/* Check linked Auth account when user_id exists */
+if(
+currentAgent.user_id &&
+user &&
+user.id!==currentAgent.user_id
+){
+throw new Error("This login is not linked to this agent.");
+}
+
+/* Load this agent's assignments */
 const assignments=await supabaseRequest(
 SUPABASE_URL+
 "/rest/v1/agent_assignments?agent_id=eq."+
@@ -241,10 +280,15 @@ const ids=(Array.isArray(assignments)?assignments:[])
 agentMembers=[];
 
 if(ids.length){
+
 const chunks=[];
-for(let i=0;i<ids.length;i+=80) chunks.push(ids.slice(i,i+80));
+
+for(let i=0;i<ids.length;i+=80){
+chunks.push(ids.slice(i,i+80));
+}
 
 for(const chunk of chunks){
+
 const members=await supabaseRequest(
 SUPABASE_URL+
 "/rest/v1/"+MEMBERS_TABLE+
@@ -254,15 +298,47 @@ SUPABASE_URL+
 if(Array.isArray(members)){
 agentMembers.push(...members);
 }
+
+}
+
+}
+
+document.getElementById("agentName").textContent=
+currentAgent.full_name||"-";
+
+document.getElementById("agentCode").textContent=
+currentAgent.agent_code||agentCode;
+
+document.getElementById("agentMemberCount").textContent=
+agentMembers.length;
+
+document.getElementById("agentHeaderSub").textContent=
+(currentAgent.full_name||"Agent")+
+" — Assigned Plan Holders";
+
+renderAgentHeader();
+renderAgentMembers();
+
+document.getElementById("agentLoading").classList.add("hidden");
+document.getElementById("agentMembersTable").classList.remove("hidden");
+
+status.textContent=
+"✅ "+agentMembers.length+
+" assigned members loaded. VIEW ONLY.";
+
+showAgentDashboard();
+
+}catch(e){
+
+status.innerHTML=
+"❌ Unable to load agent dashboard:<br>"+
+escapeHtml(e.message);
+
+showAgentDashboard();
+
 }
 }
-document.getElementById("agentName").textContent=currentAgent.full_name||"-";
-document.getElementById("agentCode").textContent=currentAgent.agent_code||agentCode;
-document.getElementById("agentMemberCount").textContent=agentMembers.length;
-document.getElementById("agentHeaderSub").textContent=(currentAgent.full_name||"Agent")+" — Assigned Plan Holders";
-renderAgentHeader();renderAgentMembers();document.getElementById("agentLoading").classList.add("hidden");document.getElementById("agentMembersTable").classList.remove("hidden");status.textContent="✅ "+agentMembers.length+" assigned members loaded. VIEW ONLY.";showAgentDashboard();
-}catch(e){status.innerHTML="❌ Unable to load agent dashboard:<br>"+escapeHtml(e.message);showAgentDashboard()}
-}
+
 function renderAgentHeader(){const head=document.getElementById("agentTableHead");head.innerHTML="";const row=document.createElement("tr");const cols=agentMembers.length?Object.keys(agentMembers[0]).filter(c=>!hiddenColumns.includes(c)):["client_id","full_name"];cols.forEach(c=>{const th=document.createElement("th");th.textContent=c;row.appendChild(th)});const th=document.createElement("th");th.textContent="ACTION";row.appendChild(th);head.appendChild(row)}
 function renderAgentMembers(){const body=document.getElementById("agentTableBody");body.innerHTML="";const q=document.getElementById("agentSearch").value.trim().toLowerCase();const cols=agentMembers.length?Object.keys(agentMembers[0]).filter(c=>!hiddenColumns.includes(c)):["client_id","full_name"];const filtered=agentMembers.filter(m=>!q||Object.values(m).some(v=>String(v??"").toLowerCase().includes(q)));filtered.forEach(m=>{const row=document.createElement("tr");cols.forEach(c=>{const td=document.createElement("td");let v=m[c]??"";if(typeof v==="object"&&v!==null)v=JSON.stringify(v);td.textContent=v;row.appendChild(td)});const action=document.createElement("td"),view=document.createElement("button");view.className="view-btn";view.textContent="VIEW";view.onclick=()=>viewAgentMember(m);action.appendChild(view);row.appendChild(action);body.appendChild(row)});if(!filtered.length){const row=document.createElement("tr"),td=document.createElement("td");td.colSpan=cols.length+1;td.textContent="No assigned members found.";row.appendChild(td);body.appendChild(row)}}
 async function viewAgentMember(member){
