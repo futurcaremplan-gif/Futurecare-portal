@@ -464,6 +464,8 @@ let allPayments=[];
 let allMonthly=[];
 
 let agentMembers=[];
+let agentPayments=[];
+let agentMonthly=[];
 let currentAgent=null;
 let currentMember=null;
 
@@ -627,6 +629,41 @@ return data;
 
 }
 
+
+
+/* =========================
+   PAGINATED SUPABASE GET
+========================= */
+
+async function supabaseGetAll(path, pageSize=1000){
+
+let rows=[];
+let offset=0;
+
+while(true){
+
+const batch=
+await supabaseRequest(
+SUPABASE_URL+
+path+
+(path.includes("?")?"&":"?")+
+"limit="+pageSize+
+"&offset="+offset
+);
+
+if(!Array.isArray(batch)) break;
+
+rows.push(...batch);
+
+if(batch.length < pageSize) break;
+
+offset += pageSize;
+
+}
+
+return rows;
+
+}
 
 /* =========================
    AUTH LOGIN
@@ -974,16 +1011,14 @@ status.textContent=
 */
 
 allMembers=
-await supabaseRequest(
-SUPABASE_URL+
+await supabaseGetAll(
 "/rest/v1/"+MEMBERS_TABLE+
 "?select=*&order=client_id.asc"
 );
 
 
 allPayments=
-await supabaseRequest(
-SUPABASE_URL+
+await supabaseGetAll(
 "/rest/v1/"+PAYMENTS_TABLE+
 "?select=*"
 );
@@ -992,8 +1027,7 @@ SUPABASE_URL+
 try{
 
 allMonthly=
-await supabaseRequest(
-SUPABASE_URL+
+await supabaseGetAll(
 "/rest/v1/"+MONTHLY_TABLE+
 "?select=*"
 );
@@ -1221,6 +1255,110 @@ body.appendChild(row);
 }
 
 
+
+/* =========================
+   PAYMENT / CONTESTABILITY HELPERS
+========================= */
+
+function recordsForMember(records, memberId){
+return (records||[]).filter(r =>
+String(r.plan_holder_id ?? "") === String(memberId ?? "")
+);
+}
+
+function paymentRecordRows(records, year){
+
+const rows=(records||[])
+.filter(r => {
+const d=parseDate(r.payment_date);
+const y=Number(r.payment_year ?? (d ? d.getFullYear() : 0));
+return y===year;
+})
+.sort((a,b)=>{
+const am=Number(a.payment_month ?? 0);
+const bm=Number(b.payment_month ?? 0);
+if(am!==bm) return am-bm;
+return String(a.payment_date||"").localeCompare(String(b.payment_date||""));
+});
+
+if(!rows.length){
+return `<div class="summary-box">No ${year} monthly payment records found.</div>`;
+}
+
+let out=`<div class="table-wrap"><table style="min-width:800px">
+<thead><tr>
+<th>MONTH</th><th>AMOUNT</th><th>PAYMENT DATE</th>
+<th>RECEIPT</th><th>NOTES</th>
+</tr></thead><tbody>`;
+
+rows.forEach(r=>{
+const month=Number(r.payment_month||0);
+const monthName=month>=1&&month<=12
+?new Date(2000,month-1,1).toLocaleString("en-PH",{month:"long"})
+:String(r.payment_month??"");
+
+out+=`<tr>
+<td>${escapeHtml(monthName)}</td>
+<td>${escapeHtml(formatMoney(r.amount))}</td>
+<td>${escapeHtml(formatDate(r.payment_date))}</td>
+<td>${escapeHtml(r.receipt_number??"")}</td>
+<td>${escapeHtml(r.notes??"")}</td>
+</tr>`;
+});
+
+out+=`</tbody></table></div>`;
+return out;
+}
+
+function renderContestability(member, records){
+
+const months=Number(member?.contestability_months||0);
+const start=getStartDate(member);
+
+if(!months || !start){
+return `<div class="summary-box">
+<b>Contestability:</b> ${months ? months+" month(s)" : "Not specified"}
+</div>`;
+}
+
+const end=new Date(start);
+end.setMonth(end.getMonth()+months);
+
+const paidByMonth=new Map();
+
+(records||[]).forEach(r=>{
+const d=parseDate(r.payment_date);
+if(!d) return;
+const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+paidByMonth.set(key,(paidByMonth.get(key)||0)+getAmount(r));
+});
+
+let missing=0;
+for(let i=0;i<months;i++){
+const d=new Date(start);
+d.setMonth(d.getMonth()+i);
+const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+const required=getMonthlyRate(member);
+const paid=paidByMonth.get(key)||0;
+
+if(required>0 && paid < required) missing++;
+}
+
+const completed=missing===0 && new Date()>=end;
+
+return `<div class="summary-box">
+<b>Contestability:</b> ${months} month(s)<br>
+<b>Start:</b> ${escapeHtml(formatDate(start))}<br>
+<b>End:</b> ${escapeHtml(formatDate(end))}<br>
+<b>Monthly requirement:</b> ${escapeHtml(formatMoney(getMonthlyRate(member)))}<br>
+<b>Status:</b>
+<span class="${completed?"completed":missing?"restart":"covered"}">
+${completed?"COMPLETED":missing?"PAYMENT GAP / REVIEW":"ON TRACK"}
+</span>
+${missing?`<br><b>Months below required payment:</b> ${missing}`:""}
+</div>`;
+}
+
 /* =========================
    OWNER MEMBER VIEW
 ========================= */
@@ -1276,12 +1414,29 @@ details.appendChild(box);
 });
 
 
+const memberMonthly=
+recordsForMember(allMonthly,member.id);
+
+document.getElementById(
+"contestabilitySummary"
+).innerHTML=
+renderContestability(member,memberMonthly);
+
+document.getElementById(
+"payments2025"
+).innerHTML=
+paymentRecordRows(memberMonthly,2025);
+
+document.getElementById(
+"payments2026"
+).innerHTML=
+paymentRecordRows(memberMonthly,2026);
+
 document.getElementById(
 "memberModal"
 ).classList.remove("hidden");
 
 }
-
 
 function closeMember(){
 
@@ -1625,9 +1780,9 @@ if(user&&user.id){
 agents=
 await supabaseRequest(
 SUPABASE_URL+
-"/rest/v1/agents?user_id=eq."+
+"/rest/v1/agents?auth_user_id=eq."+
 encodeURIComponent(user.id)+
-"&select=*"
+"&select=*" 
 );
 
 }
@@ -1732,6 +1887,44 @@ agentMembers.push(...members);
 }
 
 
+agentPayments=[];
+agentMonthly=[];
+
+for(
+let i=0;
+i<ids.length;
+i+=80
+){
+
+const chunk=ids.slice(i,i+80);
+
+const payments=
+await supabaseGetAll(
+"/rest/v1/"+PAYMENTS_TABLE+
+"?plan_holder_id=in.("+
+chunk.join(",")+
+")&select=*"
+);
+
+if(Array.isArray(payments)){
+agentPayments.push(...payments);
+}
+
+const monthly=
+await supabaseGetAll(
+"/rest/v1/"+MONTHLY_TABLE+
+"?plan_holder_id=in.("+
+chunk.join(",")+
+")&select=*"
+);
+
+if(Array.isArray(monthly)){
+agentMonthly.push(...monthly);
+}
+
+}
+
+
 document.getElementById(
 "agentName"
 ).textContent=
@@ -1784,7 +1977,8 @@ showAgentDashboard();
 
 status.innerHTML=
 "❌ Unable to load agent dashboard:<br>"+
-escapeHtml(e.message);
+escapeHtml(e.message)+
+"<br><small>Check the Supabase agents.auth_user_id link and Agent RLS policies.</small>";
 
 showAgentDashboard();
 
@@ -1976,12 +2170,30 @@ details.appendChild(box);
 });
 
 
+const memberMonthly=
+recordsForMember(agentMonthly,member.id);
+
+document.getElementById(
+"agentContestabilitySummary"
+).innerHTML=
+renderContestability(member,memberMonthly);
+
+document.getElementById(
+"agentPayments2025"
+).innerHTML=
+paymentRecordRows(memberMonthly,2025);
+
+document.getElementById(
+"agentPayments2026"
+).innerHTML=
+paymentRecordRows(memberMonthly,2026);
+
+
 document.getElementById(
 "agentMemberModal"
 ).classList.remove("hidden");
 
 }
-
 
 function closeAgentMember(){
 
@@ -2029,6 +2241,19 @@ throw new Error(
 
 currentMember=members[0];
 
+const myMonthly=
+await supabaseGetAll(
+"/rest/v1/"+MONTHLY_TABLE+
+"?plan_holder_id=eq."+
+encodeURIComponent(currentMember.id)+
+"&select=*"
+);
+
+document.getElementById(
+"holderContestability"
+).textContent=
+(currentMember.contestability_months||0)+
+" month(s)";
 
 document.getElementById(
 "holderClientId"
@@ -2095,6 +2320,12 @@ document.getElementById(
 
 });
 
+
+document.getElementById(
+"memberPayments"
+).innerHTML=
+paymentRecordRows(myMonthly,2025)+
+paymentRecordRows(myMonthly,2026);
 
 status.textContent=
 "✅ Your FutureCare record is loaded.";
