@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>FutureCare Portal - Phase 3</title>
+<title>FutureCare Portal - Phase 4</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:#f3f7f4;color:#17221c}
@@ -66,6 +66,9 @@ tr:hover{background:#f5faf7}
 .loading{text-align:center;padding:30px}
 .agent-banner{background:#eef6f0;padding:14px;border-radius:10px;margin-bottom:15px}
 .badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#e7f3eb;color:#07572e;font-size:12px;font-weight:bold}
+
+.readonly-note{background:#eef6f0;color:#07572e;padding:14px;border-radius:10px;margin:15px 0;font-size:14px}
+.member-status{font-weight:bold}
 @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.detail-grid,.form-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.cards{grid-template-columns:1fr 1fr}.toolbar{flex-direction:column}.brand h1{font-size:18px}.detail-grid,.form-grid{grid-template-columns:1fr}}
 </style>
@@ -76,7 +79,7 @@ tr:hover{background:#f5faf7}
 <div class="login-box">
 <div class="logo">FUTURE<br>CARE</div>
 <h2>FutureCare Portal</h2>
-<div class="sub">Phase 3 — Agent Access</div>
+<div class="sub">Phase 4 — Member Access</div>
 <div class="roles">
 <button id="ownerRole" class="active" onclick="selectRole('owner')">OWNER</button>
 <button id="agentRole" onclick="selectRole('agent')">AGENT</button>
@@ -149,6 +152,31 @@ tr:hover{background:#f5faf7}
 </tr></thead><tbody id="agentTableBody"></tbody></table>
 </div>
 </div></div>
+
+
+<!-- MEMBER DASHBOARD -->
+<div id="memberDashboard" class="hidden">
+<header><div class="header-inner">
+<div class="brand"><div class="header-logo"><img src="futurecare-logo.jpg.jpg"></div>
+<div><h1>FutureCare Member Portal</h1><small>My FutureCare Record — View Only</small></div></div>
+<button class="logout" onclick="logout()">LOGOUT</button>
+</div></header>
+<div class="container">
+<div id="memberStatus" class="status">Loading your FutureCare record...</div>
+<div class="cards">
+<div class="card"><h3>CLIENT ID</h3><strong id="holderClientId" style="font-size:20px">—</strong></div>
+<div class="card"><h3>DATE APPLIED</h3><strong id="holderDateApplied" style="font-size:20px">—</strong></div>
+<div class="card"><h3>MONTHLY PAYMENT</h3><strong id="holderMonthly" style="font-size:20px">₱0.00</strong></div>
+<div class="card"><h3>CONTESTABILITY</h3><strong id="holderContestability" style="font-size:18px">—</strong></div>
+</div>
+<div class="readonly-note">🔒 <b>VIEW ONLY</b> — You can view your own FutureCare information and payment history. You cannot edit member information or payments.</div>
+<h2 class="section-title">MY INFORMATION</h2>
+<div id="memberInformation" class="detail-grid"></div>
+<h2 class="section-title">MY PAYMENT RECORDS</h2>
+<div id="memberPaymentTransactions"></div>
+<div id="memberPayments"></div>
+</div>
+</div>
 
 <!-- MEMBER DETAIL -->
 <div id="memberModal" class="modal hidden"><div class="modal-box">
@@ -256,7 +284,7 @@ function selectRole(role){
   info.textContent="Agent login opens only the members assigned to that Agent ID.";
  }else{
   l.textContent="Client ID";i.placeholder="FC00102062025";
-  info.textContent="Member access will be connected in the Member Access phase.";
+  info.textContent="Member login: Client ID + Date Applied password (MMDDYYYY).";
  }
  document.getElementById("error").textContent="";
 }
@@ -288,16 +316,63 @@ async function login(){
    await loadAgent(agentCode);
    return;
   }
-  throw new Error("Member dashboard will be connected in the next phase.");
+  /* MEMBER
+     Existing member accounts are resolved by the secure member_login RPC.
+     The RPC receives the Client ID and Date Applied. It returns the Auth email.
+     The browser then signs in normally; no service-role key is exposed.
+  */
+  let clientId=v.toUpperCase().replace(/\s+/g,"");
+  let dateApplied=convertPasswordToDate(p);
+
+  if(!/^FC\d+[A-Z0-9]*$/.test(clientId)){
+    throw new Error("Invalid Client ID. Example: FC00102062025");
+  }
+
+  let result=await req(
+    SUPABASE_URL+"/rest/v1/rpc/member_login",
+    {
+      method:"POST",
+      headers:{Prefer:"return=representation"},
+      body:JSON.stringify({
+        p_client_id:clientId,
+        p_date_applied:dateApplied
+      })
+    }
+  );
+
+  let memberEmail="";
+  if(typeof result==="string"){
+    memberEmail=result;
+  }else if(Array.isArray(result)&&result.length){
+    memberEmail=result[0].member_login||result[0].email||result[0];
+  }else if(result&&typeof result==="object"){
+    memberEmail=result.member_login||result.email||"";
+  }
+
+  if(!memberEmail){
+    throw new Error("Member account was not found. Please check the Client ID and Date Applied.");
+  }
+
+  let d=await signIn(memberEmail,p);
+  accessToken=d.access_token;
+
+  localStorage.setItem("futurecare_access_token",accessToken);
+  localStorage.setItem("futurecare_role","member");
+  localStorage.setItem("futurecare_member_client_id",clientId);
+
+  showMember();
+  await loadMember(clientId);
  }catch(x){e.textContent=x.message||"Login failed."}
 }
 function hideDashboards(){
  document.getElementById("loginPage").classList.add("hidden");
  document.getElementById("ownerDashboard").classList.add("hidden");
  document.getElementById("agentDashboard").classList.add("hidden");
+ document.getElementById("memberDashboard").classList.add("hidden");
 }
 function showOwner(){hideDashboards();document.getElementById("ownerDashboard").classList.remove("hidden")}
 function showAgent(){hideDashboards();document.getElementById("agentDashboard").classList.remove("hidden")}
+function showMember(){hideDashboards();document.getElementById("memberDashboard").classList.remove("hidden")}
 
 async function loadOwner(){
  let s=document.getElementById("ownerStatus"),load=document.getElementById("loading");
@@ -593,15 +668,172 @@ async function addMember(){
   document.getElementById("ownerStatus").textContent="✅ New member record saved.";
  }catch(x){document.getElementById("addError").textContent=x.message}
 }
+
+/* =========================
+   MEMBER ACCESS
+========================= */
+
+function convertPasswordToDate(v){
+  if(!/^\d{8}$/.test(v)){
+    throw new Error("Member password must be Date Applied in MMDDYYYY format.");
+  }
+  return v.substring(4,8)+"-"+v.substring(0,2)+"-"+v.substring(2,4);
+}
+
+function memberRecordRows(records,year,monthlyRate){
+  let rows=records
+    .filter(r=>Number(r.payment_year)===year)
+    .sort((a,b)=>Number(a.payment_month)-Number(b.payment_month));
+  let by=new Map(rows.map(r=>[Number(r.payment_month),r]));
+  let out=`<div class="table-wrap"><table style="min-width:900px"><thead><tr><th>MONTH</th><th>AMOUNT</th><th>PAYMENT DATE</th><th>RECEIPT</th><th>NOTES</th></tr></thead><tbody>`;
+  for(let mo=1;mo<=12;mo++){
+    let r=by.get(mo);
+    let amount=r?amountOf(r):0;
+    let coverage="";
+    if(!r){
+      coverage='<span class="badge">NO RECORD</span>';
+    }else if(amount<=0){
+      coverage='<span class="bad">NO PAYMENT</span>';
+    }else if(monthlyRate>0 && amount>=monthlyRate){
+      coverage='<span class="good">PAID / COVERED</span>';
+    }else{
+      coverage='<span class="warn">RECORDED</span>';
+    }
+    out+=`<tr><td>${monthName(mo)}</td><td>${r?money(amount):"—"}</td><td>${r?date(r.payment_date):""}</td><td>${r?esc(r.receipt_number):""}</td><td>${coverage}${r&&r.notes?`<br>${esc(r.notes)}`:""}</td></tr>`;
+  }
+  return out+"</tbody></table></div>";
+}
+
+function memberTransactionRows(records){
+  if(!records.length)return "<div class='summary'>No payment transactions found.</div>";
+  let out=`<div class="table-wrap"><table style="min-width:900px"><thead><tr><th>PAYMENT DATE</th><th>AMOUNT</th><th>FOR / COVERED MONTH</th><th>RECEIPT</th><th>NOTES</th></tr></thead><tbody>`;
+  records.forEach(r=>{
+    out+=`<tr><td>${esc(date(r.payment_date))}</td><td>${money(r.amount)}</td><td>${esc(date(r.payment_month))}</td><td>${esc(r.receipt_number)}</td><td>${esc(r.notes)}</td></tr>`;
+  });
+  return out+"</tbody></table></div>";
+}
+
+function memberStatusForRecords(m,records){
+  let reqd=Number(m.monthly_payment)||0,s=startDate(m),months=Number(m.contestability_months)||0;
+  if(!reqd||!s||!months)return{text:"NOT SPECIFIED",cls:"warn"};
+  let map=new Map();
+  records.forEach(r=>{
+    let y=Number(r.payment_year),mo=Number(r.payment_month);
+    if(y&&mo)map.set(ym(y,mo),(map.get(ym(y,mo))||0)+amountOf(r));
+  });
+  let missing=[];
+  for(let i=0;i<months;i++){
+    let d=new Date(s);d.setMonth(d.getMonth()+i);
+    let y=d.getFullYear(),mo=d.getMonth()+1,key=ym(y,mo);
+    let free=i===0&&y===2025&&mo>=2&&mo<=6&&String(m.promo_type||"").toUpperCase().includes("FREE 1ST");
+    if(free)continue;
+    if((map.get(key)||0)<reqd)missing.push(key);
+  }
+  let end=new Date(s);end.setMonth(end.getMonth()+months);
+  if(new Date()>=end&&!missing.length)return{text:"CONTESTABILITY COMPLETED",cls:"good"};
+  if(!missing.length)return{text:"ON TRACK",cls:"good"};
+  return{text:"LAPSED — RESTART NOT YET QUALIFIED",cls:"bad",missing};
+}
+
+async function loadMember(clientId){
+  const status=document.getElementById("memberStatus");
+  try{
+    status.textContent="Loading your private FutureCare record...";
+
+    /* Query by Client ID. RLS still enforces that the authenticated
+       member can only receive the row linked to auth.uid(). */
+    const members=await req(
+      SUPABASE_URL+"/rest/v1/"+MEMBERS_TABLE+
+      "?client_id=eq."+encodeURIComponent(clientId)+
+      "&select=*"
+    );
+
+    if(!Array.isArray(members)||!members.length){
+      throw new Error("Your member record could not be found.");
+    }
+
+    currentMember=members[0];
+
+    /* Extra browser-side link verification. */
+    const uid=getUserIdFromToken();
+    if(uid && String(currentMember.auth_user_id||"")!==String(uid)){
+      throw new Error("Security check failed: this account is not linked to this member record.");
+    }
+
+    const myMonthly=await getAll(
+      "/rest/v1/"+MONTHLY_TABLE+
+      "?plan_holder_id=eq."+encodeURIComponent(currentMember.id)+
+      "&select=*&order=payment_year.asc&payment_month=asc"
+    );
+
+    const myPayments=await getAll(
+      "/rest/v1/"+PAYMENTS_TABLE+
+      "?plan_holder_id=eq."+encodeURIComponent(currentMember.id)+
+      "&select=*&order=payment_date.desc"
+    );
+
+    document.getElementById("holderClientId").textContent=currentMember.client_id||clientId;
+    document.getElementById("holderDateApplied").textContent=date(currentMember.date_applied);
+    document.getElementById("holderMonthly").textContent=money(currentMember.monthly_payment);
+    document.getElementById("holderContestability").textContent=(Number(currentMember.contestability_months)||0)+" month(s)";
+
+    const fields=[
+      ["client_id","Client ID"],["full_name","Full Name"],["address","Address"],
+      ["date_of_birth","Date of Birth"],["date_applied","Date Applied"],
+      ["plan_type","Plan Type"],["monthly_payment","Monthly Payment"],
+      ["total_plan_amount","Total Plan Amount"],["months_payable","Months Payable"],
+      ["contestability_months","Contestability Period"],["agent_name","Agent"],
+      ["phone","Phone"],["registration_fee","Registration Fee"],
+      ["promo_type","Promo Type"],["cash_assistance","Cash Assistance"],
+      ["status","Status"],["remarks","Remarks"]
+    ];
+
+    document.getElementById("memberInformation").innerHTML=fields.map(([c,label])=>{
+      let val=currentMember[c];
+      if(val===null||val===undefined||val==="")val="—";
+      if(c.includes("date"))val=date(val)||"—";
+      if(["monthly_payment","total_plan_amount","registration_fee"].includes(c))val=money(val);
+      if(c==="contestability_months"&&val!=="—")val=val+" month(s)";
+      return `<div class="detail"><b>${esc(label)}</b><span>${esc(val)}</span></div>`;
+    }).join("");
+
+    const statusResult=memberStatusForRecords(currentMember,myMonthly);
+    let summary=`<div class="summary"><b>Contestability Status:</b> <span class="${statusResult.cls}">${esc(statusResult.text)}</span>`;
+    if(statusResult.missing?.length){
+      summary+=`<br><b>Uncovered months:</b> ${statusResult.missing.map(x=>{
+        let a=x.split("-");
+        return monthName(Number(a[1]))+" "+a[0];
+      }).join(", ")}`;
+    }
+    summary+=`</div>`;
+    document.getElementById("memberPayments").innerHTML=
+      summary+
+      `<h3 class="section-title">Monthly Records</h3>`+
+      [...new Set(myMonthly.map(r=>Number(r.payment_year)).filter(Boolean))]
+        .sort((a,b)=>a-b)
+        .map(y=>`<h3>${y}</h3>${memberRecordRows(myMonthly,y,Number(currentMember.monthly_payment)||0)}`)
+        .join("");
+
+    document.getElementById("memberPaymentTransactions").innerHTML=
+      `<h3 class="section-title">Payment Transactions</h3>`+
+      memberTransactionRows(myPayments);
+
+    status.textContent="✅ Your FutureCare record is loaded. View-only access.";
+  }catch(x){
+    status.innerHTML="❌ Unable to load your record:<br>"+esc(x.message);
+  }
+}
+
 async function logout(){
  try{if(accessToken)await fetch(SUPABASE_URL+"/auth/v1/logout",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+accessToken}})}catch{}
  localStorage.removeItem("futurecare_access_token");
  localStorage.removeItem("futurecare_role");
  localStorage.removeItem("futurecare_agent_code");
+ localStorage.removeItem("futurecare_member_client_id");
  accessToken="";
  location.reload();
 }
-selectRole("owner");
+selectRole("member");
 </script>
 </body>
 </html>
