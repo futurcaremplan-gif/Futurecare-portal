@@ -7,65 +7,55 @@
 
 <style>
 *{box-sizing:border-box}
-:root{--green:#07572e;--light:#f3f7f4;--danger:#b00020}
-body{margin:0;font-family:Arial,sans-serif;background:var(--light);color:#222}
+:root{
+  --green:#07572e;--green2:#0b7a43;--mint:#eaf7ef;--light:#f5f8f6;
+  --text:#17221c;--muted:#68736d;--line:#e1e8e3;--danger:#b42318;
+  --warning:#a15c00;--white:#fff;--shadow:0 10px 30px rgba(18,45,30,.08)
+}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--light);color:var(--text)}
 .hidden{display:none!important}
-button{border:0;border-radius:8px;padding:11px 16px;font-weight:bold;cursor:pointer}
-.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{width:100%;max-width:430px;background:white;padding:30px;border-radius:18px;box-shadow:0 4px 20px #0002}
-.fc-logo{width:90px;height:90px;border-radius:50%;border:6px solid var(--green);color:var(--green);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:bold;margin:auto}
-.login-box h2{text-align:center;color:var(--green)}
-.login-box p{text-align:center;color:#666}
-.login-box input{width:100%;padding:14px;margin:7px 0;border:1px solid #ccc;border-radius:8px;font-size:16px}
-.login-btn{width:100%;background:var(--green);color:white;margin-top:8px}
+button{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer}
+input,select{font:inherit}
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+background:radial-gradient(circle at top right,#dff3e7,transparent 38%),var(--light)}
+.login-box{width:100%;max-width:460px;background:var(--white);padding:34px;border-radius:24px;box-shadow:var(--shadow)}
+.fc-logo{width:92px;height:92px;border-radius:24px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;
+text-align:center;font-weight:900;line-height:1.05;margin:auto;box-shadow:0 8px 24px #07572e33}
+.login-box h2{text-align:center;color:var(--green);margin:20px 0 6px}.login-box p{text-align:center;color:var(--muted)}
+.login-box input{width:100%;padding:14px;margin:7px 0;border:1px solid #cbd6cf;border-radius:10px;font-size:16px}
+.login-btn{width:100%;background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;margin-top:8px}
 .error{color:var(--danger);margin-top:10px;white-space:pre-wrap}
-header{background:var(--green);color:white;padding:14px 20px;position:sticky;top:0;z-index:20}
+header{background:linear-gradient(135deg,var(--green),#0b6c3d);color:#fff;padding:14px 20px;position:sticky;top:0;z-index:20;box-shadow:0 4px 18px #0002}
 .header-inner{max-width:1800px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:12px}
-.header-logo{width:55px;height:55px;border-radius:50%;background:white;overflow:hidden}
-.header-logo img{width:100%;height:100%;object-fit:contain}
-.brand h1{margin:0;font-size:24px}
-.logout{background:white;color:var(--green)}
-.container{max-width:1800px;margin:auto;padding:18px}
-.status{background:white;padding:14px;border-radius:10px;margin-bottom:16px;box-shadow:0 2px 7px #0001}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
-.card{background:white;padding:18px;border-radius:12px;box-shadow:0 2px 7px #0001}
-.card h3{margin:0 0 8px;color:#666;font-size:14px}
-.card strong{color:var(--green);font-size:30px}
-.toolbar{background:white;padding:14px;border-radius:12px;margin-bottom:16px;display:flex;gap:10px}
-.search{flex:1;padding:13px;border:2px solid #ccc;border-radius:8px;font-size:16px}
-.add-btn,.view-btn,.save-btn{background:var(--green);color:white}
-.edit-btn{background:#555;color:white}
-.table-wrap{background:white;border-radius:12px;overflow:auto;box-shadow:0 2px 7px #0001}
-table{border-collapse:collapse;width:100%;min-width:1100px}
-th,td{padding:10px;border-bottom:1px solid #eee;text-align:left;white-space:nowrap}
-th{background:var(--green);color:white}
-tr:hover{background:#f5faf7}
-.modal{position:fixed;inset:0;background:#0008;z-index:100;padding:15px;overflow:auto}
-.modal-box{background:white;max-width:1500px;margin:20px auto;padding:22px;border-radius:14px}
-.modal-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.modal-title h2{color:var(--green);margin:0}
-.close{background:#eee}
-.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.detail{background:#f2f6f3;padding:12px;border-radius:8px}
-.detail b{display:block;color:#666;font-size:12px;margin-bottom:5px}
-.detail span{word-break:break-word}
-.section-title{color:var(--green);margin-top:25px}
-.readonly-note{background:#eaf5ee;color:var(--green);padding:12px;border-radius:8px;margin-bottom:15px;font-weight:bold}
-.loading{text-align:center;padding:30px}
-.summary-box{background:#f2f6f3;border-radius:10px;padding:14px;margin-top:15px}
-.paid,.covered,.completed{color:var(--green);font-weight:bold}
-.unpaid,.restart{color:var(--danger);font-weight:bold}
-
-@media(max-width:950px){
-.cards{grid-template-columns:repeat(2,1fr)}
-.detail-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:600px){
-.cards{grid-template-columns:1fr 1fr}
-.toolbar{flex-direction:column}
-.brand h1{font-size:19px}
-}
+.brand{display:flex;align-items:center;gap:12px}.header-logo{width:52px;height:52px;border-radius:15px;background:#fff;overflow:hidden}
+.header-logo img{width:100%;height:100%;object-fit:contain}.brand h1{margin:0;font-size:22px}.brand small{opacity:.82}
+.logout{background:#fff;color:var(--green)}
+.container{max-width:1800px;margin:auto;padding:22px}
+.status{background:#fff;padding:14px 16px;border-radius:13px;margin-bottom:16px;box-shadow:var(--shadow);border-left:4px solid var(--green)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.card{background:#fff;padding:18px;border-radius:16px;box-shadow:var(--shadow);border:1px solid #edf1ee}
+.card h3{margin:0 0 9px;color:var(--muted);font-size:12px;letter-spacing:.06em}.card strong{color:var(--green);font-size:28px}
+.toolbar{background:#fff;padding:14px;border-radius:16px;margin-bottom:16px;display:flex;gap:10px;box-shadow:var(--shadow)}
+.search{flex:1;padding:13px;border:1px solid #cbd6cf;border-radius:10px;font-size:16px}
+.add-btn,.view-btn,.save-btn{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
+.edit-btn{background:#45504a;color:#fff}.secondary-btn{background:#edf2ee;color:var(--green)}
+.table-wrap{background:#fff;border-radius:16px;overflow:auto;box-shadow:var(--shadow);border:1px solid #edf1ee}
+table{border-collapse:collapse;width:100%;min-width:1000px}th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{background:var(--green);color:#fff;position:sticky;top:0}tr:hover{background:#f6fbf8}
+.badge{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:800}.badge.green{background:#dff5e7;color:#08733b}
+.badge.red{background:#fde5e3;color:#a51d14}.badge.gray{background:#edf1ee;color:#59645e}
+.modal{position:fixed;inset:0;background:#0009;z-index:100;padding:15px;overflow:auto}.modal-box{background:#fff;max-width:1500px;margin:20px auto;padding:22px;border-radius:18px;box-shadow:0 20px 70px #0004}
+.modal-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.modal-title h2{color:var(--green);margin:0}.close{background:#eef2ef;color:#36413b}
+.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.detail{background:#f3f7f4;padding:12px;border-radius:10px;border:1px solid #e4ece7}
+.detail b{display:block;color:#66726b;font-size:11px;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}.detail span{word-break:break-word}
+.detail input,.detail select{width:100%;padding:10px;margin-top:5px;border:1px solid #cbd6cf;border-radius:8px;background:#fff}
+.section-title{color:var(--green);margin-top:25px}.readonly-note{background:#eaf5ee;color:var(--green);padding:12px;border-radius:10px;margin-bottom:15px;font-weight:800}
+.loading{text-align:center;padding:30px;color:var(--muted)}.summary-box{background:#f1f6f3;border-radius:12px;padding:14px;margin-top:15px;border:1px solid #e1ebe5}
+.paid,.covered,.completed{color:var(--green);font-weight:800}.unpaid,.restart{color:var(--danger);font-weight:800}
+.kpi-note{font-size:12px;color:var(--muted);margin-top:4px}.payment-year{margin-top:12px}
+.empty{padding:24px;text-align:center;color:var(--muted)}.danger-note{background:#fff0ee;color:#a51d14;padding:12px;border-radius:10px}
+@media(max-width:950px){.cards{grid-template-columns:repeat(2,1fr)}.detail-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.container{padding:12px}.cards{grid-template-columns:1fr 1fr}.toolbar{flex-direction:column}.brand h1{font-size:18px}.brand small{font-size:11px}.detail-grid{grid-template-columns:1fr}}
 </style>
 </head>
 
@@ -80,7 +70,7 @@ FUTURE<br>CARE
 </div>
 
 <h2>FutureCare Portal</h2>
-<p>Owner, Agent & Plan Holder Login</p>
+<p>Owner • Agent • Plan Holder Login</p>
 
 <input id="email"
 type="text"
@@ -145,7 +135,7 @@ Connecting to Supabase...
 </div>
 
 <div class="card">
-<h3>TOTAL PAYMENT AMOUNT</h3>
+<h3>TOTAL PAYMENTS AMOUNT</h3>
 <strong id="totalAmount">₱0.00</strong>
 </div>
 
@@ -419,7 +409,7 @@ Loading your record...
 
 <div id="memberInformation" class="detail-grid"></div>
 
-<h2 class="section-title">MY PAYMENT RECORDS</h2>
+<h2 class="section-title">MY PAYMENT HISTORY</h2>
 
 <div id="memberPayments"></div>
 
@@ -428,2031 +418,469 @@ Loading your record...
 
 
 <script>
+/* =========================================================
+   FUTURECARE PORTAL — corrected frontend
+   Uses the existing Supabase schema and preserves Client IDs.
+   IMPORTANT: the publishable/anon key is safe to expose in a
+   browser only when Supabase RLS is correctly configured.
+========================================================= */
 
-/* =========================
-   SUPABASE
-========================= */
+const SUPABASE_URL="https://sdxeiofegiqfldpugdqb.supabase.co";
+const SUPABASE_KEY="sb_publishable_LFR3IVJkVTicyoEVm1KJwQ_FzogaNP-";
+const OWNER_EMAIL="futurcaremplan@gmail.com";
+const MEMBERS_TABLE="plan_holders";
+const PAYMENTS_TABLE="payments";
+const MONTHLY_TABLE="monthly_payment_records";
 
-const SUPABASE_URL =
-"https://sdxeiofegiqfldpugdqb.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_LFR3IVJkVTicyoEVm1KJwQ_FzogaNP-";
-
-const OWNER_EMAIL =
-"futurcaremplan@gmail.com";
-
-const MEMBERS_TABLE =
-"plan_holders";
-
-const PAYMENTS_TABLE =
-"payments";
-
-const MONTHLY_TABLE =
-"monthly_payment_records";
-
-
-/* =========================
-   VARIABLES
-========================= */
-
-let accessToken =
-localStorage.getItem("futurecare_owner_token") || "";
-
-let allMembers=[];
-let allPayments=[];
-let allMonthly=[];
-
-let agentMembers=[];
-let agentPayments=[];
-let agentMonthly=[];
-let currentAgent=null;
-let currentMember=null;
-
+let accessToken=localStorage.getItem("futurecare_access_token")||"";
+let allMembers=[],allPayments=[],allMonthly=[];
+let agentMembers=[],agentPayments=[],agentMonthly=[];
+let currentAgent=null,currentMember=null,editingMember=null;
 let memberColumns=[];
-let editingMember=null;
 
-const hiddenColumns=[
-"id",
-"auth_user_id",
-"created_at",
-"user_id"
-];
+const hiddenColumns=["id","auth_user_id","created_at","user_id"];
 
-
-/* =========================
-   HELPERS
-========================= */
-
-function escapeHtml(v){
-
-return String(v??"")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-function formatMoney(v){
-
-const n=Number(v);
-
-return Number.isFinite(n)
-?"₱"+n.toLocaleString("en-PH",{
-minimumFractionDigits:2,
-maximumFractionDigits:2
-})
-:"₱0.00";
-
-}
-
-
-function parseDate(v){
-
-if(!v)return null;
-
-const d=new Date(v);
-
-return Number.isNaN(d.getTime())
-?null
-:d;
-
-}
-
-
-function formatDate(v){
-
-const d=parseDate(v);
-
-return d
-?d.toLocaleDateString("en-PH",{
-year:"numeric",
-month:"short",
-day:"numeric"
-})
-:"";
-
-}
-
-
-function getAmount(p){
-
-return Number(
-p.amount ??
-p.payment_amount ??
-p.paid_amount ??
-0
-)||0;
-
-}
-
-
-function getPaymentDate(p){
-
-return p.payment_date ??
-p.paid_date ??
-p.date_paid ??
-p.created_at ??
-"";
-
-}
-
-
-function getStartDate(m){
-
-return parseDate(
-m.date_applied ??
-m.application_date ??
-m.registration_date ??
-""
-);
-
-}
-
-
-function getMonthlyRate(m){
-
-return Number(
-m.monthly_payment ??
-m.monthlyPayment ??
-0
-)||0;
-
-}
-
-
-/* =========================
-   SUPABASE REQUEST
-========================= */
+function escapeHtml(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function formatMoney(v){const n=Number(v);return Number.isFinite(n)?"₱"+n.toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2}):"₱0.00"}
+function parseDate(v){if(!v)return null;const d=new Date(v);return Number.isNaN(d.getTime())?null:d}
+function formatDate(v){const d=parseDate(v);return d?d.toLocaleDateString("en-PH",{year:"numeric",month:"short",day:"numeric"}):""}
+function getAmount(p){return Number(p?.amount??p?.payment_amount??p?.paid_amount??0)||0}
+function getPaymentDate(p){return p?.payment_date||p?.paid_date||p?.date_paid||p?.created_at||""}
+function getStartDate(m){return parseDate(m?.date_applied||m?.application_date||m?.registration_date||"")}
+function getMonthlyRate(m){return Number(m?.monthly_payment||0)||0}
+function recordsForMember(records,id){return (records||[]).filter(r=>String(r.plan_holder_id??"")===String(id??""))}
 
 async function supabaseRequest(url,options={}){
-
-const headers={
-apikey:SUPABASE_KEY,
-Authorization:
-"Bearer "+(accessToken||SUPABASE_KEY),
-"Content-Type":"application/json",
-...(options.headers||{})
-};
-
-const response=
-await fetch(url,{
-...options,
-headers
-});
-
-const text=
-await response.text();
-
-let data=null;
-
-try{
-data=text?JSON.parse(text):null;
-}catch{
-data=text;
+  const headers={
+    apikey:SUPABASE_KEY,
+    Authorization:"Bearer "+(accessToken||SUPABASE_KEY),
+    "Content-Type":"application/json",
+    ...(options.headers||{})
+  };
+  const response=await fetch(url,{...options,headers});
+  const text=await response.text();
+  let data=null; try{data=text?JSON.parse(text):null}catch{data=text}
+  if(!response.ok) throw new Error(typeof data==="object"?JSON.stringify(data):String(data));
+  return data;
 }
 
-if(!response.ok){
-
-throw new Error(
-typeof data==="object"
-?JSON.stringify(data)
-:String(data)
-);
-
+async function supabaseGetAll(path,pageSize=1000){
+  let rows=[],offset=0;
+  while(true){
+    const separator=path.includes("?")?"&":"?";
+    const batch=await supabaseRequest(SUPABASE_URL+path+separator+"limit="+pageSize+"&offset="+offset);
+    if(!Array.isArray(batch)) break;
+    rows.push(...batch);
+    if(batch.length<pageSize) break;
+    offset+=pageSize;
+  }
+  return rows;
 }
-
-return data;
-
-}
-
-
-
-/* =========================
-   PAGINATED SUPABASE GET
-========================= */
-
-async function supabaseGetAll(path, pageSize=1000){
-
-let rows=[];
-let offset=0;
-
-while(true){
-
-const batch=
-await supabaseRequest(
-SUPABASE_URL+
-path+
-(path.includes("?")?"&":"?")+
-"limit="+pageSize+
-"&offset="+offset
-);
-
-if(!Array.isArray(batch)) break;
-
-rows.push(...batch);
-
-if(batch.length < pageSize) break;
-
-offset += pageSize;
-
-}
-
-return rows;
-
-}
-
-/* =========================
-   AUTH LOGIN
-========================= */
 
 async function signIn(email,password){
-
-const response=
-await fetch(
-SUPABASE_URL+
-"/auth/v1/token?grant_type=password",
-{
-method:"POST",
-headers:{
-apikey:SUPABASE_KEY,
-"Content-Type":
-"application/json"
-},
-body:JSON.stringify({
-email,
-password
-})
+  const response=await fetch(SUPABASE_URL+"/auth/v1/token?grant_type=password",{
+    method:"POST",
+    headers:{apikey:SUPABASE_KEY,"Content-Type":"application/json"},
+    body:JSON.stringify({email,password})
+  });
+  const data=await response.json();
+  if(!response.ok) throw new Error(data.error_description||data.msg||"Login failed.");
+  return data;
 }
-);
-
-const data=
-await response.json();
-
-if(!response.ok){
-
-throw new Error(
-data.error_description||
-data.msg||
-"Login failed."
-);
-
-}
-
-return data;
-
-}
-
-
-/* =========================
-   MEMBER PASSWORD
-========================= */
 
 function convertPasswordToDate(v){
-
-if(!/^\d{8}$/.test(v)){
-
-throw new Error(
-"Member password must be Date Applied in MMDDYYYY format."
-);
-
+  if(!/^\d{8}$/.test(v)) throw new Error("Member password must be Date Applied in MMDDYYYY format.");
+  return v.substring(4,8)+"-"+v.substring(0,2)+"-"+v.substring(2,4);
 }
-
-return v.substring(4,8)+"-"+
-v.substring(0,2)+"-"+
-v.substring(2,4);
-
-}
-
-
-/* =========================
-   MAIN LOGIN
-========================= */
-
-async function login(){
-
-const loginValue=
-document.getElementById("email")
-.value.trim();
-
-const password=
-document.getElementById("password")
-.value.trim();
-
-const error=
-document.getElementById("loginError");
-
-error.textContent="";
-
-if(!loginValue||!password){
-
-error.textContent=
-"Please enter your login ID and password.";
-
-return;
-
-}
-
-try{
-
-/* OWNER */
-
-if(
-loginValue.toLowerCase()===
-OWNER_EMAIL.toLowerCase()
-){
-
-const data=
-await signIn(
-OWNER_EMAIL,
-password
-);
-
-accessToken=
-data.access_token;
-
-localStorage.setItem(
-"futurecare_owner_token",
-accessToken
-);
-
-localStorage.setItem(
-"futurecare_mode",
-"owner"
-);
-
-showOwnerDashboard();
-
-await loadOwnerDashboard();
-
-return;
-
-}
-
-
-/* AGENT */
-
-const possibleId=
-loginValue
-.split("@")[0]
-.toUpperCase();
-
-if(/^FCA\d+$/i.test(possibleId)){
-
-const agentEmail=
-possibleId.toLowerCase()+
-"@futurecare.local";
-
-const data=
-await signIn(
-agentEmail,
-password
-);
-
-accessToken=
-data.access_token;
-
-localStorage.setItem(
-"futurecare_owner_token",
-accessToken
-);
-
-localStorage.setItem(
-"futurecare_mode",
-"agent"
-);
-
-await loadAgentDashboard(
-possibleId
-);
-
-return;
-
-}
-
-
-/* MEMBER */
-
-const clientId=
-possibleId;
-
-const dateApplied=
-convertPasswordToDate(password);
-
-const result=
-await supabaseRequest(
-SUPABASE_URL+
-"/rest/v1/rpc/member_login",
-{
-method:"POST",
-headers:{
-Authorization:
-"Bearer "+SUPABASE_KEY
-},
-body:JSON.stringify({
-p_client_id:clientId,
-p_date_applied:dateApplied
-})
-}
-);
-
-let memberEmail="";
-
-if(typeof result==="string"){
-
-memberEmail=result;
-
-}else if(
-Array.isArray(result)&&
-result.length
-){
-
-memberEmail=
-result[0].member_login||
-result[0].email||
-result[0];
-
-}else if(
-result&&
-typeof result==="object"
-){
-
-memberEmail=
-result.member_login||
-result.email||
-"";
-
-}
-
-if(!memberEmail){
-
-throw new Error(
-"Member account was not found."
-);
-
-}
-
-const data=
-await signIn(
-memberEmail,
-password
-);
-
-accessToken=
-data.access_token;
-
-localStorage.setItem(
-"futurecare_owner_token",
-accessToken
-);
-
-localStorage.setItem(
-"futurecare_mode",
-"member"
-);
-
-showMemberDashboard();
-
-await loadMemberDashboard(
-clientId
-);
-
-}catch(e){
-
-error.textContent=
-e.message||
-"Login failed.";
-
-}
-
-}
-
-
-/* =========================
-   SHOW DASHBOARDS
-========================= */
 
 function hideAll(){
+  ["loginPage","ownerDashboard","agentDashboard","memberDashboard"].forEach(id=>document.getElementById(id).classList.add("hidden"));
+}
+function showOwnerDashboard(){hideAll();document.getElementById("ownerDashboard").classList.remove("hidden")}
+function showAgentDashboard(){hideAll();document.getElementById("agentDashboard").classList.remove("hidden")}
+function showMemberDashboard(){hideAll();document.getElementById("memberDashboard").classList.remove("hidden")}
 
-document.getElementById("loginPage")
-.classList.add("hidden");
+async function login(){
+  const loginValue=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value.trim();
+  const error=document.getElementById("loginError");
+  error.textContent="";
+  if(!loginValue||!password){error.textContent="Please enter your login ID and password.";return}
 
-document.getElementById("ownerDashboard")
-.classList.add("hidden");
+  try{
+    if(loginValue.toLowerCase()===OWNER_EMAIL.toLowerCase()){
+      const data=await signIn(OWNER_EMAIL,password);
+      setSession(data,"owner");showOwnerDashboard();await loadOwnerDashboard();return;
+    }
 
-document.getElementById("agentDashboard")
-.classList.add("hidden");
+    const possibleId=loginValue.split("@")[0].toUpperCase();
 
-document.getElementById("memberDashboard")
-.classList.add("hidden");
+    /* AGENT LOGIN
+       FutureCare Agent IDs are like FCA00001KR:
+       FCA + 5 digits + 2 initials.
+       The old check only accepted digits after FCA,
+       so valid IDs such as FCA00002WR were incorrectly
+       sent to the MEMBER login and produced the
+       "Member password must be Date Applied" error.
+    */
+    /* AGENT MUST BE CHECKED BEFORE MEMBER LOGIN.
+       All FutureCare Agent IDs begin with FCA.
+       Example: FCA00001KR, FCA00002WR, etc.
+       Never send an FCA login to member_login.
+    */
+    if(/^FCA/i.test(possibleId)){
+      const agentEmail=possibleId.toLowerCase()+"@futurecare.local";
+      try{
+        const data=await signIn(agentEmail,password);
+        setSession(data,"agent");
+        await loadAgentDashboard(possibleId);
+        return;
+      }catch(agentError){
+        throw new Error(
+          "Agent login failed for "+possibleId+". "+
+          "The Agent ID was recognized, but the Supabase Auth password/account did not authenticate. "+
+          "This is NOT a Member login."
+        );
+      }
+    }
 
+    const clientId=possibleId;
+    const dateApplied=convertPasswordToDate(password);
+
+    const result=await supabaseRequest(SUPABASE_URL+"/rest/v1/rpc/member_login",{
+      method:"POST",
+      headers:{Authorization:"Bearer "+SUPABASE_KEY},
+      body:JSON.stringify({p_client_id:clientId,p_date_applied:dateApplied})
+    });
+
+    let memberEmail="";
+    if(typeof result==="string") memberEmail=result;
+    else if(Array.isArray(result)&&result.length) memberEmail=result[0]?.member_login||result[0]?.email||result[0]||"";
+    else if(result&&typeof result==="object") memberEmail=result.member_login||result.email||"";
+
+    if(!memberEmail) throw new Error("Member account was not found.");
+    const data=await signIn(memberEmail,password);
+    setSession(data,"member");showMemberDashboard();await loadMemberDashboard(clientId);
+  }catch(e){error.textContent=e.message||"Login failed."}
 }
 
-
-function showOwnerDashboard(){
-
-hideAll();
-
-document.getElementById(
-"ownerDashboard"
-).classList.remove("hidden");
-
+function setSession(data,mode){
+  accessToken=data.access_token;
+  localStorage.setItem("futurecare_access_token",accessToken);
+  localStorage.setItem("futurecare_mode",mode);
 }
-
-
-function showAgentDashboard(){
-
-hideAll();
-
-document.getElementById(
-"agentDashboard"
-).classList.remove("hidden");
-
-}
-
-
-function showMemberDashboard(){
-
-hideAll();
-
-document.getElementById(
-"memberDashboard"
-).classList.remove("hidden");
-
-}
-
-
-/* =========================
-   LOAD OWNER DATA
-========================= */
 
 async function loadOwnerDashboard(){
+  const status=document.getElementById("ownerStatus"),loading=document.getElementById("loading");
+  try{
+    status.textContent="Loading all FutureCare records…";
+    allMembers=await supabaseGetAll("/rest/v1/"+MEMBERS_TABLE+"?select=*&order=client_id.asc");
+    allPayments=await supabaseGetAll("/rest/v1/"+PAYMENTS_TABLE+"?select=*&order=payment_date.asc");
+    try{allMonthly=await supabaseGetAll("/rest/v1/"+MONTHLY_TABLE+"?select=*&order=payment_year.asc&payment_month=asc")}catch{allMonthly=[]}
 
-const status=
-document.getElementById("ownerStatus");
+    memberColumns=allMembers.length?Object.keys(allMembers[0]):[];
+    document.getElementById("totalMembers").textContent=allMembers.length;
+    document.getElementById("recordsLoaded").textContent=allMembers.length;
+    document.getElementById("totalPayments").textContent=allPayments.length;
+    document.getElementById("totalAmount").textContent=formatMoney(allPayments.reduce((s,p)=>s+getAmount(p),0));
 
-const loading=
-document.getElementById("loading");
-
-try{
-
-status.textContent=
-"Loading all FutureCare members...";
-
-
-/*
- IMPORTANT:
- This does NOT change Client IDs.
- It only tells Supabase to return
- existing records in Client ID order.
-*/
-
-allMembers=
-await supabaseGetAll(
-"/rest/v1/"+MEMBERS_TABLE+
-"?select=*&order=client_id.asc"
-);
-
-
-allPayments=
-await supabaseGetAll(
-"/rest/v1/"+PAYMENTS_TABLE+
-"?select=*"
-);
-
-
-try{
-
-allMonthly=
-await supabaseGetAll(
-"/rest/v1/"+MONTHLY_TABLE+
-"?select=*"
-);
-
-}catch{
-
-allMonthly=[];
-
+    buildMemberHeader();renderMembers();
+    loading.classList.add("hidden");document.getElementById("membersTable").classList.remove("hidden");
+    status.innerHTML="✅ Connected — <b>"+allMembers.length+"</b> members, <b>"+allPayments.length+"</b> payment transactions loaded.";
+  }catch(e){
+    status.innerHTML="❌ Database error:<br>"+escapeHtml(e.message);
+    loading.textContent="Unable to load FutureCare records.";
+  }
 }
 
-
-memberColumns=
-allMembers.length
-?Object.keys(allMembers[0])
-:[];
-
-
-document.getElementById(
-"totalMembers"
-).textContent=
-allMembers.length;
-
-document.getElementById(
-"recordsLoaded"
-).textContent=
-allMembers.length;
-
-document.getElementById(
-"totalPayments"
-).textContent=
-allPayments.length;
-
-document.getElementById(
-"totalAmount"
-).textContent=
-formatMoney(
-allPayments.reduce(
-(sum,p)=>sum+getAmount(p),
-0
-)
-);
-
-
-buildMemberHeader();
-renderMembers();
-
-
-loading.classList.add("hidden");
-
-document.getElementById(
-"membersTable"
-).classList.remove("hidden");
-
-
-status.textContent=
-"✅ Connected. "+
-allMembers.length+
-" members loaded.";
-
-}catch(e){
-
-status.innerHTML=
-"❌ Database error:<br>"+
-escapeHtml(e.message);
-
-loading.textContent=
-"Unable to load FutureCare records.";
-
-}
-
-}
-
-
-/* =========================
-   OWNER TABLE
-========================= */
-
-function visibleMemberColumns(){
-
-return memberColumns.filter(
-c=>!hiddenColumns.includes(c)
-);
-
-}
-
+function visibleMemberColumns(){return memberColumns.filter(c=>!hiddenColumns.includes(c))}
+function displayLabel(c){return String(c).replaceAll("_"," ").replace(/\b\w/g,x=>x.toUpperCase())}
 
 function buildMemberHeader(){
-
-const head=
-document.getElementById("tableHead");
-
-head.innerHTML="";
-
-const row=
-document.createElement("tr");
-
-visibleMemberColumns().forEach(c=>{
-
-const th=
-document.createElement("th");
-
-th.textContent=c;
-
-row.appendChild(th);
-
-});
-
-const action=
-document.createElement("th");
-
-action.textContent="ACTION";
-
-row.appendChild(action);
-
-head.appendChild(row);
-
+  const head=document.getElementById("tableHead");head.innerHTML="";
+  const row=document.createElement("tr");
+  const cols=["client_id","full_name","phone","plan_type","monthly_payment","date_applied","agent_name","status"].filter(c=>memberColumns.includes(c));
+  cols.forEach(c=>{const th=document.createElement("th");th.textContent=displayLabel(c);row.appendChild(th)});
+  const th=document.createElement("th");th.textContent="ACTION";row.appendChild(th);head.appendChild(row);
 }
-
 
 function renderMembers(){
-
-const body=
-document.getElementById("tableBody");
-
-body.innerHTML="";
-
-const q=
-document.getElementById("search")
-.value.trim()
-.toLowerCase();
-
-const filtered=
-allMembers.filter(m=>
-!q||
-Object.values(m)
-.some(v=>
-String(v??"")
-.toLowerCase()
-.includes(q)
-)
-);
-
-
-filtered.forEach(m=>{
-
-const row=
-document.createElement("tr");
-
-
-visibleMemberColumns()
-.forEach(c=>{
-
-const td=
-document.createElement("td");
-
-let value=m[c]??"";
-
-if(
-typeof value==="object"&&
-value!==null
-){
-
-value=
-JSON.stringify(value);
-
+  const body=document.getElementById("tableBody");body.innerHTML="";
+  const q=document.getElementById("search").value.trim().toLowerCase();
+  const cols=["client_id","full_name","phone","plan_type","monthly_payment","date_applied","agent_name","status"].filter(c=>memberColumns.includes(c));
+  const filtered=allMembers.filter(m=>!q||Object.values(m).some(v=>String(v??"").toLowerCase().includes(q)));
+  filtered.forEach(m=>{
+    const row=document.createElement("tr");
+    cols.forEach(c=>{
+      const td=document.createElement("td");let v=m[c]??"";
+      if(c==="monthly_payment") v=formatMoney(v);
+      if(c==="date_applied") v=formatDate(v);
+      if(c==="status") td.innerHTML=statusBadge(v);else td.textContent=v;
+      row.appendChild(td);
+    });
+    const action=document.createElement("td");
+    const view=document.createElement("button");view.className="view-btn";view.textContent="VIEW";view.onclick=()=>viewMember(m);
+    const edit=document.createElement("button");edit.className="edit-btn";edit.textContent="EDIT";edit.style.marginLeft="6px";edit.onclick=()=>openEdit(m);
+    action.append(view,edit);row.appendChild(action);body.appendChild(row);
+  });
+  if(!filtered.length){const tr=document.createElement("tr");tr.innerHTML='<td colspan="9" class="empty">No members found.</td>';body.appendChild(tr)}
+}
+function statusBadge(v){
+  const s=String(v||"").toLowerCase();
+  const cls=s.includes("active")||s.includes("paid")?"green":s.includes("lapse")||s.includes("inactive")?"red":"gray";
+  return '<span class="badge '+cls+'">'+escapeHtml(v||"—")+"</span>";
 }
 
-td.textContent=value;
-
-row.appendChild(td);
-
-});
-
-
-const action=
-document.createElement("td");
-
-
-const view=
-document.createElement("button");
-
-view.className="view-btn";
-view.textContent="VIEW";
-view.onclick=()=>viewMember(m);
-
-
-const edit=
-document.createElement("button");
-
-edit.className="edit-btn";
-edit.textContent="EDIT";
-edit.style.marginLeft="5px";
-edit.onclick=()=>openEdit(m);
-
-
-action.append(view,edit);
-
-row.appendChild(action);
-
-body.appendChild(row);
-
-});
-
-
-if(!filtered.length){
-
-const row=
-document.createElement("tr");
-
-const td=
-document.createElement("td");
-
-td.colSpan=
-visibleMemberColumns().length+1;
-
-td.textContent=
-"No members found.";
-
-row.appendChild(td);
-
-body.appendChild(row);
-
+function transactionRows(records,year){
+  const rows=(records||[]).filter(p=>{
+    const d=parseDate(getPaymentDate(p));
+    const pm=parseDate(p.payment_month);
+    const y=Number(pm?.getFullYear()||d?.getFullYear()||0);
+    return y===year;
+  }).sort((a,b)=>String(getPaymentDate(a)).localeCompare(String(getPaymentDate(b))));
+  if(!rows.length)return '<div class="summary-box">No payment transactions found for '+year+".</div>";
+  let out='<div class="table-wrap"><table style="min-width:850px"><thead><tr><th>PAYMENT DATE</th><th>PAYMENT MONTH</th><th>AMOUNT</th><th>RECEIPT</th><th>NOTES</th></tr></thead><tbody>';
+  rows.forEach(p=>{
+    out+="<tr><td>"+escapeHtml(formatDate(getPaymentDate(p)))+"</td><td>"+escapeHtml(formatDate(p.payment_month)||"")+"</td><td>"+escapeHtml(formatMoney(getAmount(p)))+"</td><td>"+escapeHtml(p.receipt_number||"")+"</td><td>"+escapeHtml(p.notes||"")+"</td></tr>";
+  });
+  return out+"</tbody></table></div>";
 }
 
+function monthlyRows(records,year){
+  const rows=(records||[]).filter(r=>Number(r.payment_year)===year).sort((a,b)=>Number(a.payment_month)-Number(b.payment_month));
+  if(!rows.length)return '<div class="summary-box">No monthly ledger rows found for '+year+".</div>";
+  let out='<div class="table-wrap"><table style="min-width:800px"><thead><tr><th>MONTH</th><th>AMOUNT</th><th>PAYMENT DATE</th><th>RECEIPT</th><th>NOTES</th></tr></thead><tbody>';
+  rows.forEach(r=>{
+    const month=Number(r.payment_month||0);
+    const name=month>=1&&month<=12?new Date(2000,month-1,1).toLocaleString("en-PH",{month:"long"}):"";
+    out+="<tr><td>"+escapeHtml(name)+"</td><td>"+escapeHtml(formatMoney(r.amount))+"</td><td>"+escapeHtml(formatDate(r.payment_date))+"</td><td>"+escapeHtml(r.receipt_number||"")+"</td><td>"+escapeHtml(r.notes||"")+"</td></tr>";
+  });
+  return out+"</tbody></table></div>";
 }
 
-
-
-/* =========================
-   PAYMENT / CONTESTABILITY HELPERS
-========================= */
-
-function recordsForMember(records, memberId){
-return (records||[]).filter(r =>
-String(r.plan_holder_id ?? "") === String(memberId ?? "")
-);
+function contestabilitySummary(member,payments){
+  const months=Number(member?.contestability_months||0),start=getStartDate(member),rate=getMonthlyRate(member);
+  if(!months||!start)return '<div class="summary-box"><b>Contestability:</b> Not specified</div>';
+  const paidByMonth=new Map();
+  (payments||[]).forEach(p=>{
+    const d=parseDate(p.payment_month)||parseDate(getPaymentDate(p));if(!d)return;
+    const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+    paidByMonth.set(key,(paidByMonth.get(key)||0)+getAmount(p));
+  });
+  let missing=[];
+  for(let i=0;i<months;i++){
+    const d=new Date(start);d.setMonth(d.getMonth()+i);
+    const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+    // FutureCare's Feb–Jun 2025 FREE 1ST MONTH PAYMENT promo:
+    // registration fee is separate; first regular monthly payment is free.
+    const promoFree=d.getFullYear()===2025&&d.getMonth()>=1&&d.getMonth()<=5;
+    const required=promoFree?0:rate;
+    if(required>0&&(paidByMonth.get(key)||0)<required)missing.push(d.toLocaleString("en-PH",{month:"short",year:"numeric"}));
+  }
+  const end=new Date(start);end.setMonth(end.getMonth()+months);
+  const completed=missing.length===0&&new Date()>=end;
+  return '<div class="summary-box"><b>Contestability:</b> '+months+' month(s)<br><b>Start:</b> '+escapeHtml(formatDate(start))+'<br><b>End:</b> '+escapeHtml(formatDate(end))+'<br><b>Monthly requirement:</b> '+escapeHtml(formatMoney(rate))+'<br><b>Status:</b> <span class="'+(completed?"completed":missing.length?"restart":"covered")+'">'+(completed?"COMPLETED":missing.length?"PAYMENT GAP / REVIEW":"ON TRACK")+"</span>"+(missing.length?'<br><b>Months needing review:</b> '+escapeHtml(missing.join(", ")):"")+"</div>";
 }
-
-function paymentRecordRows(records, year){
-
-const rows=(records||[])
-.filter(r => {
-const d=parseDate(r.payment_date);
-const y=Number(r.payment_year ?? (d ? d.getFullYear() : 0));
-return y===year;
-})
-.sort((a,b)=>{
-const am=Number(a.payment_month ?? 0);
-const bm=Number(b.payment_month ?? 0);
-if(am!==bm) return am-bm;
-return String(a.payment_date||"").localeCompare(String(b.payment_date||""));
-});
-
-if(!rows.length){
-return `<div class="summary-box">No ${year} monthly payment records found.</div>`;
-}
-
-let out=`<div class="table-wrap"><table style="min-width:800px">
-<thead><tr>
-<th>MONTH</th><th>AMOUNT</th><th>PAYMENT DATE</th>
-<th>RECEIPT</th><th>NOTES</th>
-</tr></thead><tbody>`;
-
-rows.forEach(r=>{
-const month=Number(r.payment_month||0);
-const monthName=month>=1&&month<=12
-?new Date(2000,month-1,1).toLocaleString("en-PH",{month:"long"})
-:String(r.payment_month??"");
-
-out+=`<tr>
-<td>${escapeHtml(monthName)}</td>
-<td>${escapeHtml(formatMoney(r.amount))}</td>
-<td>${escapeHtml(formatDate(r.payment_date))}</td>
-<td>${escapeHtml(r.receipt_number??"")}</td>
-<td>${escapeHtml(r.notes??"")}</td>
-</tr>`;
-});
-
-out+=`</tbody></table></div>`;
-return out;
-}
-
-function renderContestability(member, records){
-
-const months=Number(member?.contestability_months||0);
-const start=getStartDate(member);
-
-if(!months || !start){
-return `<div class="summary-box">
-<b>Contestability:</b> ${months ? months+" month(s)" : "Not specified"}
-</div>`;
-}
-
-const end=new Date(start);
-end.setMonth(end.getMonth()+months);
-
-const paidByMonth=new Map();
-
-(records||[]).forEach(r=>{
-const d=parseDate(r.payment_date);
-if(!d) return;
-const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
-paidByMonth.set(key,(paidByMonth.get(key)||0)+getAmount(r));
-});
-
-let missing=0;
-for(let i=0;i<months;i++){
-const d=new Date(start);
-d.setMonth(d.getMonth()+i);
-const key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
-const required=getMonthlyRate(member);
-const paid=paidByMonth.get(key)||0;
-
-if(required>0 && paid < required) missing++;
-}
-
-const completed=missing===0 && new Date()>=end;
-
-return `<div class="summary-box">
-<b>Contestability:</b> ${months} month(s)<br>
-<b>Start:</b> ${escapeHtml(formatDate(start))}<br>
-<b>End:</b> ${escapeHtml(formatDate(end))}<br>
-<b>Monthly requirement:</b> ${escapeHtml(formatMoney(getMonthlyRate(member)))}<br>
-<b>Status:</b>
-<span class="${completed?"completed":missing?"restart":"covered"}">
-${completed?"COMPLETED":missing?"PAYMENT GAP / REVIEW":"ON TRACK"}
-</span>
-${missing?`<br><b>Months below required payment:</b> ${missing}`:""}
-</div>`;
-}
-
-/* =========================
-   OWNER MEMBER VIEW
-========================= */
 
 function viewMember(member){
-
-currentMember=member;
-
-const details=
-document.getElementById(
-"memberDetails"
-);
-
-details.innerHTML="";
-
-
-visibleMemberColumns()
-.forEach(c=>{
-
-const box=
-document.createElement("div");
-
-box.className="detail";
-
-const label=
-document.createElement("b");
-
-label.textContent=c;
-
-
-const value=
-document.createElement("span");
-
-let data=
-member[c]??"";
-
-if(
-typeof data==="object"&&
-data!==null
-){
-
-data=
-JSON.stringify(data);
-
+  currentMember=member;
+  const details=document.getElementById("memberDetails");details.innerHTML="";
+  visibleMemberColumns().forEach(c=>{
+    const box=document.createElement("div");box.className="detail";
+    const b=document.createElement("b");b.textContent=displayLabel(c);
+    const span=document.createElement("span");let v=member[c]??"";if(c==="monthly_payment"||c==="total_plan_amount"||c==="registration_fee")v=formatMoney(v);if(c==="date_applied"||c==="date_of_birth")v=formatDate(v);span.textContent=v;
+    box.append(b,span);details.appendChild(box);
+  });
+  const pm=recordsForMember(allPayments,member.id),ml=recordsForMember(allMonthly,member.id);
+  document.getElementById("contestabilitySummary").innerHTML=contestabilitySummary(member,pm);
+  document.getElementById("payments2025").innerHTML='<h3>Official Payment Transactions</h3>'+transactionRows(pm,2025)+'<h3>Monthly Ledger</h3>'+monthlyRows(ml,2025);
+  document.getElementById("payments2026").innerHTML='<h3>Official Payment Transactions</h3>'+transactionRows(pm,2026)+'<h3>Monthly Ledger</h3>'+monthlyRows(ml,2026);
+  document.getElementById("memberModal").classList.remove("hidden");
 }
-
-value.textContent=data;
-
-box.append(label,value);
-
-details.appendChild(box);
-
-});
-
-
-const memberMonthly=
-recordsForMember(allMonthly,member.id);
-
-document.getElementById(
-"contestabilitySummary"
-).innerHTML=
-renderContestability(member,memberMonthly);
-
-document.getElementById(
-"payments2025"
-).innerHTML=
-paymentRecordRows(memberMonthly,2025);
-
-document.getElementById(
-"payments2026"
-).innerHTML=
-paymentRecordRows(memberMonthly,2026);
-
-document.getElementById(
-"memberModal"
-).classList.remove("hidden");
-
-}
-
-function closeMember(){
-
-document.getElementById(
-"memberModal"
-).classList.add("hidden");
-
-}
-
-
-/* =========================
-   EDIT MEMBER
-========================= */
+function closeMember(){document.getElementById("memberModal").classList.add("hidden")}
 
 function openEdit(member){
-
-editingMember=member;
-
-const form=
-document.getElementById("editForm");
-
-form.innerHTML="";
-
-
-visibleMemberColumns()
-.forEach(c=>{
-
-if(c==="client_id"){
-
-/*
- Client ID is protected.
- It is never edited from dashboard.
-*/
-
-return;
-
+  editingMember=member;const form=document.getElementById("editForm");form.innerHTML="";
+  visibleMemberColumns().forEach(c=>{
+    if(c==="client_id")return;
+    const box=document.createElement("div");box.className="detail";
+    const label=document.createElement("b");label.textContent=displayLabel(c);
+    const input=document.createElement("input");input.id="edit_"+c;input.value=member[c]??"";
+    if(["date_applied","date_of_birth"].includes(c))input.type="date";
+    if(["monthly_payment","total_plan_amount","months_payable","contestability_months","registration_fee"].includes(c))input.type="number";
+    box.append(label,input);form.appendChild(box);
+  });
+  document.getElementById("editError").textContent="";
+  document.getElementById("editModal").classList.remove("hidden");
 }
-
-const box=
-document.createElement("div");
-
-box.className="detail";
-
-const label=
-document.createElement("b");
-
-label.textContent=c;
-
-
-const input=
-document.createElement("input");
-
-input.id="edit_"+c;
-
-input.style.width="100%";
-input.style.padding="10px";
-input.style.marginTop="5px";
-
-input.value=
-member[c]??"";
-
-
-box.append(label,input);
-
-form.appendChild(box);
-
-});
-
-
-document.getElementById(
-"editModal"
-).classList.remove("hidden");
-
-}
-
-
 async function saveMember(){
-
-if(!editingMember)return;
-
-const updates={};
-
-visibleMemberColumns()
-.forEach(c=>{
-
-if(c==="client_id")return;
-
-const input=
-document.getElementById(
-"edit_"+c
-);
-
-if(input){
-
-updates[c]=
-input.value===""?
-null:
-input.value;
-
+  if(!editingMember)return;const updates={};
+  visibleMemberColumns().forEach(c=>{
+    if(c==="client_id")return;const input=document.getElementById("edit_"+c);if(input)updates[c]=input.value===""?null:input.value;
+  });
+  try{
+    await supabaseRequest(SUPABASE_URL+"/rest/v1/"+MEMBERS_TABLE+"?id=eq."+encodeURIComponent(editingMember.id),{
+      method:"PATCH",headers:{Prefer:"return=representation"},body:JSON.stringify(updates)
+    });
+    Object.assign(editingMember,updates);closeEdit();renderMembers();
+    document.getElementById("ownerStatus").textContent="✅ Member information saved.";
+  }catch(e){document.getElementById("editError").textContent=e.message}
 }
-
-});
-
-
-try{
-
-await supabaseRequest(
-SUPABASE_URL+
-"/rest/v1/"+MEMBERS_TABLE+
-"?id=eq."+
-encodeURIComponent(
-editingMember.id
-),
-{
-method:"PATCH",
-headers:{
-Prefer:"return=representation"
-},
-body:JSON.stringify(updates)
-}
-);
-
-
-Object.assign(
-editingMember,
-updates
-);
-
-
-closeEdit();
-
-renderMembers();
-
-document.getElementById(
-"ownerStatus"
-).textContent=
-"✅ Member information saved.";
-
-}catch(e){
-
-document.getElementById(
-"editError"
-).textContent=
-e.message;
-
-}
-
-}
-
-
-function closeEdit(){
-
-document.getElementById(
-"editModal"
-).classList.add("hidden");
-
-editingMember=null;
-
-}
-
-
-/* =========================
-   ADD MEMBER
-========================= */
+function closeEdit(){document.getElementById("editModal").classList.add("hidden");editingMember=null}
 
 function openAddMember(){
-
-const form=
-document.getElementById("addForm");
-
-form.innerHTML="";
-
-
-visibleMemberColumns()
-.forEach(c=>{
-
-if(c==="id"||c==="client_id")return;
-
-const box=
-document.createElement("div");
-
-box.className="detail";
-
-const label=
-document.createElement("b");
-
-label.textContent=c;
-
-const input=
-document.createElement("input");
-
-input.id="add_"+c;
-
-input.style.width="100%";
-input.style.padding="10px";
-input.style.marginTop="5px";
-
-box.append(label,input);
-
-form.appendChild(box);
-
-});
-
-
-document.getElementById(
-"addModal"
-).classList.remove("hidden");
-
+  const form=document.getElementById("addForm");form.innerHTML="";
+  visibleMemberColumns().forEach(c=>{
+    if(["id","client_id","auth_user_id","created_at","user_id"].includes(c))return;
+    const box=document.createElement("div");box.className="detail";const label=document.createElement("b");label.textContent=displayLabel(c);
+    const input=document.createElement("input");input.id="add_"+c;
+    if(["date_applied","date_of_birth"].includes(c))input.type="date";
+    if(["monthly_payment","total_plan_amount","months_payable","contestability_months","registration_fee"].includes(c))input.type="number";
+    box.append(label,input);form.appendChild(box);
+  });
+  document.getElementById("addError").textContent="";
+  document.getElementById("addModal").classList.remove("hidden");
 }
-
-
 async function addMember(){
-
-const newMember={};
-
-visibleMemberColumns()
-.forEach(c=>{
-
-if(c==="id"||c==="client_id")return;
-
-const input=
-document.getElementById(
-"add_"+c
-);
-
-if(input){
-
-newMember[c]=
-input.value===""?
-null:
-input.value;
-
+  const newMember={};
+  visibleMemberColumns().forEach(c=>{
+    if(["id","client_id","auth_user_id","created_at","user_id"].includes(c))return;
+    const input=document.getElementById("add_"+c);if(input)newMember[c]=input.value===""?null:input.value;
+  });
+  try{
+    if(!newMember.full_name||!newMember.date_applied)throw new Error("Full name and Date Applied are required.");
+    const result=await supabaseRequest(SUPABASE_URL+"/rest/v1/"+MEMBERS_TABLE,{
+      method:"POST",headers:{Prefer:"return=representation"},body:JSON.stringify(newMember)
+    });
+    if(Array.isArray(result))allMembers.push(...result);else if(result)allMembers.push(result);
+    allMembers.sort((a,b)=>String(a.client_id||"").localeCompare(String(b.client_id||""),undefined,{numeric:true}));
+    closeAdd();renderMembers();document.getElementById("totalMembers").textContent=allMembers.length;document.getElementById("recordsLoaded").textContent=allMembers.length;
+    document.getElementById("ownerStatus").textContent="✅ New member record saved. Account creation must be handled by the secure Supabase account-creation function.";
+  }catch(e){document.getElementById("addError").textContent=e.message}
 }
+function closeAdd(){document.getElementById("addModal").classList.add("hidden")}
 
-});
-
-
-try{
-
-const result=
-await supabaseRequest(
-SUPABASE_URL+
-"/rest/v1/"+MEMBERS_TABLE,
-{
-method:"POST",
-headers:{
-Prefer:"return=representation"
-},
-body:JSON.stringify(newMember)
-}
-);
-
-
-if(Array.isArray(result)){
-
-allMembers.push(...result);
-
-}else if(result){
-
-allMembers.push(result);
-
-}
-
-
-allMembers.sort(
-(a,b)=>
-String(a.client_id||"")
-.localeCompare(
-String(b.client_id||""),
-undefined,
-{numeric:true}
-)
-);
-
-
-closeAdd();
-
-renderMembers();
-
-document.getElementById(
-"totalMembers"
-).textContent=
-allMembers.length;
-
-document.getElementById(
-"recordsLoaded"
-).textContent=
-allMembers.length;
-
-}catch(e){
-
-document.getElementById(
-"addError"
-).textContent=
-e.message;
-
-}
-
-}
-
-
-function closeAdd(){
-
-document.getElementById(
-"addModal"
-).classList.add("hidden");
-
-}
-
-
-/* =========================
-   AGENT DASHBOARD
-========================= */
-
+/* ---------------- AGENT ---------------- */
 async function loadAgentDashboard(agentCode){
+  const status=document.getElementById("agentStatus");
+  try{
+    const user=await supabaseRequest(SUPABASE_URL+"/auth/v1/user");
+    let agents=[];
+    if(user?.id)agents=await supabaseRequest(SUPABASE_URL+"/rest/v1/agents?user_id=eq."+encodeURIComponent(user.id)+"&select=*");
+    if(!agents.length&&user?.id)agents=await supabaseRequest(SUPABASE_URL+"/rest/v1/agents?auth_user_id=eq."+encodeURIComponent(user.id)+"&select=*");
+    if(!agents.length)agents=await supabaseRequest(SUPABASE_URL+"/rest/v1/agents?agent_code=eq."+encodeURIComponent(agentCode)+"&select=*");
+    if(!agents.length)throw new Error("Agent account was not found: "+agentCode);
+    currentAgent=agents[0];
 
-const status=
-document.getElementById(
-"agentStatus"
-);
+    // IMPORTANT FIX: agents can see members linked by plan_holders.agent_id
+    // AND extra members linked through agent_assignments.
+    let primary=await supabaseGetAll("/rest/v1/"+MEMBERS_TABLE+"?agent_id=eq."+encodeURIComponent(currentAgent.id)+"&select=*&order=client_id.asc");
+    let assignments=await supabaseGetAll("/rest/v1/agent_assignments?agent_id=eq."+encodeURIComponent(currentAgent.id)+"&select=plan_holder_id");
+    const ids=[...new Set([...primary.map(x=>x.id),...assignments.map(x=>x.plan_holder_id).filter(Boolean)])];
 
-try{
+    agentMembers=primary;
+    const missingIds=ids.filter(id=>!agentMembers.some(m=>String(m.id)===String(id)));
+    for(let i=0;i<missingIds.length;i+=80){
+      const chunk=missingIds.slice(i,i+80);
+      const more=await supabaseGetAll("/rest/v1/"+MEMBERS_TABLE+"?id=in.("+chunk.join(",")+")&select=*&order=client_id.asc");
+      agentMembers.push(...more);
+    }
+    agentMembers.sort((a,b)=>String(a.client_id||"").localeCompare(String(b.client_id||""),undefined,{numeric:true}));
 
-const user=
-await supabaseRequest(
-SUPABASE_URL+
-"/auth/v1/user"
-);
+    agentPayments=[];agentMonthly=[];
+    for(let i=0;i<ids.length;i+=80){
+      const chunk=ids.slice(i,i+80);
+      agentPayments.push(...await supabaseGetAll("/rest/v1/"+PAYMENTS_TABLE+"?plan_holder_id=in.("+chunk.join(",")+")&select=*"));
+      agentMonthly.push(...await supabaseGetAll("/rest/v1/"+MONTHLY_TABLE+"?plan_holder_id=in.("+chunk.join(",")+")&select=*"));
+    }
 
-
-let agents=[];
-
-
-/*
- Find the agent using the
- authenticated user's UUID.
-*/
-
-if(user&&user.id){
-
-agents=
-await supabaseRequest(
-SUPABASE_URL+
-"/rest/v1/agents?auth_user_id=eq."+
-encodeURIComponent(user.id)+
-"&select=*" 
-);
-
+    document.getElementById("agentName").textContent=currentAgent.full_name||"-";
+    document.getElementById("agentCode").textContent=currentAgent.agent_code||agentCode;
+    document.getElementById("agentMemberCount").textContent=agentMembers.length;
+    document.getElementById("agentHeaderSub").textContent=(currentAgent.full_name||"Agent")+" — Assigned Plan Holders";
+    renderAgentHeader();renderAgentMembers();
+    document.getElementById("agentLoading").classList.add("hidden");document.getElementById("agentMembersTable").classList.remove("hidden");
+    status.textContent="✅ "+agentMembers.length+" assigned members loaded. VIEW ONLY.";showAgentDashboard();
+  }catch(e){status.innerHTML="❌ Unable to load agent dashboard:<br>"+escapeHtml(e.message);showAgentDashboard()}
 }
-
-
-/*
- Fallback to FCA Agent ID.
-*/
-
-if(!Array.isArray(agents)||!agents.length){
-
-agents=
-await supabaseRequest(
-SUPABASE_URL+
-"/rest/v1/agents?agent_code=eq."+
-encodeURIComponent(
-agentCode.toUpperCase()
-)+
-"&select=*"
-);
-
-}
-
-
-if(!Array.isArray(agents)||!agents.length){
-
-throw new Error(
-"Agent account was not found: "+
-agentCode
-);
-
-}
-
-
-currentAgent=agents[0];
-
-
-if(
-currentAgent.user_id&&
-user.id!==currentAgent.user_id
-){
-
-throw new Error(
-"This login is not linked to this agent."
-);
-
-}
-
-
-/*
- Get ONLY this agent's assignments.
-*/
-
-const assignments=
-await supabaseRequest(
-SUPABASE_URL+
-"/rest/v1/agent_assignments"+
-"?agent_id=eq."+
-encodeURIComponent(
-currentAgent.id
-)+
-"&select=plan_holder_id"
-);
-
-
-const ids=
-(Array.isArray(assignments)
-?assignments:[])
-.map(x=>x.plan_holder_id)
-.filter(Boolean);
-
-
-agentMembers=[];
-
-
-for(
-let i=0;
-i<ids.length;
-i+=80
-){
-
-const chunk=
-ids.slice(i,i+80);
-
-
-const members=
-await supabaseRequest(
-SUPABASE_URL+
-"/rest/v1/"+MEMBERS_TABLE+
-"?id=in.("+
-chunk.join(",")+
-")&select=*&order=client_id.asc"
-);
-
-
-if(Array.isArray(members)){
-
-agentMembers.push(...members);
-
-}
-
-}
-
-
-agentPayments=[];
-agentMonthly=[];
-
-for(
-let i=0;
-i<ids.length;
-i+=80
-){
-
-const chunk=ids.slice(i,i+80);
-
-const payments=
-await supabaseGetAll(
-"/rest/v1/"+PAYMENTS_TABLE+
-"?plan_holder_id=in.("+
-chunk.join(",")+
-")&select=*"
-);
-
-if(Array.isArray(payments)){
-agentPayments.push(...payments);
-}
-
-const monthly=
-await supabaseGetAll(
-"/rest/v1/"+MONTHLY_TABLE+
-"?plan_holder_id=in.("+
-chunk.join(",")+
-")&select=*"
-);
-
-if(Array.isArray(monthly)){
-agentMonthly.push(...monthly);
-}
-
-}
-
-
-document.getElementById(
-"agentName"
-).textContent=
-currentAgent.full_name||"-";
-
-
-document.getElementById(
-"agentCode"
-).textContent=
-currentAgent.agent_code||agentCode;
-
-
-document.getElementById(
-"agentMemberCount"
-).textContent=
-agentMembers.length;
-
-
-document.getElementById(
-"agentHeaderSub"
-).textContent=
-(currentAgent.full_name||"Agent")+
-" — Assigned Plan Holders";
-
-
-renderAgentHeader();
-renderAgentMembers();
-
-
-document.getElementById(
-"agentLoading"
-).classList.add("hidden");
-
-
-document.getElementById(
-"agentMembersTable"
-).classList.remove("hidden");
-
-
-status.textContent=
-"✅ "+
-agentMembers.length+
-" assigned members loaded. VIEW ONLY.";
-
-
-showAgentDashboard();
-
-
-}catch(e){
-
-status.innerHTML=
-"❌ Unable to load agent dashboard:<br>"+
-escapeHtml(e.message)+
-"<br><small>Check the Supabase agents.auth_user_id link and Agent RLS policies.</small>";
-
-showAgentDashboard();
-
-}
-
-}
-
-
-/* =========================
-   AGENT TABLE
-========================= */
-
 function renderAgentHeader(){
-
-const head=
-document.getElementById(
-"agentTableHead"
-);
-
-head.innerHTML="";
-
-const row=
-document.createElement("tr");
-
-
-const cols=
-agentMembers.length
-?Object.keys(agentMembers[0])
-.filter(c=>!hiddenColumns.includes(c))
-:["client_id","full_name"];
-
-
-cols.forEach(c=>{
-
-const th=
-document.createElement("th");
-
-th.textContent=c;
-
-row.appendChild(th);
-
-});
-
-
-const th=
-document.createElement("th");
-
-th.textContent="ACTION";
-
-row.appendChild(th);
-
-head.appendChild(row);
-
+  const head=document.getElementById("agentTableHead");head.innerHTML="";const row=document.createElement("tr");
+  ["client_id","full_name","phone","plan_type","monthly_payment","date_applied","status"].filter(c=>agentMembers[0]?c in agentMembers[0]:["client_id","full_name"].includes(c)).forEach(c=>{const th=document.createElement("th");th.textContent=displayLabel(c);row.appendChild(th)});
+  const th=document.createElement("th");th.textContent="ACTION";row.appendChild(th);head.appendChild(row);
 }
-
-
 function renderAgentMembers(){
-
-const body=
-document.getElementById(
-"agentTableBody"
-);
-
-body.innerHTML="";
-
-
-const q=
-document.getElementById(
-"agentSearch"
-).value.trim().toLowerCase();
-
-
-const cols=
-agentMembers.length
-?Object.keys(agentMembers[0])
-.filter(c=>!hiddenColumns.includes(c))
-:["client_id","full_name"];
-
-
-const filtered=
-agentMembers.filter(m=>
-!q||
-Object.values(m)
-.some(v=>
-String(v??"")
-.toLowerCase()
-.includes(q)
-)
-);
-
-
-filtered.forEach(m=>{
-
-const row=
-document.createElement("tr");
-
-
-cols.forEach(c=>{
-
-const td=
-document.createElement("td");
-
-let v=m[c]??"";
-
-if(
-typeof v==="object"&&
-v!==null
-){
-
-v=JSON.stringify(v);
-
+  const body=document.getElementById("agentTableBody");body.innerHTML="";const q=document.getElementById("agentSearch").value.trim().toLowerCase();
+  const cols=["client_id","full_name","phone","plan_type","monthly_payment","date_applied","status"].filter(c=>agentMembers[0]?c in agentMembers[0]:["client_id","full_name"].includes(c));
+  agentMembers.filter(m=>!q||Object.values(m).some(v=>String(v??"").toLowerCase().includes(q))).forEach(m=>{
+    const tr=document.createElement("tr");
+    cols.forEach(c=>{const td=document.createElement("td");let v=m[c]??"";if(c==="monthly_payment")v=formatMoney(v);if(c==="date_applied")v=formatDate(v);if(c==="status")td.innerHTML=statusBadge(v);else td.textContent=v;tr.appendChild(td)});
+    const td=document.createElement("td");const b=document.createElement("button");b.className="view-btn";b.textContent="VIEW";b.onclick=()=>viewAgentMember(m);td.appendChild(b);tr.appendChild(td);body.appendChild(tr);
+  });
 }
-
-td.textContent=v;
-
-row.appendChild(td);
-
-});
-
-
-const action=
-document.createElement("td");
-
-const view=
-document.createElement("button");
-
-view.className="view-btn";
-view.textContent="VIEW";
-
-view.onclick=
-()=>viewAgentMember(m);
-
-
-action.appendChild(view);
-
-row.appendChild(action);
-
-body.appendChild(row);
-
-});
-
+function viewAgentMember(member){
+  const details=document.getElementById("agentMemberDetails");details.innerHTML="";
+  Object.keys(member).filter(c=>!hiddenColumns.includes(c)).forEach(c=>{
+    const box=document.createElement("div");box.className="detail";const b=document.createElement("b");b.textContent=displayLabel(c);const s=document.createElement("span");let v=member[c]??"";
+    if(["monthly_payment","total_plan_amount","registration_fee"].includes(c))v=formatMoney(v);if(["date_applied","date_of_birth"].includes(c))v=formatDate(v);s.textContent=v;box.append(b,s);details.appendChild(box);
+  });
+  const pm=recordsForMember(agentPayments,member.id),ml=recordsForMember(agentMonthly,member.id);
+  document.getElementById("agentContestabilitySummary").innerHTML=contestabilitySummary(member,pm);
+  document.getElementById("agentPayments2025").innerHTML="<h3>Official Payment Transactions</h3>"+transactionRows(pm,2025)+"<h3>Monthly Ledger</h3>"+monthlyRows(ml,2025);
+  document.getElementById("agentPayments2026").innerHTML="<h3>Official Payment Transactions</h3>"+transactionRows(pm,2026)+"<h3>Monthly Ledger</h3>"+monthlyRows(ml,2026);
+  document.getElementById("agentMemberModal").classList.remove("hidden");
 }
+function closeAgentMember(){document.getElementById("agentMemberModal").classList.add("hidden")}
 
-
-async function viewAgentMember(member){
-
-const details=
-document.getElementById(
-"agentMemberDetails"
-);
-
-details.innerHTML="";
-
-
-Object.keys(member)
-.filter(c=>!hiddenColumns.includes(c))
-.forEach(c=>{
-
-const box=
-document.createElement("div");
-
-box.className="detail";
-
-const label=
-document.createElement("b");
-
-label.textContent=c;
-
-const value=
-document.createElement("span");
-
-let data=member[c]??"";
-
-if(
-typeof data==="object"&&
-data!==null
-){
-
-data=JSON.stringify(data);
-
-}
-
-value.textContent=data;
-
-box.append(label,value);
-
-details.appendChild(box);
-
-});
-
-
-const memberMonthly=
-recordsForMember(agentMonthly,member.id);
-
-document.getElementById(
-"agentContestabilitySummary"
-).innerHTML=
-renderContestability(member,memberMonthly);
-
-document.getElementById(
-"agentPayments2025"
-).innerHTML=
-paymentRecordRows(memberMonthly,2025);
-
-document.getElementById(
-"agentPayments2026"
-).innerHTML=
-paymentRecordRows(memberMonthly,2026);
-
-
-document.getElementById(
-"agentMemberModal"
-).classList.remove("hidden");
-
-}
-
-function closeAgentMember(){
-
-document.getElementById(
-"agentMemberModal"
-).classList.add("hidden");
-
-}
-
-
-/* =========================
-   MEMBER DASHBOARD
-========================= */
-
+/* ---------------- MEMBER ---------------- */
 async function loadMemberDashboard(clientId){
+  const status=document.getElementById("memberStatus");
+  try{
+    const members=await supabaseRequest(SUPABASE_URL+"/rest/v1/"+MEMBERS_TABLE+"?client_id=eq."+encodeURIComponent(clientId)+"&select=*");
+    if(!Array.isArray(members)||!members.length)throw new Error("Your member record could not be found.");
+    currentMember=members[0];
 
-const status=
-document.getElementById(
-"memberStatus"
-);
+    const myPayments=await supabaseGetAll("/rest/v1/"+PAYMENTS_TABLE+"?plan_holder_id=eq."+encodeURIComponent(currentMember.id)+"&select=*&order=payment_date.asc");
+    const myMonthly=await supabaseGetAll("/rest/v1/"+MONTHLY_TABLE+"?plan_holder_id=eq."+encodeURIComponent(currentMember.id)+"&select=*&order=payment_year.asc");
 
-try{
+    document.getElementById("holderClientId").textContent=currentMember.client_id||clientId;
+    document.getElementById("holderDateApplied").textContent=formatDate(currentMember.date_applied);
+    document.getElementById("holderMonthly").textContent=formatMoney(currentMember.monthly_payment);
+    document.getElementById("holderContestability").textContent=(currentMember.contestability_months||0)+" month(s)";
+    document.getElementById("memberInformation").innerHTML="";
 
-const members=
-await supabaseRequest(
-SUPABASE_URL+
-"/rest/v1/"+MEMBERS_TABLE+
-"?client_id=eq."+
-encodeURIComponent(clientId)+
-"&select=*"
-);
+    Object.keys(currentMember).filter(c=>!hiddenColumns.includes(c)).forEach(c=>{
+      const box=document.createElement("div");box.className="detail";const b=document.createElement("b");b.textContent=displayLabel(c);const s=document.createElement("span");let v=currentMember[c]??"";
+      if(["monthly_payment","total_plan_amount","registration_fee"].includes(c))v=formatMoney(v);if(["date_applied","date_of_birth"].includes(c))v=formatDate(v);s.textContent=v;box.append(b,s);document.getElementById("memberInformation").appendChild(box);
+    });
 
+    document.getElementById("memberPayments").innerHTML=
+      '<div class="summary-box"><b>Contestability</b></div>'+contestabilitySummary(currentMember,myPayments)+
+      '<h3>2025 Payment Transactions</h3>'+transactionRows(myPayments,2025)+
+      '<h3>2026 Payment Transactions</h3>'+transactionRows(myPayments,2026)+
+      '<h3>Monthly Ledger — 2025</h3>'+monthlyRows(myMonthly,2025)+
+      '<h3>Monthly Ledger — 2026</h3>'+monthlyRows(myMonthly,2026);
 
-if(
-!Array.isArray(members)||
-!members.length
-){
-
-throw new Error(
-"Your member record could not be found."
-);
-
+    status.textContent="✅ Your FutureCare record is loaded.";
+  }catch(e){status.innerHTML="❌ Unable to load your record:<br>"+escapeHtml(e.message)}
 }
-
-
-currentMember=members[0];
-
-const myMonthly=
-await supabaseGetAll(
-"/rest/v1/"+MONTHLY_TABLE+
-"?plan_holder_id=eq."+
-encodeURIComponent(currentMember.id)+
-"&select=*"
-);
-
-document.getElementById(
-"holderContestability"
-).textContent=
-(currentMember.contestability_months||0)+
-" month(s)";
-
-document.getElementById(
-"holderClientId"
-).textContent=
-currentMember.client_id||clientId;
-
-
-document.getElementById(
-"holderDateApplied"
-).textContent=
-formatDate(
-currentMember.date_applied
-);
-
-
-document.getElementById(
-"holderMonthly"
-).textContent=
-formatMoney(
-getMonthlyRate(currentMember)
-);
-
-
-document.getElementById(
-"memberInformation"
-).innerHTML="";
-
-
-Object.keys(currentMember)
-.filter(c=>!hiddenColumns.includes(c))
-.forEach(c=>{
-
-const box=
-document.createElement("div");
-
-box.className="detail";
-
-const label=
-document.createElement("b");
-
-label.textContent=c;
-
-const value=
-document.createElement("span");
-
-let data=currentMember[c]??"";
-
-if(
-typeof data==="object"&&
-data!==null
-){
-
-data=JSON.stringify(data);
-
-}
-
-value.textContent=data;
-
-box.append(label,value);
-
-document.getElementById(
-"memberInformation"
-).appendChild(box);
-
-});
-
-
-document.getElementById(
-"memberPayments"
-).innerHTML=
-paymentRecordRows(myMonthly,2025)+
-paymentRecordRows(myMonthly,2026);
-
-status.textContent=
-"✅ Your FutureCare record is loaded.";
-
-
-}catch(e){
-
-status.innerHTML=
-"❌ Unable to load your record:<br>"+
-escapeHtml(e.message);
-
-}
-
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
 
 async function logout(){
-
-try{
-
-if(accessToken){
-
-await fetch(
-SUPABASE_URL+
-"/auth/v1/logout",
-{
-method:"POST",
-headers:{
-apikey:SUPABASE_KEY,
-Authorization:
-"Bearer "+accessToken
+  try{if(accessToken)await fetch(SUPABASE_URL+"/auth/v1/logout",{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+accessToken}})}catch{}
+  localStorage.removeItem("futurecare_access_token");localStorage.removeItem("futurecare_mode");accessToken="";location.reload();
 }
-}
-);
-
-}
-
-}catch{}
-
-localStorage.removeItem(
-"futurecare_owner_token"
-);
-
-localStorage.removeItem(
-"futurecare_mode"
-);
-
-accessToken="";
-
-location.reload();
-
-}
-
-
-/* =========================
-   START
-========================= */
 
 async function checkLogin(){
-
-if(!accessToken)return;
-
-try{
-
-const user=
-await supabaseRequest(
-SUPABASE_URL+
-"/auth/v1/user"
-);
-
-
-if(
-user.email.toLowerCase()===
-OWNER_EMAIL.toLowerCase()
-){
-
-showOwnerDashboard();
-
-await loadOwnerDashboard();
-
-return;
-
+  if(!accessToken)return;
+  try{
+    const user=await supabaseRequest(SUPABASE_URL+"/auth/v1/user");
+    if(user.email?.toLowerCase()===OWNER_EMAIL.toLowerCase()){showOwnerDashboard();await loadOwnerDashboard();return}
+    const localId=(user.email||"").replace("@futurecare.local","").toUpperCase();
+    if(/^FCA\d{5}[A-Z]{2}$/i.test(localId)){await loadAgentDashboard(localId);return}
+    showMemberDashboard();await loadMemberDashboard(localId);
+  }catch{localStorage.removeItem("futurecare_access_token");accessToken=""}
 }
-
-
-const localId=
-user.email
-.replace(
-"@futurecare.local",
-""
-)
-.toUpperCase();
-
-
-if(/^FCA\d+$/i.test(localId)){
-
-await loadAgentDashboard(localId);
-
-return;
-
-}
-
-
-showMemberDashboard();
-
-await loadMemberDashboard(localId);
-
-
-}catch{
-
-localStorage.removeItem(
-"futurecare_owner_token"
-);
-
-accessToken="";
-
-}
-
-}
-
 
 checkLogin();
-
 </script>
 
 </body>
