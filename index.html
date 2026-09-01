@@ -293,6 +293,9 @@ async function login(){
  e.textContent="";
  if(!v||!p){e.textContent="Please enter your login ID and password.";return}
  try{
+  /* Prevent an expired previous session from contaminating a new login. */
+  accessToken="";
+  localStorage.removeItem("futurecare_access_token");
   if(selectedRole==="owner"){
    if(v.toLowerCase()!==OWNER_EMAIL.toLowerCase())throw new Error("Please use the Owner email.");
    let d=await signIn(OWNER_EMAIL,p);
@@ -328,11 +331,26 @@ async function login(){
     throw new Error("Invalid Client ID. Example: FC00102062025");
   }
 
-  let result=await req(
+  /*
+    IMPORTANT:
+    The member_login RPC must be called as an anonymous/public lookup.
+    A previous Owner/Agent/Member session may leave an expired JWT in
+    localStorage. Sending that stale JWT to PostgREST causes PGRST303
+    ("JWT expired") before the RPC can run.
+  */
+  accessToken="";
+  localStorage.removeItem("futurecare_access_token");
+
+  let result=await fetch(
     SUPABASE_URL+"/rest/v1/rpc/member_login",
     {
       method:"POST",
-      headers:{Prefer:"return=representation"},
+      headers:{
+        apikey:SUPABASE_KEY,
+        Authorization:"Bearer "+SUPABASE_KEY,
+        "Content-Type":"application/json",
+        Prefer:"return=representation"
+      },
       body:JSON.stringify({
         p_client_id:clientId,
         p_date_applied:dateApplied
@@ -340,13 +358,20 @@ async function login(){
     }
   );
 
+  const rpcText=await result.text();
+  let rpcData;
+  try{rpcData=rpcText?JSON.parse(rpcText):null}catch{rpcData=rpcText}
+  if(!result.ok){
+    throw new Error(typeof rpcData==="object"?JSON.stringify(rpcData):String(rpcData));
+  }
+
   let memberEmail="";
-  if(typeof result==="string"){
-    memberEmail=result;
-  }else if(Array.isArray(result)&&result.length){
-    memberEmail=result[0].member_login||result[0].email||result[0];
-  }else if(result&&typeof result==="object"){
-    memberEmail=result.member_login||result.email||"";
+  if(typeof rpcData==="string"){
+    memberEmail=rpcData;
+  }else if(Array.isArray(rpcData)&&rpcData.length){
+    memberEmail=rpcData[0].member_login||rpcData[0].email||rpcData[0];
+  }else if(rpcData&&typeof rpcData==="object"){
+    memberEmail=rpcData.member_login||rpcData.email||"";
   }
 
   if(!memberEmail){
